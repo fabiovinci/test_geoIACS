@@ -1,3 +1,3 @@
-# Test geoIACS TG in AsciiDoc format.
+# Test geoIACS TG in AsciiDoc format
 
 * [geoIACS TG](tg)
