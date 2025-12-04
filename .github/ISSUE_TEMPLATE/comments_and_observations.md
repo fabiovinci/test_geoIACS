@@ -2,8 +2,6 @@
 name: Template for comments and observations
 about: Use this template to provide comments and observations to the IACS Technical Guidance document.
 title: "MS/org - brief description of comment/observation"
-labels: ''
-assignees: ''
 
 ---
 
