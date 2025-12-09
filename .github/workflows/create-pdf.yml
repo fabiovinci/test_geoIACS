@@ -48,7 +48,7 @@ jobs:
         with:
         # working_branch: main_release # branch to commit pdf
           asciidoctor_params: >
-            -a pdf-theme=pdf-theme.yml
+            -a pdf-theme=pdf-theme-diagnostic.yml
             -a pdf-themesdir=.
           # adoc_file_ext: .ascii # default is .adoc
           # pre_build:
