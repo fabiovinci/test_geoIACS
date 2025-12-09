@@ -4320,4 +4320,5 @@ _EU open data_
 The portal data.europa.eu provides access to open datasets from the EU institutions, bodies and agen-cies. These can be downloaded and reused for free, for both commercial and non-commercial purposes. The portal also provides access to a wealth of datasets from European countries.
 
 <<<
+
 image::./media/image53.png[image, align=center]
