@@ -1,5 +1,5 @@
 # geoIACS Technical Guidelines
 
-* [AsciiDoc](geoiacs.adoc)
-* [HTML](geoiacs.html)
-* [PDF](geoiacs.pdf)
+* [AsciiDoc](geoiacs_TG.adoc)
+* [HTML](geoiacs_TG.html)
+* [PDF](geoiacs_TG.pdf)
