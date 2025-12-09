@@ -1,0 +1,4384 @@
+// Admonition icons:
+// TG Requirement
+:important-caption: 📕
+// Recommendation
+:note-caption: 📘
+
+// TOC placement using macro (manual)
+:toc: macro
+
+// Empty TOC title (the title is in the document)
+:toc-title:
+
+// TOC level depth
+:toclevels: 3
+
+// Section numbering level depth
+:sectnumlevels: 8
+
+:appendix-caption: Annex
+
+[cols="1,1", frame="none", grid="none", valign="middle"]
+|===
+a|image::./media/image1.jpg[image, align=center]
+a|[.text-right]#Joint Research Centre#
+|===
+
+[discrete]
+= Technical Guidelines on IACS Data Sharing
+
+geoIACS 
+
+_Wojda, P., Martin Jimenez, J., De Medici, D., Scarpa, S., Martirano, G._
+2025
+
+
+
+image::./media/image2.png[image, align=center]
+
+<<<
+This document is a publication by the Joint Research Centre (JRC), the European Commission’s science and knowledge service. It aims to provide evidence-based scientific support to the European policymaking process. The contents of this publication do not necessarily reflect the position or opinion of the European Commission. Neither the European Commission nor any person acting on behalf of the Commission is responsible for the use that might be made of this publication. For information on the methodology and quality underlying the data used in this publication for which the source is neither Eurostat nor other Commission services, users should contact the referenced source. The designations employed and the presentation of material on the maps do not imply the expression of any opinion whatsoever on the part of the European Union concerning the legal status of any country, territory, city or area or of its authorities, or concerning the delimitation of its frontiers or boundaries.
+
+[width="98%",cols="100%",options="header",]
+|===
+a|
+Contact information:
+|Name: Piotr Wojda
+|Address: 
+|Email: 
+|Tel.:
+|===
+
+The Joint Research Centre: EU Science Hub 
+https://joint-research-centre.ec.europa.eu
+JRC144416
+Ispra: European Commission, 2025
+© European Union, 2025
+
+How to cite this report: Wojda, P., Martin Jimenez, J., De Medici, D., Scarpa, S. and Martirano, G., _Technical Guidelines on IACS Data Sharing - geoIACS_, European Commission, Ispra, 2025, JRC144416.
+
+
+:sectnums:
+
+<<<
+[discrete]
+= Table of Contents
+toc::[]
+
+*_Authors_*
+Wojda, P., Martin Jimenez, J., De Medici, D., Scarpa, S., Martirano, G.
+
+
+<<<
+== Introduction
+
+The effective sharing and reuse of spatial data within the Integrated Administration and Control System (IACS) across Europe is currently hindered by the lack of harmonisation, which in turns limits data interoperability and reuse. This technical guidance (TG) aims to address this major obstacle by proposing a common solution for achieving interoperability and standardisation of IACS spatial (hereafter "geoIACS") data across Member States.
+
+To this end, the TG introduces a unique data model for geoIACS datasets, accompanied by a comprehensive data specification aligned with the INSPIRE Data Specifications template. Besides a platform independent UML conceptual model, the TG provides also an associated GML application schema and a GeoPackage template to support the physical implementation of the conceptual data model. These technical artefacts are designed to overcome existing challenges in data sharing, promote interoperability, and facilitate efficient IACS spatial data reuse.
+
+This TG updates and merges the two previous Technical Guidelines on Spatial Data Sharingfootnote:[https://github.com/INSPIRE-MIF/technical-guidelines/tree/main/iacs] (Part 1 – Data discovery, Part 2 – Data interoperability), which will be withdrawn once the adoption of this TG will be formally endorsed. A description of the changes introduced by this TG with respect to the previous ones is provided in Annex 1.
+
+Beyond resolving interoperability issues, the adoption of this TG by Member States is expected to reduce the administrative burden associated with various existing IACS-related obligations. In particular, geoIACS datasets conformant to the proposed specification qualify as High Value Datasets under Regulation 2023/138 and support the fulfilment of IACS Quality Assurance (QA) requirements. More details are provided in Annexes 2 and 3.
+
+Moreover, harmonised geoIACS datasets will enhance the efficiency of European Commission (EC) services involved in IACS-related tasks, such as IACS statistics and the Farm Sustainability Data Network (FSDN). The TG also continues supporting conformance with INSPIRE obligations, preserving IACS-specific semantics while enabling alignment with INSPIRE data themes, namely Land Use (LU), Land Cover (LC), and Agricultural and Aquaculture Facilities (AF). More details are provided in Annexes 5, 6 and 7.
+
+Possible confidentiality clauses required by geoIACS data providers willing to prevent disclosure of sensitive information contained in the harmonised datasets to non-authorised users have been dealt with.
+
+This TG has undergone an initial test phase, producing harmonised datasets from non-harmonised data sources, as described in Annex 4. Going forward, the proposed specifications will be shared with DG AGRI, Paying Agencies, and geoIACS data custodiansfootnote:[According to ISO 19115, "data custodian" is a party that accepts accountability and responsibility for the data and ensures appropriate care and maintenance of the resource (ref. https://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/custodian] for voluntary pilot testing. Feedback will guide the refinement of the TG, which will then undergo a formal endorsement process in collaboration with JRC, DG AGRI, and the INSPIRE Maintenance and Implementation Group (MIG).
+
+As a final introductory remark, the structure of this report adheres to the structure of an INSPIRE data specification on a data theme, adopting for requirements and recommendations the styles shown below:
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement X*
+*Notation and role*
+
+
+This style is used for requirements that shall be fulfilled by data providers to share spatial information according to these Technical Guidelines.
+====
+
+[NOTE]
+====
+*_TG Recommendation Y_*
+*Notation and role*
+
+
+This style is used for recommendations that may help data providers to share spatial information according to these Technical Guidelines.
+
+====
+
+<<<
+== Overview
+
+=== Name
+
+Data specification for geoIACS datasets.
+
+=== Informal description
+
+*[.underline]#Definition:#*
+
+geoIACS is an implementation of the IACS elements listed in Art. 66(1)(a) and Art. 66 (1)(b) of Regulation 2021/2116:
+
+* an identification system for agricultural parcels
+* a geo-spatial application system and, where applicable, an animal-based application system.
+
+*[.underline]#Description:#*
+
+geoIACS dataset is a spatial dataset containing reference parcels, agricultural parcels, non-agricultural eligible areas and eco-landscape elements. It contains also sites (places within a holding where agricultural activities related to animals are exercised). It can contain also ecological focus areas, but only for historical purposes, not being existing anymore in the new CAP.
+
+*[.underline]#Similarities with INSPIRE spatial data themes#*
+
+There is a similarity in scope between certain geoIACS feature types and the feature types of the following INSPIRE spatial data themes:
+
+* Annex II: Land Cover (LC): similarity between the geoIACS EcoLandscapeElement feature type and the INSPIRE LC LandCoverUnit feature type.
+* Annex III: Land Use (LU): similarity between geoIACS AgriculturalParcel feature type and INSPIRE LC ExistingLandUseObject feature types.
+* Annex III: Agricultural and Aquaculture Facility (AF): similarity between geoIACS Site feature type and INSPIRE AF Site feature type.
+
+These similarities allow new INSPIRE-compliant LC/LU/AF datasets to be derived from geoIACS datasets.
+
+The related data transformations are described in Annex 4-6.
+
+*[.underline]#High Value Datasets#*
+
+geoIACS datasets contain the key attributes required for Reference parcels and Agricultural parcels by High Value Datasets Regulation 2023/138. A mapping table between HVD key attributes for Reference parcels and Agricultural Parcels and the related geoIACS attributes is provided in Annex 2.
+
+=== Normative References
+
+Regulation (EU) 2021/2115, Regulation (EU) 2021/2116, Regulation (EU) 2023/138.
+
+=== Terms and definitions
+
+General terms and definitions helpful for understanding the INSPIRE data specification documents are defined in the INSPIRE Glossaryfootnote:[https://inspire.ec.europa.eu/glossary].
+
+The following geoIACS specific terms are defined:
+
+* *Agricultural parcel:* means a unit, defined by Member States, of agricultural area as determined in accordance with Article 4(3) of R (EU) 2021/2115.
+* *Eco Landscape Element*: From Article 4(4)(b) of R (EU) 2021/2115, any area of the holding which is: (i) covered by landscape features subject to the retention obligation under GAEC standard 8 listed in Annex III and (ii) for the duration of the relevant commitment by the farmer, established or maintained as a result of an eco-scheme referred to in Article 31. It shall be a landscape feature or an area interested by an area-based eco-scheme.
+* *Ecological Focus Area*: Ecological focus areas as referred to in Article 46 of R (EU) 1307/2013 and its Delegated Regulation (EU) 639/2014 (areas contributing to practices beneficial for the climate and the environment as referred to in Art. 43(2)(c) of R (EU) 1307/2013). Ecological focus areas are not applicable for datasets issued after 2023.
+* *Non agricultural eligible area*: Land containing non-agricultural areas considered eligible by the Member States for receiving payment under Title III, Chapter 4 of R (EU) 2021/2115.
+* *Reference parcel*: From Article 2(2) of Regulation (EU) 2022/1172, 'reference parcel' means a geographically delimited area retaining a unique identification as registered in the identification system for agricultural parcels referred to in Article 68 of Regulation (EU) 2021/2116. A reference parcel shall contain a unit of land representing agricultural area, as referred to in Article 4(3) of Regulation (EU) 2021/2115. Where appropriate, a reference parcel shall also contain non-agricultural areas considered eligible by Member States for receiving the support for area-based interventions referred to in Article 65(2) and (3) of Regulation (EU) 2021/2116.
+* *Site*: Place within a holding where agricultural activities related to animals are exercised.
+
+Definition of additional terms are provided in section link:#geoiacs-feature-catalogue[3.3.2] (geoIACS Feature catalogue).
+
+The above definitions describe the feature types (spatial object types) of IACS, which are subject of this technical guidelines. Their relation to the real world and the geoIACS spatial datasets are shown in *Figure 1*.
+
+[.text-center]
+*Figure 1*.Spatial object (feature) types of IACS as abstracted from the real world
+
+image::./media/image3.jpeg[A diagram of a landscape structure AI-generated content may be incorrect.,width=361,height=232, align="center"]
+
+<<<
+== Data content and structure
+
+=== Application schemas – Overview
+
+The types to be used for the exchange and classification of spatial objects from data sets related to the geoIACS spatial data theme are defined in the following application schema:
+
+* geoIACS application schema, which contains the concepts of agricultural parcel, eco-landscape element, ecological focus area, non-agricultural eligible area, reference parcel, site.
+
+The application schema specifies requirements on the properties of each spatial object including its multiplicity, domain of valid values, constraints, etc.
+
+[TIP]
+====
+*TG Requirement 1*
+*Types for the Exchange and Classification of Spatial Objects*
+
+For the exchange and classification of spatial objects from data sets meeting the conditions laid down in Article 67 (3) and (4) of Regulation (EU) 2021/2116, Member States shall use the spatial object types and associated data types and code lists that are defined in this section.
+
+====
+
+In practice, TG requirement 1 means that geoIACS datasets shall be made available for data sharing according to the application schema defined in section 3.3 of this document.
+
+As compared to the full information content of IACS datasets, the application schema defined in this section is restricted to the spatial object types and data types that are required to its spatial management. When publishing these datasets according to INSPIRE and HVD, additional feature and data types may be present, respecting the requirements of R (EU) 2016/679footnote:[[GDPR] http://data.europa.eu/eli/reg/2016/679/oj].
+
+[IMPORTANT]
+====
+*TG Requirement 2*
+*Multiplicity*
+
+Spatial object types and data types shall comply with the multiplicities defined for the attributes and association roles in this section.
+
+====
+
+Similarly, TG Requirement 2 means that the properties (attributes and association roles) for geoIACS datasets presented for data sharing shall comply with the multiplicities (i.e. cardinalities) defined in the application schema in section 3.3.
+
+=== Basic notions
+
+==== Notation
+
+The application schema included in this section is specified in Unified Modelling Language (UML), version 2.3. The spatial object types, their properties and associated types are shown in UML class diagramsfootnote:[For an overview of the UML notation, see Annex D in [ISO 19103]].
+
+The use of a common conceptual schema language (i.e. UML) allows for an automated processing of application schemas and the encoding, querying and updating of data based on the application schema – across the different themes and different levels of detail.
+
+==== Voidable characteristics
+
+Voidable stereotype is not used in this data specification.
+
+==== Enumerations
+
+No enumerations are used in this data specification.
+
+==== Code lists
+
+The purpose of a code list is to present an agreed set of codes with multilingual names, definitions and descriptions to be used as values of properties and which might be shared and reused by a wide audience. Code lists serve as controlled vocabularies for the values of object properties.
+
+The benefits are:
+
+* interoperability is improved through greater consistency and precision of data,
+* data consumers (client applications) know and understand the values used by data providers,
+* reuse of code values is promoted via adoption and integration by developers and users,
+* searching and recovery of data items becomes more reliable,
+* there is less variation in coding, minimising the duplication of datasets.footnote:[Annex G of INSPIRE Generic Conceptual Model, v3.4]
+
+Code lists are modelled as classes in the application schema. Their values, however, are managed outside of the application schema.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 3*
+*Code Lists types*
+
+Code lists shall be of one of the following types:
+
+[loweralpha]
+. code lists whose allowed values comprise only the values specified in this TG;
+. code lists whose allowed values comprise the values specified in this TG and narrower values defined by data providers;
+. code lists whose allowed values comprise the values specified in this TG and additional values at any level defined by data providers.
+====
+
+The type of code list is represented in the UML model through the tagged value that describes its extensibility. It can take the following values:
+
+* *none*, representing code lists whose allowed values comprise only the values specified in the TG (type a),
+* *narrower*, representing code lists whose allowed values comprise the values specified in the TG and narrower values defined by data providers (type b),
+* *open*, representing code lists whose allowed values comprise the values specified in the TG and additional values at any level defined by data providers (type c).
+
+"Narrower" means a less aggregated value in a classification system. For example, durum wheat is a narrower value of cereals.
+
+[IMPORTANT]
+====
+*TG Requirement 4*
+*Code Lists extensibility*
+
+Additional values defined by data providers shall not replace or redefine any value already specified in the TG.
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 5*
+*Code Lists registers*
+
+Where, for an attribute whose type is a code list as referred to in points (b) or (c) of TG Requirement 2, a data provider provides a value that is not specified in this TG, that value and its definition shall be made available in a publicly accessible register.
+====
+
+Regarding the code lists governance, two types of code lists are distinguished:
+
+* Code lists that are governed by an EU organisation (e.g. DG-AGRI, Eurostat) (EU governed code lists). These code lists will be managed centrally in a dedicated EU code list register, publicly accessible at ++https://<Domain_name.eu>/codelist/<CodeListName>++ footnote:[The link will be updated as soon as a final or temporary agreement is reached concerning the location of the registries.]. They will be available in SKOS/RDF, XML and HTML. The maintenance will follow the procedures defined in ISO 19135. This means that the only allowed changes to a code list are the addition, deprecation or supersession of values, i.e. no value will ever be deleted, but only receive different statuses (valid, deprecated superseded). Identifiers for values of EU governed code lists will be constructed using the pattern ++https://<Domain_name.eu>/codelist/<CodeListName>/<value>++. The possibility that EU-governed code lists will be managed in the INSPIRE code list register will be investigated.
+* Code lists that are governed by an organisation outside of DG-AGRI/Eurostat/INSPIRE (externally governed code lists). These code lists are managed by an organisation outside the Commission (e.g. the Paying Agencies). A typical example of externally governed code list is represented by national code lists which may extend with narrower values the parent values of AgriculturalAreaTypeValue code list. The externally governed code lists will be managed in dedicated code list registers publicly accessible at ++https://<Domain_name.xx>/codelist/<CodeListName>++. They will be available in SKOS/RDF, XML and HTML. The maintenance will follow the procedures defined in ISO 19135. This means that the only allowed changes to a code list are the addition, deprecation or supersession of values, i.e. no value will ever be deleted, but only receive different statuses (valid, deprecated superseded). Identifiers for values of externally governed code lists will be constructed using the pattern ++https://<Domain_name.xx>/codelist/<CodeListName>/<value>++.
+
+[NOTE]
+====
+*_TG Recommendation 1_*
+*Code Lists encoding*
+
+Code list values should be encoded using http URIs and labels, to be generated according to the relevant rules specified by the organizations managing the code lists registers and encoded following the rules applicable to the data format used.
+
+When appropriate, encodings also may use a short value (i.e. a code) only.
+====
+
+EXAMPLE 1. Encoding http URIs and labels in GML:
+
+ <geoIACS:mainCrop xlink:href="http://dd.eionet.europa.eu/vocabulary/eurostat/crops/C0000T" xlink:title="C0000T">C0000T</geoIACS:mainCrop>
+
+EXAMPLE 2. Short value encoding in GeoPackagefootnote:[GeoPackage as alternative encoding is referred to in section 7.3.1.3]:
+
+The cell containing a code list value only has to contain the code C0000T. The code list URI has to be documented in the schema documentation.
+
+Regarding code list multilingualism, in order to preserve semantic interoperability, code lists values belonging to both types of code lists above described (EU and externally governed code lists) will be provided in English. Where data providers are willing to use code lists values in their national language, they will have to add the related national language translations in the original code list in English.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 2*
+*Code Lists multilingualism*
+
+Code lists values of all types of code lists shall be provided in English. Code lists values provided in national languages may be used. In this case, their national language translations will be added in the original code lists in English.
+
+====
+
+==== Consistency between spatial data sets
+
+Currently, there are no consistency rules other than those defined within the application schema. Taking into account that the geoIACS implementations of the MS can follow different conceptual design in terms of the reference parcel type, the consistency with the parent dataset used for the production (e.g. cadastral parcels, orthoimagery) should be preserved.
+
+==== Identifier management
+
+geoIACS spatial objects identifiers are managed by means of character string type attributes in the relevant feature types (APid, NAEAid, RPid, ELEid, SiteId, EFAid).
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 7*
+*Unique and persistent identifiers*
+
+geoIACS identifiers shall be unique and shall not change during the life-cycle of a spatial object.
+====
+
+[NOTE]
+====
+*_TG Recommendation 2_*
+*Syntax of unique and persistent identifiers*
+
+To ensure uniqueness of the identifiers across Europe, PAs or other custodians of the related data should use a unique syntax for the identifiers according to the principles set in the INSPIRE Generic Conceptual Model.
+====
+
+==== Geometry representation
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 8*
+*Geometry representation*
+
+The value domain of spatial properties defined in this TG shall be restricted to the Simple Feature spatial schema as defined in OGC 06-103r4, _OpenGIS Implementation Standard for Geographic Information Simple feature access - Part 1: Common architecture_. Version 1.2.1. 28footnote:[http://portal.opengeospatial.org/files/?artifact_id=25355] May 2011.
+====
+
+The specification restricts the spatial schema to 0-, 1-, 2-, and 2,5-dimensional geometries where all curve interpolations are linear and surface interpolations are planar.
+
+The topological relations of two spatial objects based on their specific geometry and topology properties can in principle be investigated by invoking the operations of the types defined in ISO 19107 (or the methods specified in OGC 06-103r4).
+
+==== Temporality representation
+
+To record the lifespan of a spatial object, the attributes "beginLifespanVersion" and "endLifespanVersion" are used.
+
+The attribute "beginLifespanVersion" specifies the date and time at which this version of the spatial object was inserted or changed in the spatial dataset. The attribute "endLifespanVersion" specifies the date and time at which this version of the spatial object was superseded or retired in the spatial dataset.
+
+The attribute specifies the beginning of the lifespan of the version in the spatial data set itself, which is different from the temporal characteristics of the real-world phenomenon described by the spatial object. This lifespan information supports mainly two requirements: First, knowledge about the spatial data set content at a specific time; second, knowledge about changes to a data set in a specific time frame.
+
+Changes to the attribute "endLifespanVersion" does not trigger a change in the attribute "beginLifespanVersion".
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 9*
+*Life-cycle of Spatial Objects*
+
+Where the attribute endLifespanVersion is used, its value shall not be before the value of beginLifespanVersion.
+====
+
+EXAMPLE. A reference parcel was created on 03 August 2004. This date is its beginLifespanVersion value. Then this parcel has been split due to a construction of a highway that intersects it. This change is registered in LPIS on 25 November 2007. This date is the value of the endLifespaVersion attribute of the original parcel, which is naturally later, then the date of creation.
+
+To record the validity of the real-world phenomenon represented by a spatial object, the attributes "validFrom" and "validTo" are used.
+
+The attribute "validFrom" specifies the date and time at which the real-world phenomenon became valid in the real world. The attribute "validTo" specifies the date and time at which the real-world phenomenon is no longer valid in the real world.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 10*
+*Temporal validity of Spatial Objects*
+
+Where the attribute validTo is used, its value shall not be before the value of validFrom.
+====
+
+=== Application schema geoIACS
+
+==== Narrative description and UML overview
+
+geoIACS application schema consists of six spatial objects:
+
+* ReferenceParcel
+* AgriculturalParcel
+* NonAgriculturalEligibleArea
+* EcoLandscapeElement
+* Site
+* EcologicalFocusArea
+
+whose definitions are provided in section link:#terms-and-definitions[2.4]. Each of these spatial objects is made of a series of object-specific attributes (of different types), constraints and relationships.
+
+Some attributes and relationships are mandatory, some others are optional.
+
+To preserve the semantic harmonisation and interoperability of geoIACS datasets, the type of those attributes providing information about different classification systems is a code list.
+
+In terms of relationships among the four main spatial objects:
+
+* each AgriculturalParel, NonAgriculturalEligibleArea and EcoLandscapeElement has to be mandatorily associated with one ReferenceParcel, whilst each ReferenceParcel is mandatorily associated with one or many AgriculturalParcel(s) or NonAgriculturalEligibleArea(s) or EcoLandscapeElement(s).
+* Site and EcologicalFocusArea spatial objects are not associated with any of the four main spatial objects.
+
+An overview of the geoIACS UML model is given in *Figure 2*, whilst the details are provided in the figures from *Figure 3* to *Figure 12*. A complete and detailed description of all the application schema elements is contained in the geoIACS Feature Catalogue (section link:#geoiacs-feature-catalogue[3.3.2]).
+
+[.text-center]
+*Figure 2.* geoIACS UML model - overview
+
+image::./media/image4.jpg[A computer screen shot of a computer AI-generated content may be incorrect.,width=559,height=326, align="center"]
+
+[.text-center]
+*Figure 3.* geoIACS UML model – ReferenceParcel, AgriculturalParcel, NonAgriculturalEligibleArea and EcoLanscapeElement class diagrams and relationships
+
+image::./media/image5.png[image5,width=572,height=344, align="center"]
+
+[.text-center]
+*Figure 4.* geoIACS UML model – Site and EcologicalFocusArea class diagrams
+
+image::./media/image6.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=331, align="center"]
+
+[.text-center]
+*Figure 5.* geoIACS UML model - AgriculturalAreaType code list
+
+image::./media/image7.jpeg[A diagram of a computer program AI-generated content may be incorrect.,width=161,height=110, align="center"]
+
+[.text-center]
+*Figure 6.* geoIACS UML model – Crop and LocalisedCrop code lists
+
+image::./media/image8.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=274, align="center"]
+
+[.text-center]
+*Figure 7.* geoIACS UML model - NonAgriculturalEligibleArea associated code list
+
+image::./media/image9.png[./media/image9,width=395,height=175, align="center"]
+
+[.text-center]
+*Figure 8.* geoIACS UML model - EcoLandscapeElementType code list
+
+image::./media/image10.png[A screenshot of a computer AI-generated content may be incorrect.,width=213,height=92, align="center"]
+
+[.text-center]
+*Figure 9.* geoIACS UML model - EcoLandscapeElementDesignation, LandscapeFeature and AreaBasedEcoScheme code lists
+
+image::./media/image11.png[A diagram of a code AI-generated content may be incorrect.,width=399,height=261, align="center"]
+
+[.text-center]
+*Figure 10.* LPIS UML model - NACEActivity code list
+
+image::./media/image12.png[A close-up of a computer screen AI-generated content may be incorrect.,width=282,height=126, align="center"]
+
+[.text-center]
+*Figure 11.* LPIS UML model - LivestockSpecies and AquacultureSpecies code lists
+
+[.text-center]
+image::./media/image13.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=340, align="center"]
+
+[.text-center]
+*Figure 12.* LPIS UML model - EcologicalFocusAreaType associated code list
+
+image::./media/image14.jpeg[A diagram of a computer AI-generated content may be incorrect.,width=299,height=238, align="center"]
+
+==== geoIACS Feature catalogue
+
+[.text-center]
+*Table 1.* Types defined in the geoIACS feature catalogue
+
+[width="100%",cols="53%,17%,30%",options="header",]
+|===
+^|Type ^|Package ^|Stereotypes
+|ReferenceParcel |geoIACS |featureType
+|AgriculturalParcel |geoIACS |featureType
+|NonAgriculturalEligibleArea |geoIACS |featureType
+|EcoLandscapeElement |geoIACS |featureType
+|Site |geoIACS |featureType
+|EcologicalFocusArea |geoIACS |featureType
+|AgriculturalAreaTypeValue |geoIACS |codeList
+|NonAgriculturalEligibleAreaValue |geoIACS |codeList
+|cropValue |geoIACS |codeList
+|localisedCropValue |geoIACS |codeList
+|EcoLandscapeElementTypeValue |geoIACS |codeList
+|EcoLandscapeElementDesignationValue |geoIACS |codeList
+|LandscapeFeatureTypeValue |geoIACS |codeList
+|AraBasedEcoSchemeValue |geoIACS |codeList
+|EcologicalFocusAreaTypeValue |geoIACS |codeList
+|NACEActivityValue |geoIACS |codeList
+|LivestockSpeciesValue |geoIACS |codeList
+|AquacultureSpeciesValue |geoIACS |codeList
+|===
+
+===== Feature types
+
+====== ReferenceParcel
+
+
+-- *Name* -- 
+
+Reference parcel
+
+-- *Definition* -- 
+
+From Article 2(2) of Regulation (EU) 2022/1172, 'reference parcel' means a geographically delimited area retaining a unique identification as registered in the identification system for agricultural parcels referred to in Article 68 of Regulation (EU) 2021/2116. A reference parcel shall contain a unit of land representing agricultural area, as referred to in Article 4(3) of Regulation (EU) 2021/2115. Where appropriate, a reference parcel shall also contain non-agricultural areas considered eligible by Member States for receiving the support for area-based interventions referred to in Article 65(2) and (3) of Regulation (EU) 2021/2116.
+
+-- *Description* -- 
+
+Basic spatial unit for the administration and geographical localization of agricultural parcels. May contain one or more declared agricultural parcels in IACS and may be cultivated by one or more farmers (or producers association). The reference parcels shall serve as basis to support beneficiaries in submitting geo-spatial applications for area-based interventions referred to in Article 65(2) and (3) of Regulation (EU) 2021/2116 [Art. 2(3) of Regulation (EU) 2022/1172]. Member States shall delimit the reference parcels in such a way as to ensure that each parcel is stable in time, measurable, enables the unique and unambiguous localisation of each agricultural parcel and unit of land of non- agricultural areas considered eligible by the Member States for receiving the support for the area-based interventions referred to in Article 65(2) and (3) of Regulation (EU) 2021/2116 declared annually [Art. 2(4) of Regulation (EU) 2022/1172].
+
+NOTE. Definition in the past. Reference parcel - a continuous area of agricultural land (production block) grouping together a number of neighboring agricultural parcels (production units) cultivated by one or more farmer(s) and delineated by most stable boundaries. Subtypes (used in the past): CadParcel, AgrParcel, FarBlock, PhyBlock, TopoBlock and MixedParcelType. It current model it is not implemented, since these concepts are not core elements of current IACS model.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|RPid |CharacterString a|
+!===
+!-- *Name* -- 
+
+Reference parcel ID
+
+!-- *Definition* -- 
+
+Unique ID of reference parcel referred to in Art. 68 (2)(a) of R (EU) 2021/2116.
+
+!-- *Description* -- 
+
+European unique alphanumerical thematic identification code of reference parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|geometry |GM_Surface a|
+!===
+!-- *Name* -- 
+
+Geometry
+
+!-- *Definition* -- 
+
+Spatial representation of the reference parcel as referred to in Art. 2(2) of R (EU) 2022/1172.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+
+!===
+|validFrom |Date a|
+!===
+!-- *Name*—
+
+Valid from
+
+!-- *Definition* –
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* –
+
+Valid to
+
+!-- *Definition* –
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,74%",options="header",]
+|===
+|*Name* |*Notes*
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+_[.underline]#Relationships#_
+
+[width="99%",cols="27%,73%",options="header",]
+|===
+|*Association* |*Notes*
+|RelatedAP a|
+!===
+!-- *Name* -- 
+
+Association role between ReferenceParcel and AgriculturalParcel.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and AgriculturalParcel feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more agricultural parcels. Each agricultural parcel shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+0..*
+
+!===
+|RelatedNAEA a|
+!===
+!-- *Name* -- 
+
+Association role between ReferenceParcel and NonAgriculturalEligibleArea.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and NonAgriculturalEligibleArea feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more non-agricultural eligible area types. Each non agricultural eligible area shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+0..*
+!===
+|RelatedELE a|
+!===
+!-- *Name* -- 
+
+Association role between reference parcel and eco landscape element.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and EcoLandscapeElement feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more eco landscape element types. Each eco landscape element shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+0..*
+!===
+|===
+
+====== AgriculturalParcel
+
+-- *Name* -- 
+
+Agricultural parcel
+
+-- *Definition* -- 
+
+Agricultural parcel means a unit, defined by Member States, of agricultural area as determined in accordance with Article 4(3) of R (EU) 2021/2115.
+
+-- *Description* -- 
+
+Agricultural parcel declared by farmer.
+
+[.underline]#Attributes#
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|APid |CharacterString a|
+!===
+!-- *Name* -- 
+
+Agricultural parcel ID
+
+!-- *Definition* -- 
+
+Unique ID of agricultural parcel.
+
+!-- *Description* -- 
+
+European unique alphanumerical identification code of agricultural parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|geometry |GM_Surface a|
+!===
+!-- *Name* -- 
+
+Geomety
+
+!-- *Definition* -- 
+
+Spatial representation of agricultural parcel.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|holdingId |CharacterString a|
+!===
+!-- *Name* -- 
+
+Holding ID
+
+! -- *Definition* -- 
+
+Unique ID of the holding, The holding, as defined in Article 3(2) of R (EU) 2021/2115, means all the units used for agricultural activities and managed by a farmer situated within the territory of the same Member State.
+
+! -- *Description* --
+
+Europe-wide unique alphanumerical identification code of agricultural parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+NOTE
+
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|declaredArea |Area a|
+!===
+!-- *Name* -- 
+
+Aera declared
+
+!-- *Definition* -- 
+
+Value for the quantification of area as referred to in Art. 8 (2)(b) of R (EU) 1173/2022.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|organicFarming |Boolean a|
+!===
+!* -- Name-- *
+
+organicFarming
+
+!-- *Definition*-- 
+
+Areas under commitments for fulfilling conditions of R (EU) 2018/848 on organic production.
+
+! -- *Description*--
+
+Organic production is an overall system of farm management and food production that combines best environmental and climate action practices, a high level of biodiversity and the preservation of natural resources. Organic farming promotes sustainable food production and preserving natural environment.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|mainCrop |CropValue a|
+!===
+!-- *Name* -- 
+
+mainCrop
+
+!-- *Definition* --
+
+Main crop grown within the campaign year (growing season).
+
+!-- *Description* --
+
+Crop occupying the parcel in most of the time of the growing season. It also includes fallow land.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|locaised mainCrop |LocalisedCropValue a|
+!===
+!-- *Name* -- 
+
+Localised MainCrop
+
+! -- *Definition* -- 
+
+Main crop not present in EU crop codelists and present in codelists containing local nomenclatures.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|agriculturalAreaType | a|
+!===
+!* -- Name-- *
+
+Agricultural Area Type
+
+! -- *Definition*-- 
+
+Agricultural area type.
+
+! -- *Description*--
+
+Any area taken up by arable land, permanent grassland and permanent pasture, permanent crops or agroforestry, as defined in Art. 4(3) of R2021/2115).
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|catchCrop |CropValue a|
+!===
+!-- *Name* -- 
+
+catchCrop
+
+! -- *Definition* --
+
+Fast-growing crop that is grown between successive plantings of a main crop.
+
+! -- *Description* --
+
+Crop used for N fixing, as green manure, etc.
+
+!-- *Multiplicity* -- 
+
+0..2
+!===
+|localised catchCrop |LocalisedCropValue a|
+!===
+!-- *Name* -- 
+
+Localised cathcCrop
+
+! -- *Definition* --
+
+Catch crop not present in EU crop codelists and present in codelists containing local nomenclatures.
+
+!-- *Multiplicity* -- 
+
+0..2
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|validFrom |Date a|
+!===
+!-- *Name*—
+
+Valid from
+
+!-- *Definition* –
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* –
+
+Valid to
+
+!-- *Definition* –
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,74%",options="header",]
+|===
+|*Name* |*Notes*
+|geometryType |/* Type of geometry shall be GM_Surface or GM_Point or GM_MultiPoint*/
+|declaredAreaUoM |/* Value of declaredArea shall be given in hectars. */
+|declaredAreaValue |As regards the area-related direct payment, each Member State shall determine the minimum size of agricultural parcels in respect of which an application may be made. However, the minimum size shall not exceed 0,3 ha. After decision is done - it must be followed.
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+*_[.underline]#Relationships#_*
+
+[width="99%",cols="27%,73%",options="header",]
+|===
+|*Association* |*Notes*
+|relatedRP a|
+!===
+!-- *Name* -- 
+
+Association role between ReferenceParcel and AgriculturalParcel.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and AgriculturalParcel feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more agricultural parcels. Each agricultural parcel shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|===
+
+====== NonAgriculturalEligibleArea
+
+-- *Name* -- 
+
+Non-agricultural eligible area
+
+-- *Definition* -- 
+
+Land containing non-agricultural areas considered eligible by the Member States for receiving payment under Titel III, Chapter 4 of R (EU) 2021/2115.
+
+-- *Description* –-
+
+Non-agricultural areas, such as wetlands, Natura 2000, river basin management etc., receiving rural development support according to the Strategic plans of the MS.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|NAEAid |CharacterString a|
+!===
+!-- *Name* -- 
+
+Non-agricultural eligible area ID
+
+!-- *Definition* -- 
+
+Unique ID of non-agricultural eligible area.
+
+!-- *Description* -- 
+
+European unique alphanumerical identification code of non-agricultural eligible area. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|geometry |GM_Surface a|
+!===
+!-- *Name* -- 
+
+Geomety
+
+!-- *Definition* -- 
+
+Spatial representation of non-agricultural eligible area.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|holdingId |CharacterString a|
+!===
+!-- *Name* -- 
+
+Holding ID
+
+! -- *Definition* --
+
+Unique ID of the holding, The holding, as defined in Article 3(2) of R (EU) 2021/2115, means all the units used for agricultural activities and managed by a farmer situated within the territory of the same Member State.
+
+! -- *Description* --
+
+Europe-wide unique alphanumerical identification code of agricultural parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+NOTE
+
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|declaredArea |Area a|
+!===
+!-- *Name* -- 
+
+Aera declared
+
+!-- *Definition* -- 
+
+Value for the quantification of area as referred to in Art. 8 (2)(b) of R (EU) 1173/2022.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|nonAgriculturalEligibleAreaType |NonAgriculturalEligibleAreaTypeValue a|
+!===
+!-- *Name* -- 
+
+Non-agricultural eligible area type
+
+! -- *Definition* --
+
+Types of land containing non-agricultural areas considered eligible by the Member States for receiving payment under Titel III, Chapter 4 of R (EU) 2021/2115
+
+! -- *Description* --
+
+Types of non-agricultural eligible area defined by the MS in their strategic plans.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|validFrom |Date a|
+!===
+!-- *Name*—
+
+Valid from
+
+!-- *Definition* –
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* –
+
+Valid to
+
+!-- *Definition* –
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,74%",options="header",]
+|===
+|*Name* |*Notes*
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+*_[.underline]#Relationships#_*
+
+[width="99%",cols="27%,73%",options="header",]
+|===
+|*Association* |*Notes*
+|relatedRP a|
+!===
+!-- *Name* -- 
+
+Association role between ReferenceParcel and NonAgriculturalEligibleArea.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and NonAgriculturalEligibleArea feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more non-agricultural eligible area types. Each non agricultural eligible area shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|===
+
+====== EcoLandscapeElement
+
+-- *Name* -- 
+
+Eco Landscape Element
+
+-- *Definition* -- 
+
+From Article 4(4)(b) of R (EU) 2021/2115, any area of the holding which is: (i) covered by landscape features subject to the retention obligation under GAEC standard 8 listed in Annex III and (ii) for the duration of the relevant commitment by the farmer, established or maintained as a result of an eco-scheme referred to in Article 31.
+
+-- *Description* -- 
+
+It shall be a landscape feature or an area interested by an area-based eco-scheme.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|ELEid |CharacterString a|
+!===
+!-- *Name* -- 
+
+Eco Landscape element identifier
+
+!-- *Definition* -- 
+
+Unique thematic ID of ecolandscape element.
+
+!-- *Description* -- 
+
+European unique alphanumerical identification code of ecolandscape element. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|geometry |GM_Object a|
+!===
+!-- *Name* -- 
+
+Geometry
+
+!-- *Definition* -- 
+
+Spatial representation of ecolandscape element.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|holdingId |CharacterString a|
+!===
+!-- *Name* -- 
+
+Holding ID
+
+! -- *Definition* --
+
+Unique ID of the holding, The holding, as defined in Article 3(2) of R (EU) 2021/2115, means all the units used for agricultural activities and managed by a farmer situated within the territory of the same Member State.
+
+! -- *Description* --
+
+Europe-wide unique alphanumerical identification code of agricultural parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+NOTE
+
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|declaredArea |Area a|
+!===
+!-- *Name* -- 
+
+Aera declared
+
+!-- *Definition* -- 
+
+Value for the quantification of area as referred to in Art. 8 (2)(b) of R (EU) 1173/2022.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|ecoLandscapeElementType |EcoLandscapeElementTypeValue a|
+!===
+!-- *Name* -- 
+
+Eco Landscape Element type
+
+!-- *Definition* -- 
+
+Type of ecolandscape element. It can be landscape feature or area-based ecoscheme.
+
+!-- *Description* -- 
+
+The value of this attribute shall be taken from the EcoLandscapeElementTypeValue code list.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|ecoLandscapeElementDesignation |EcoLandscapeElementDesignationValue a|
+!===
+!-- *Name* -- 
+
+Eco Landscape Element designation
+
+!-- *Definition* -- 
+
+Designation of the ecolandscape element within the ecolandscape element type.
+
+!-- *Description* -- 
+
+According to the value of EcoLandscapeElementType, the value of this attribute shall be taken from the LandscapeFeatureTypeValue codelist (if EcoLandscapeElement type if landscapeFeature) or from the AreaBasedEcoSchemeValue codelist (if EcoLandScapeElement type is areBasedEcoScheme).
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|validFrom |Date a|
+!===
+!-- *Name*—
+
+Valid from
+
+!-- *Definition* –
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* –
+
+Valid to
+
+!-- *Definition* –
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,<74%",options="header",]
+|===
+|*Name* |*Notes*
+|designation <a|
+/*EcoLandscapeElement must use designations from an appropriate type and the designation value must agree with the EcoLandscapeElementType.*/
+
+inv: self.ecoLandscapeElementType = EcoLandscapeElementTypeValue::landscapeFeature implies self.ecoLandscapeElementDesignation.oclIsKindOf(LandscapeFeatureTypeValue) and
+
+self.ecoLandscapeElementType = EcoLandscapeElementTypeValue::areaBasedEcoScheme implies self.ecoLandscapeElementDesignation.oclIsKindOf(AreaBasedEcoSchemeValue)
+
+|geometryType |/* Type of geometry shall be GM_Surface or GM_Curve or GM_Point*/
+|declaredAreaUoM |/* Value of declaredArea shall be given in hectars. */
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+*_[.underline]#Relationships#_*
+
+[width="99%",cols="27%,73%",options="header",]
+|===
+|*Association* |*Notes*
+|relatedRP a|
+!===
+!-- *Name* -- 
+
+Association role between reference parcel and eco landscape element.
+
+!-- *Definition* -- 
+
+Semantic relationship (association) between ReferenceParcel and EcoLandscapeElement feature types.
+
+!-- *Description* -- 
+
+One reference parcel can be composed of one or more eco landscape element types. Each eco landscape element shall be related to only one reference parcel.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|===
+
+====== Site
+
+-- *Name* -- 
+
+Site
+
+-- *Definition* -- 
+
+Place within a holding where agricultural activities related to animals are exercised.
+
+-- *Description* -- 
+
+Simplified version of the Site Feature Type present in the INSPIRE data specifications for Agricultural Facilities.
+
+NOTE. the geometry can be a point or a surface.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|SiteId |CharacterString a|
+!===
+!-- *Name* -- 
+
+Site ID
+
+!-- *Definition* -- 
+
+Unique ID of site.
+
+!-- *Description* -- 
+
+European unique alphanumerical identification code of ecological focus area. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|geometry |GM_Object a|
+!===
+!-- *Name* -- 
+
+Geometry
+
+!-- *Definition* -- 
+
+Spatial representation of site. It can be a point (site location) or a surface (site building footprint).
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|holdingId |CharacterString a|
+!===
+!-- *Name* -- 
+
+Holding ID
+
+! -- *Definition* --
+
+Unique ID of the holding, The holding, as defined in Article 3(2) of R (EU) 2021/2115, means all the units used for agricultural activities and managed by a farmer situated within the territory of the same Member State.
+
+! -- *Description* --
+
+Europe-wide unique alphanumerical identification code of agricultural parcel. It should follow the rules of INSPIRE when delivered for EU use.
+
+NOTE
+
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|activity |NACEActivityValue a|
+!===
+!-- *Name* -- 
+
+activity
+
+!-- *Definition* -- 
+
+Type of economic activity for the site, according to NACE classification.
+
+!-- *Description* -- 
+
+Type of economic activity for the site, according to NACE classification (The newest version is NACE revision 2 update 1 (NACE Rev. 2.1), which is to be used for European statistics from 2025 onwards. This was adopted by the European Commission in October 2022.).
+
+NOTE 1: The activities should be selected from the ones available in the Group 01.4 - Animal production.
+
+!-- *Multiplicity* -- 
+
+1..*
+!===
+|includesAnimal |FarmAnimalSpecies a|
+!===
+!-- *Name* -- 
+
+includesAnimals
+
+!-- *Definition* -- 
+
+Indicates the presence or not of animals in the site.
+
+!-- *Multiplicity* -- 
+
+0..*
+!===
+|animalWelfare |Boolean a|
+!===
+!-- *Name* -- 
+
+animal welfare
+
+!-- *Definition* -- 
+
+Indicates the presence or not of subsidies related to animal welfare according to Art. 31 of  R (EU) 2021/2115
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|validFrom |Date a|
+!===
+!-- *Name*—
+
+Valid from
+
+!-- *Definition* –
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* –
+
+Valid to
+
+!-- *Definition* –
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,74%",options="header",]
+|===
+|*Name* |*Notes*
+|activityValue |/*The values shall be selected from the ones available in the Group 01.4 - Animal production */
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+====== EcologicalFocusArea
+
+-- *Name* -- 
+
+Ecological Focus Area
+
+-- *Definition* -- 
+
+Ecological focus areas as referred to in Article 46 of R (EU) No1307/2013 and its Delegated Regulation (EU) No 639/2014.
+
+-- *Description* -- 
+
+Areas contributing to practices beneficial for the climate and the environment as referred to in Art. 43(2)(c) of (EU) R No 1307/2013.
+
+NOTE. EFA is not applicable for datasets issued after 2023.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|EFAid |CharacterString a|
+!===
+!-- *Name* -- 
+
+Ecological focus area identifier
+
+!-- *Definition* -- 
+
+Unique thematic ID of ecological focus area.
+
+!-- *Description* -- 
+
+European unique alphanumerical identification code of ecological focus area. It should follow the rules of INSPIRE when delivered for EU use.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|geometry |GM_Object a|
+!===
+!-- *Name* -- 
+
+Geometry
+
+!-- *Definition* -- 
+
+Spatial representation of ecological focus area.
+
+!-- *Description* -- 
+
+Representation of the geographical dimension/position of the ecological focus area. EFA may be represented as , point, curve, or surface depending on the options allowed by Art 46(3) of R (EU) 1307/2013 and the choice of the MS/region.
+
+NOTE 1: The established area referred in DSCG/2014/31 is derived from surface representation of the geometric extent.
+
+NOTE 2: The converted area referred in DSCG/2014/31 is derived from a geometric representation with reduced dimensions (curves or points)
+
+NOTE 3: In case of GM_Point geometry - Clementini point should be used.
+
+NOTE 4: When GM_curve representation is applied, it should be within the polygon that would represent the feature if full geometric extent was used.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|convertedArea |Area a|
+!===
+!-- *Name* -- 
+
+Ecological focus area
+
+!-- *Definition* -- 
+
+Official area of EFA that can be accounted for fulfilling the obligation detailed in Art. 46(1) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+This is the area value after applying the eventual conversion and weighting factors (DSCG/2014/31).
+
+NOTE 1: According to DSCG/2014/31
+
+
+- *Established area:* Area resulting from direct field measurement or from delineation using ortho imagery
+
+- *Converted area*: Virtual area of EFAs obtained when using the conversion factors of Annex II of R (EU) No 639/2014.
+
+
+NOTE 2: EFA area shall be given in ha.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|ecologicalFocusAreaType |EcologicalFocusAreaTypeValue a|
+!===
+!-- *Name* -- 
+
+Ecological focus area type
+
+!-- *Definition* -- 
+
+Ecological focus area type as listed in Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+The value of this attribute shall be taken from the EcologicalFocusAreaTypeValue code list.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|beginLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+Begin life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describes the temporal characteristics of a version or the changes between versions. [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was inserted or changed in the dataset.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|endLifespanVersion |DateTime a|
+!===
+!-- *Name* -- 
+
+End life span version
+
+!-- *Definition* -- 
+
+Set of properties of an object/feature that describe the temporal characteristics of a version or the changes between versions [Adapted from INSPIRE Generic Conceptual Model]
+
+!-- *Description* -- 
+
+Date and time at which this version of the feature was superseded or retired in the dataset.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|validFrom |Date a|
+!===
+!-- *Name* --
+
+Valid from
+
+!-- *Definition* --
+
+Official date when the object / feature has been (will be) in situ or legally established.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|validTo |Date a|
+!===
+!-- *Name* --
+
+Valid to
+
+!-- *Definition* --
+
+Official date at which the feature in situ (or legally) ceased (will cease) to be used.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,74%",options="header",]
+|===
+|*Name* |*Notes*
+|geometryType |/* Type of geometry shall be GM_Surface or GM_Curve or GM_Point*/
+|convertedAreaUoM |/* Value of convertedArea shall be given in hectars. */
+|endLifespanVersion |/* If set, the date endLifespanVersion shall be later than beginLifespanVersion. */
+|validTo |/* If set, the date validTo shall be equal or later than validFrom. */
+|===
+
+===== Data types
+
+====== FarmAnimalSpecies
+
+-- *Name* -- 
+
+farm animal
+
+-- *Definition* -- 
+
+Identifies an animal or group of animals of the same species kept on the specific site.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|livestock |LivestockSpeciesValue a|
+!===
+!-- *Name* -- 
+
+livestock
+
+!-- *Definition* -- 
+
+Define the presence of livestock species in the site.
+
+!-- *Description* -- 
+
+The terrestic species are coded specified according to regulation (EC) No 1165/2008.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|aquaculture |AquacultureSpeciesValue a|
+!===
+!-- *Name* -- 
+
+aquaculture
+
+!-- *Definition* -- 
+
+Define the presence of aquaculture species in the site.
+
+!-- *Description* -- 
+
+Aquaculture species are listed in aquacultureSpecies attribute.
+
+The allowed values for this code list comprise only the values specified in the February 2012 version of the ASFIS (Aquatic Sciences and Fisheries Information System) List of Species for Fishery Statistics Purposes maintained by FAO.
+
+!-- *Multiplicity* -- 
+
+0..1
+!===
+|nuberOfAnimals |Integer a|
+!===
+!-- *Name* -- 
+
+number of animals
+
+!-- *Definition* -- 
+
+Indicates the number of animals in the site for each species declared present.
+
+!-- *Multiplicity* -- 
+
+1
+!===
+|===
+
+*_[.underline]#Constraints#_*
+
+[width="99%",cols="26%,<74%",options="header",]
+|===
+|*Name* |*Notes*
+|livestockOrAquaculture <|/* One of the two attributes livestock and aquaculture shall be present */
+|===
+
+===== Code lists
+
+====== AgriculturalAreaTypeValue
+
+-- *Name* -- 
+
+Agricultural area type value
+
+-- *Definition* -- 
+
+Types of agricultural area.
+
+-- *Description* -- 
+
+List of agricultural area type values.
+
+NOTE 1: According to DSCG/2014/33 arableLand, permanentCrop and permanetGrassland are the minimum level of details of land cover types needed for distinction of agricultural area.
+
+-- *Extensibility* -- 
+
+None.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/AgrculturalAreaTypeValue
+
+*_[.underline]#Values#_*
+
+[width="99%",cols="23%,77%",options="header",]
+|===
+|*Name* |*Notes*
+|arableLand a|
+!===
+!-- *Name* -- 
+
+Arable land
+
+!-- *Definition* -- 
+
+Land cultivated for crop production or areas available for crop production but lying fallow.
+
+!-- *Description* -- 
+
+It includes areas set aside in sense of Annex III to R(EU) 2021/2115, or with Articles 22, 23 or 24 of R (EC) 1257/1999, or with Article 39 of R (EC) No 1698/2005, or with Article 28 of R (EU) 1305/2013. This definition also applies to greenhouses under fixed or mobile cover.
+!===
+|permanentCrop a|
+!===
+!-- *Name* -- 
+
+Permanent crop
+
+!-- *Definition* -- 
+
+Non-rotational crops other than permanent grassland and permanent pasture that occupy the land for five years or more.
+
+!-- *Description* -- 
+
+It yields repeated harvests, including nurseries and short rotation coppice. [Art. 4 (1)(g) of R (EU)1307/2013 and Art. 4(3)(b) of R (EU) 2021/2125].
+!===
+|permanentGrassland a|
+!===
+!-- *Name* -- 
+
+Permanent grassland
+
+!-- *Definition* -- 
+
+Permanent grassland and permanent pasture (together referred to as "permanent grassland") means land used to grow grasses or other herbaceous forage naturally (self-seeded) or through cultivation (sown) and that has not been included in the crop rotation of the holding for five years or more.
+
+!-- *Description* -- 
+
+It may include other species, such as shrubs or trees, which can be grazed and, where Member States so decide, other species such as shrubs or trees which produce animal feed, provided that the grasses and other herbaceous forage remain predominant.
+
+Member States may also decide to consider the following types of land to be permanent grassland:
+
+- land which is covered by any of the species referred to in this point and which forms part of established local practices, where grasses and other herbaceous forage are traditionally not predominant or absent in grazing areas;
+
+- land covered by any of the species referred to in this point, where grasses and other herbaceous forage are not predominant or are absent in grazing areas. [Art. 4(3)(c) of R (EU) 2021/2125].
+!===
+|agroforestry a|
+!===
+!-- *Name* -- 
+
+Agroforestry
+
+!-- *Definition* -- 
+
+Area supported for afforestation.
+
+!-- *Description* -- 
+
+Complex of arable land, permanent crops and permanent grassland supported for agroforestry. [Art. 4(3) of R (EU) 2021/2115.
+!===
+|===
+
+====== CropValue
+
+-- *Name* -- 
+
+Crop value
+
+-- *Definition* -- 
+
+Crop classification.
+
+-- *Description* -- 
+
+An empty code list that acts as a container for crop European nomenclature.
+
+-- *Extensibility* -- 
+
+Any.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/CropValue
+
+*_[.underline]#Values#_*
+
+Even though there is a big users' interest in a harmonised and unique European crop classification, such agreement has not yet been reached. Indeed, the level of the required details defines the number of types. However, a hierarchical and harmonised classification system that is easily accessible, would support coherence of the related initiatives.
+
+Annex III of Regulation (EU) 2018/1091footnote:[https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32018R1091] and the Manual of Integrated Farms Statisticsfootnote:[https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-20-009 (pp 90 - 148)] provide a detailed multi-level hierarchical classification for arable, permanent crop and permanent grassland main categories as follows below:
+
+For arable land:
+
+* cereals,
+* dry pulses and protein crops for the production of grain,
+* root crops,
+* industrial crops,
+* plants harvested green,
+* fresh vegetables (including melons) and strawberries,
+* other arable crops,
+* fallow land,
+
+For permanent grassland:
+
+* pastures and meadows,
+* rough grazing,
+* permanent grassland, not used,
+
+For permanent crops:
+
+* fruits, berries and nuts (excluding citrus fruits, grapes and strawberries),
+* citrus fruits
+* grapes
+* olives,
+* nurseries,
+* other permanent crops including other permanent crops for human consumption.
+
+An alternative is to use of national code lists defined by MS. In this case the related TG requirements have to be respected.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 11*
+*Crop code lists*
+
+When publishing geoIACS datasets, one of the following code lists should be used:
+
+
+* "Variables of land" provided in Annex III of R (EU) 2018/1091
+* National code lists published in a multilingual registry as defined in TG Requirement 5 and 6.
+====
+
+====== LocalisedCropValue
+
+-- *Name* -- 
+
+Localised Crop value
+
+-- *Definition* -- 
+
+Crop classification according to local nomenclatures.
+
+-- *Description* -- 
+
+An empty code list that acts as a container for crop local nomenclature.
+
+-- *Extensibility* -- 
+
+Any.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/LocalisedCropValue
+
+*_[.underline]#Values#_*
+
+Even though crop values shall be provided according to European or national classifications referred to in link:#cropvalue[3.3.2.3.2], additional local nomenclatures may be optionally used.
+
+====== NonAgriculturalEligibleAreaTypeValue
+
+-- *Name*—
+
+Non-agricultural eligible area type value
+
+-- *Definition* –
+
+Types of the non-agricultural eligible areas
+
+-- *Description* -- 
+
+Values of non-agricultural eligible area types as defined in Art. 4(4)(c) of R (EU) 2021/2115 and in the strategic plans of the MS. The codelist includes also values of types of area-based Rural Development interventions as defined in Title III, Chapter 4 of R. 2021/2115, Artt. 70, 71.
+
+NOTE This code list is extensible by the MS, according to the types defined in their Strategic Plans.
+
+-- *Extensibility* -- 
+
+Any.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/NonAgrculturalEligibleAreaTypeValue
+
+*_[.underline]#Values#_*
+
+[width="99%",cols="23%,77%",options="header",]
+|===
+|*Name* |*Notes*
+|wetland a|
+!===
+!-- *Name* -- 
+
+Wetland
+
+!-- *Definition* -- 
+
+Wet area protected under GAEC 2.
+
+!-- *Description* -- 
+
+Area under a measure for protecting carbon-rich soils.
+!===
+|peatland a|
+!===
+!-- *Name* -- 
+
+Peatland
+
+!-- *Definition* -- 
+
+Peatland area protected under GAEC 2.
+
+!-- *Description* -- 
+
+Area under a measure for protecting carbon-rich soils.
+!===
+|riverBasinManagement a|
+!===
+!-- *Name* -- 
+
+River basin management
+
+!-- *Definition* -- 
+
+Areas included in river basin management plans pursuant to Directive 2000/60/EC eligible for rural development support as defined in the Strategic plans of the MS.
+
+!-- *Description* -- 
+
+Non-agricultural areas eligible for rural development measures supporting the Water Framework Directive. The measures may include buffer strips, investments in irrigation systems in sense of Art. 74 (2) and (4) of R (EU) 2021/2115, improving water quality, use of reclaimed water, etc.
+!===
+|natura2000 a|
+!===
+!-- *Name* -- 
+
+Natura 2000
+
+!-- *Definition* -- 
+
+Natura 2000 areas located on non-agricultural area, eligible for support under Rural development as defined in the Strategic plans of the MS.
+
+!-- *Description* -- 
+
+Includes forest areas designated pursuant to Directives 92/43/EEC and 2009/147/EC.
+!===
+|otherEnvironmentalRestriction a|
+!===
+!-- *Name* -- 
+
+Other environmental restriction
+
+!-- *Definition* -- 
+
+Non-agricultural area including forestry, which contribute to the implementation of Article 10 of Directive 92/43/EEC, provided that those areas do not exceed 5 % of the designated Natura 2000 areas covered by territorial scope of each CAP Strategic Plan.
+!===
+|environmentalClimate-relatedOther-Management-Commitments |As defined in Art. 70 of R. (EU) 2021/2115
+|naturalOrOtherArea-specificConstraints |As defined in Art. 71 of R. (EU) 2021/2115. It corresponds to "areas with natural/specific constraints" referred to in High Value Dataset Implementing Regulation R. (EU) 203/138
+|===
+
+====== EcoLandscapeElementTypeValue
+
+-- *Name*—
+
+Eco Landscape Element type value
+
+-- *Definition*-–
+
+Types of eco landscape elements.
+
+-- *Description* -- 
+
+Two types are foreseen: landscapeFeature and areaBasedEcoScheme.
+
+-- *Extensibility* -- 
+
+None.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/EcoLandscapeElementTypeValue
+
+*_[.underline]#Values#_*
+
+[width="100%",cols="23%,77%",options="header",]
+|===
+|*Name* |*Notes*
+|landscapeFeature a|
+!===
+!-- *Name* -- 
+
+Landscape Feature
+
+!-- *Definition* -- 
+
+Landscape Feature
+
+!-- *Description* -- 
+
+Landscape Feature
+!===
+|areaBasedEcoScheme a|
+!===
+!-- *Name* -- 
+
+Area-based eco-scheme
+
+!-- *Definition* -- 
+
+Area-based eco-schemes defined in Art. 31 of R. (EU) 2021/2115
+
+!-- *Description* -- 
+!===
+|===
+
+====== EcoLandscapeElementDesignationValue
+
+-- *Name*—
+
+Eco Landscape Element Designation value
+
+-- *Definition* –
+
+Designation of eco landscape elements, according to their type.
+
+-- *Description* -- 
+
+If EcoLandscapeElement type if landscapeFeature, the designation shall be taken from the LandscapeFeatureTypeValue codelist. If EcoLandScapeElement type is areBasedEcoScheme, the designation shall be taken from the AreaBasedEcoSchemeValue codelist.
+
+-- *Extensibility* -- 
+
+Any.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/EcoLandscapeElementDesignationValue
+
+*_[.underline]#Values#_*
+
+Values shall be selected from two different codelists, according to the value of the type of EcoLandscapeElement:
+
+* LandscapeFeatureTypeValue codelist (described in link:#landscapefeaturetypevalue[3.3.2.3.7]), if EcoLandscapeElementTypeValue is landscapeFeature
+* AreaBasedEcoSchemeValue codelist (described in link:#areabasedecoschemevalue[3.3.2.3.8]), if EcoLandscapeElementTypeValue is areBasedEcoScheme
+
+====== LandscapeFeatureTypeValue
+
+-- *Name* -- 
+
+Landscape feature value type
+
+-- *Definition* -- 
+
+Types of landscape features.
+
+-- *Description* -- 
+
+The code list can be extended by narrower values. The broad functional LF types have been defined by (Czucz et al. 2022)
+
+-- *Extensibility* -- 
+
+Narrower.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/LandscapeFeatureTypeValue
+
+*_[.underline]#Values#_*
+
+[width="97%",cols="24%,76%",options="header",]
+|===
+|*Name* |*Notes*
+|woody a|
+!===
+!-- *Name* -- 
+
+Woody
+
+!-- *Definition* -- 
+
+Functional LF feature type in sense of Section 1.2.2 of Czucz at al.
+
+!-- *Description* -- 
+
+Isolated trees, tree lines and avenues, hedges, woody strips, trees in group, field coppices and riparian woody vegetation.
+!===
+|grassy a|
+!===
+!-- *Name* -- 
+
+Grassy
+
+!-- *Definition* -- 
+
+Functional LF feature type in sense of Section 1.2.2 of Czucz et al.
+
+!-- *Description* -- 
+
+Grassy strips, field margins, embankments, buffer strips, grassed thalweg.
+!===
+|stony a|
+!===
+!-- *Name* -- 
+
+Stony
+
+!-- *Definition* -- 
+
+Functional LF feature type in sense of Section 1.2.2 of Czucz at al.
+
+!-- *Description* -- 
+
+Dry stone walls, terrace elements, rock outcrops, natural or artificial stacks of stone.
+!===
+|wet a|
+!===
+!-- *Name* -- 
+
+Wet
+
+!-- *Definition* -- 
+
+Functional LF feature type in sense of Section 1.2.2 of Czucz at al.
+
+!-- *Description* -- 
+
+Inland channels of fresh water, standing small water bodies such as natural or man-made ponds, ditches.
+!===
+|===
+
+====== AreaBasedEcoSchemeValue
+
+-- *Name* -- 
+
+Area-based EcoScheme Value
+
+-- *Definition* -- 
+
+Type of area-based eco-scheme (from art. 31 of R (EU) 2021/2115).
+
+-- *Description* -- 
+
+NOTE This code list is extensible at narrower level by the MS, to include eco-schemes defined in their Strategic Plans.
+
+-- *Extensibility* -- 
+
+Narrower.
+
+-- *Identifier* -- 
+
+https://mydomain/registry/codelist/AreaBasedEcoSchemeValue
+
+*_[.underline]#Values#_*
+
+[width="99%",cols="23%,77%",options="header",]
+|===
+|*Name* |*Notes*
+|R2021_1115_art31(4)(a) a|
+!===
+!-- *Name* -- 
+
+R2021_1115_art31(4)(a)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: climate change mitigation, including reduction of greenhouse gas emissions from agricultural practices, as well as maintenance of existing carbon stores and enhancement of carbon sequestration.
+
+!-- *Description* -- 
+!===
+|R2021_1115_art31(4)(b) a|
+!===
+!-- *Name* -- 
+
+R2021_1115_art31(4)(b)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: climate change adaptation, including actions to improve resilience of food production systems and animal and plant diversity for stronger resistance to diseases and climate change.
+
+!-- *Description* -- 
+!===
+|R2021_1115_art31(4)(c) a|
+!===
+!-- *Name* -- 
+
+R2021_1115_art31(4)(c)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: protection or improvement of water quality and reduction of pressure on water resources.
+
+!-- *Description* -- 
+!===
+|R2021_1115_art31(4)(d) a|
+!===
+!-- *Name* -- 
+
+R2021_1115_art31(4)(d)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: prevention of soil degradation, soil restoration, improvement of soil fertility and of nutrient management and soil biota.
+
+!-- *Description* -- 
+!===
+|R2021_1115_art31(4)(e) a|
+!===
+! --*Name*--
+R2021_1115_art31(4)(e)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: protection of biodiversity, conservation or restoration of habitats or species, including maintenance and creation of landscape features or non-productive areas.
+
+!-- *Description* -- 
+!===
+|R2021_1115_art31(4)(f) a|
+!===
+! --*Name*--
+R2021_1115_art31(4)(f)
+
+!-- *Definition* -- 
+
+Eco-scheme covering the following areas of action: actions for a sustainable and reduced use of pesticides, in particular pesticides that present a risk for human health or environment.
+
+!-- *Description* -- 
+!===
+|===
+
+====== NACEActivityValue
+
+-- *Name* -- 
+
+NACE activity value
+
+-- *Definition* -- 
+
+Type of economic activity for the site, according to NACE classification.
+
+-- *Description* -- 
+
+Type of economic activity for the site, according to NACE classification (The newest version is NACE revision 2 update 1 (NACE Rev. 2.1), which is to be used for European statistics from 2025 onwards. This was adopted by the European Commission in October 2022.)
+
+NOTE The activities shall be selected from the ones available in the Group 01.4 - Animal production.
+
+-- *Extensibility* -- 
+
+None.
+
+-- *Identifier* -- 
+
+https://showvoc.op.europa.eu/#/datasets/ESTAT_Statistical_Classification_of_Economic_Activities_in_the_European_Community_Rev._2.1._%28NACE_2.1%29/data
+
+*_[.underline]#Values#_*
+
+The values shall be selected from the ones available in the Group 01.4 - Animal production (http://publications.europa.eu/resource/authority/ux2/nace2.1/014[publications.europa.eu/resource/authority/ux2/nace2.1/014]):
+
+* 01.41: Raising of dairy cattle
+* 01.42 Raising of other cattle and buffaloes
+* 01.43 Raising of horses and other equines
+* 01.44 Raising of camels and camelids
+* 01.45 Raising of sheep and goats
+* 01.46 Raising of swine and pigs
+* 01.47 Raising of poultry
+* 01.48 Raising of other animals
+
+All the semantic details of each value are available at the corresponding uri (e.g. http://data.europa.eu/ux2/nace2.1/0141 for Raising of dairy cattle).
+
+====== EcologicalFocusAreaTypeValue
+
+-- *Name* -- 
+
+Ecological focus area type value
+
+-- *Definition* -- 
+
+Types of EFA as listed in Art. 46(2) of R (EU) 1307/2013.
+
+-- *Description* -- 
+
+MS shall decide that one or more values of this code list are considered to be ecological focus area.
+
+NOTE 1: The extension of this code list shall be documented in the eligibility profile of the MS/region in a register / registry service to publish the extended values and their definitions.
+
+NOTE 2. This concept is relevant only for period covered by CAP before 2023.
+
+*_[.underline]#Attributes#_*
+
+[width="99%",cols="16%,13%,71%",options="header",]
+|===
+|*Name* |*Type* |*Notes*
+|afforestedAreas | a|
+!===
+!-- *Name* -- 
+
+Afforested areas
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Afforested areas referred to in point (b)(ii) of Article 32(2) of R (EU) 1307/2013.
+!===
+|bufferStrips | a|
+!===
+!-- *Name* -- 
+
+Buffer strips
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Buffer strips, including those covered by permanent grassland, provided that these are distinct from adjacent eligible agricultural area [Art. 46(2) (d) of (EU) R 1307/2013].
+!===
+|hectaresOfArgoForestry | a|
+!===
+!-- *Name* -- 
+
+Hectares of agro-forestry
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU)1307/2013
+
+!-- *Description* -- 
+
+Hectares of agro-forestry
+
+- are those that receive, or have received, support under Article 44 of R (EC) 1698/2005 and/or Article 23 of R (EU) 1305/2013
+
+- shall be arable land eligible for the basic payment scheme or the single area payment scheme for which support under Article 44 of R (EC) 1698/2005 or Article 23 of R (EU) 1305/2013 was or is granted.
+!===
+|landscapeFeatureDitches | a|
+!===
+!-- *Name* -- 
+
+LF ditches
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, *ditches* with a maximum width of 6 meters, including open watercourses for the purpose of irrigation or drainage. Channels with walls of concrete shall not be considered ecological focus area. [Art. 45(3)(g) of (EU) R No 639/2014].
+
+NOTE : When this type of LF is protected under SMR 3, MS may specify other width based on national requirements.
+!===
+|landscapeFeatureFieldMargin | a|
+!===
+!-- *Name* -- 
+
+LF field margin
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, *field margin* with a width between 1 and 20 meters, on which there shall be no agricultural production. [Art. 45(3)(e) of R (EU) 639/2014].
+!===
+|landscapeFeatureGroupOfTrees | a|
+!===
+!-- *Name* -- 
+
+LF Group of trees
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, group of trees, where trees are connected by overlapping crown cover, and field copses of maximum 0.3 ha in both cases. [Art. 45(3)(d) of R (EU) 639/2014].
+!===
+|landscapeFeatureIsolatedTree | a|
+!===
+!-- *Name* -- 
+
+LF isolated tree
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, isolated tree with a crown diameter of minimum 4 meters. [Art. 45(3)(b) of R (EU) 639/2014].
+!===
+|landscapeFeatureOtherProtectedByGaecSmr | a|
+!===
+!-- *Name* -- 
+
+Other LF protected by GAEC or SMR.
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, other features not listed in this code list but protected under GAEC7, SMR 2 or SMR 3. [Art. 45(3)(a) of R (EU) 639/2014].
+!===
+|landscapeFeaturePonds | a|
+!===
+!-- *Name* -- 
+
+LF ponds
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, *ponds* of up to a maximum of 0.1 ha. Reservoirs made of concrete or plastic shall not be considered ecological focus area; [Art. 45(3)(f) of R (EU) 639/2014].
+!===
+|landscapeFeaturesHedgesWoodedStrips | a|
+!===
+!-- *Name* -- 
+
+LF hedges and wooded strips
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of (EU) R 1307/2013
+
+!-- *Description* -- 
+
+Landscape features: Hedges/wooded strips with a width of up to 10 meters [Art. 45(3)(a) of R (EU) 639/2014]
+
+NOTE : When such LF are protected under GAEC 7, SMR 2 and SMR 3, MS may specify other width based on national requirements.
+!===
+|landscapeFeatureTraditionalStoneWalls | a|
+!===
+!-- *Name* -- 
+
+LF traditional walls
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature *traditional stone walls*. [Art. 45(3)(a) of R (EU) 639/2014].
+!===
+|landscapeFeatureTreesInLine | a|
+!===
+!-- *Name* -- 
+
+LF trees in line
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013.
+
+!-- *Description* -- 
+
+Landscape feature, trees in line trees in line with a crown diameter of minimum 4 meters. The space between the crowns shall not exceed 5 meters. [Art. 45(3)(c) of R (EU) 639/2014].
+!===
+|stripsOfEligibleHectaresAlongForestEdgesWithoutProduction | a|
+!===
+!-- *Name* -- 
+
+Strips of eligible hectares without production
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013
+
+!-- *Description* -- 
+
+Strips of eligible hectares along forest edges without production.
+!===
+|terraces | a|
+!===
+!-- *Name* -- 
+
+Terraces
+
+!-- *Definition* -- 
+
+Ecological focus area type as defined by Art. 46(2) of R (EU) 1307/2013
+
+!-- *Description* -- 
+
+Terraces shall be terraces that:
+
+- are protected under GAEC 7 as referred to in Annex II to Regulation (EU) 640/2014;
+
+- other terraces established based on criteria defined by MS.
+!===
+|===
+
+<<<
+== Reference systems, units of measure and grids
+
+=== Default reference systems, units of measure and grid
+
+The reference systems, units of measure and geographic grid systems included in this sub-section are the defaults to be used for geoIACS datasets, similarly to all INSPIRE data sets, unless theme-specific exceptions and/or additional requirements are defined in section 6.2.
+
+==== Coordinate reference systems
+
+===== Datum
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 12*
+*Datum for three-dimensional and two-dimensional coordinate reference systems*
+
+For the three-dimensional and two-dimensional coordinate reference systems and the horizontal component of compound coordinate reference systems used for making spatial data sets available, the datum shall be the datum of the European Terrestrial Reference System 1989 (ETRS89) in areas within its geographical scope, or the datum of the International Terrestrial Reference System (ITRS) or other geodetic coordinate reference systems compliant with ITRS in areas that are outside the geographical scope of ETRS89. Compliant with the ITRS means that the system definition is based on the definition of the ITRS and there is a well-documented relationship between both systems, according to EN ISO 19111.
+====
+
+===== Coordinate reference systems
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 13*
+*Coordinate reference systems*
+
+Spatial data sets shall be made available using at least one of the coordinate reference systems specified below in sections paragraphs 1, .2 and 3, unless one of the conditions specified in paragraph 4 holds.
+
+[arabic]
+. *Three-dimensional Coordinate Reference Systems*
+
+** Three-dimensional Cartesian coordinates based on a datum specified in 1.2 and using the parameters of the Geodetic Reference System 1980 (GRS80) ellipsoid.
+
+** Three-dimensional geodetic coordinates (latitude, longitude and ellipsoidal height) based on a datum specified in 1.2 and using the parameters of the GRS80 ellipsoid.
+
+[arabic, start = 2]
+. *Two-dimensional Coordinate Reference Systems*
+
+** Two-dimensional geodetic coordinates (latitude and longitude) based on a datum specified in 1.2 and using the parameters of the GRS80 ellipsoid.
+
+*** Plane coordinates using the ETRS89 Lambert Azimuthal Equal Area coordinate reference system.
+
+*** Plane coordinates using the ETRS89 Lambert Conformal Conic coordinate reference system.
+*** Plane coordinates using the ETRS89 Transverse Mercator coordinate reference system.
+
+[arabic, start = 3]
+. *Compound Coordinate Reference Systems*
+
+-- 
+[arabic, start = 1]
+.. For the horizontal component of the compound coordinate reference system, one of the coordinate reference systems specified in section 1.3.2 shall be used.
+
+.. For the vertical component, one of the following coordinate reference systems shall be used:
+
+** For the vertical component on land, the European Vertical Reference System (EVRS) shall be used to express gravity-related heights within its geographical scope. Other vertical reference systems related to the Earth gravity field shall be used to express gravity-related heights in areas that are outside the geographical scope of EVRS.
+** For the vertical component in the free atmosphere, barometric pressure, converted to height using ISO 2533:1975 International Standard Atmosphere, or other linear or parametric reference systems shall be used. Where other parametric reference systems are used, these shall be described in an accessible reference using EN ISO 19111-2:2012.
+** For the vertical component in marine areas where there is an appreciable tidal range (tidal waters), the Lowest Astronomical Tide (LAT) shall be used as the reference surface.
+** For the vertical component in marine areas without an appreciable tidal range, in open oceans and effectively in waters that are deeper than 200 meters, the Mean Sea Level (MSL) or a well-defined reference level close to the MSL shall be used as the reference surface.
+-- 
+
+[arabic, start = 4]
+. *Other Coordinate Reference Systems*
+
+Exceptions, where other coordinate reference systems than those listed in 1, 2 or 3 may be used, are:
+
+[loweralpha]
+. Other coordinate reference systems may be specified for specific spatial data themes in this Annex.
+
+. For regions outside of continental Europe, Member States may define suitable coordinate reference systems.
+
+The geodetic codes and parameters needed to describe these coordinate reference systems and to allow conversion and transformation operations shall be documented and an identifier shall be created, according to EN ISO 19111 and ISO 19127.
+====
+
+===== Display
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 14*
+*Coordinate Reference Systems used in the View Network Service*
+
+For the display of spatial data sets with the view network service as specified in Regulation No 976/2009, at least the coordinate reference systems for two-dimensional geodetic coordinates (latitude, longitude) shall be available.
+====
+
+===== Identifiers for coordinate reference systems
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 15*
+*Coordinate Reference System Identifiers*
+
+. Coordinate reference system parameters and identifiers shall be managed in one or several common registers for coordinate reference systems.
+
+. Only identifiers contained in a common register shall be used for referring to the coordinate reference systems listed in this Section.
+====
+
+This TG proposes to use the http URIs provided by the Open Geospatial Consortium as coordinate reference system identifiers (see identifiers for the default CRSs below). These are based on and redirect to the definition in the EPSG Geodetic Parameter Registry (http://www.epsg-registry.org/).
+
+The identifiers listed in shall be used for referring to the coordinate reference systems used in a data set.
+
+NOTE CRS identifiers may be used e.g. in:
+
+* data encoding,
+* data set and service metadata, and
+* requests to INSPIRE network services
+
+[.text-center]
+*Table 2.* http URIs for the default coordinate reference systems
+
+[width="98%",cols="44%,18%,38%",options="header",]
+|===
+|*Coordinate reference system* |*Short name* |*http URI identifier*
+|3D Cartesian in ETRS89 |ETRS89-XYZ |_http://www.opengis.net/def/crs/EPSG/0/4936_
+|3D geodetic in ETRS89 on GRS80 |ETRS89-GRS80h |_http://www.opengis.net/def/crs/EPSG/0/4937_
+|2D geodetic in ETRS89 on GRS80 |ETRS89-GRS80 |_http://www.opengis.net/def/crs/EPSG/0/4258_
+|2D LAEA projection in ETRS89 on GRS80 |ETRS89-LAEA |_http://www.opengis.net/def/crs/EPSG/0/3035_
+|2D LCC projection in ETRS89 on GRS80 |ETRS89-LCC |_http://www.opengis.net/def/crs/EPSG/0/3034_
+|2D TM projection in ETRS89 on GRS80, zone 26N (30°W to 24°W) |ETRS89-TM26N |_http://www.opengis.net/def/crs/EPSG/0/3038_
+|2D TM projection in ETRS89 on GRS80, zone 27N (24°W to 18°W) |ETRS89-TM27N |_http://www.opengis.net/def/crs/EPSG/0/3039_
+|2D TM projection in ETRS89 on GRS80, zone 28N (18°W to 12°W) |ETRS89-TM28N |_http://www.opengis.net/def/crs/EPSG/0/3040_
+|2D TM projection in ETRS89 on GRS80, zone 29N (12°W to 6°W) |ETRS89-TM29N |_http://www.opengis.net/def/crs/EPSG/0/3041_
+|2D TM projection in ETRS89 on GRS80, zone 30N (6°W to 0°) |ETRS89-TM30N |_http://www.opengis.net/def/crs/EPSG/0/3042_
+|2D TM projection in ETRS89 on GRS80, zone 31N (0° to 6°E) |ETRS89-TM31N |_http://www.opengis.net/def/crs/EPSG/0/3043_
+|2D TM projection in ETRS89 on GRS80, zone 32N (6°E to 12°E) |ETRS89-TM32N |_http://www.opengis.net/def/crs/EPSG/0/3044_
+|2D TM projection in ETRS89 on GRS80, zone 33N (12°E to 18°E) |ETRS89-TM33N |_http://www.opengis.net/def/crs/EPSG/0/3045_
+|2D TM projection in ETRS89 on GRS80, zone 34N (18°E to 24°E) |ETRS89-TM34N |_http://www.opengis.net/def/crs/EPSG/0/3046_
+|2D TM projection in ETRS89 on GRS80, zone 35N (24°E to 30°E) |ETRS89-TM35N |_http://www.opengis.net/def/crs/EPSG/0/3047_
+|2D TM projection in ETRS89 on GRS80, zone 36N (30°E to 36°E) |ETRS89-TM36N |_http://www.opengis.net/def/crs/EPSG/0/3048_
+|2D TM projection in ETRS89 on GRS80, zone 37N (36°E to 42°E) |ETRS89-TM37N |_http://www.opengis.net/def/crs/EPSG/0/3049_
+|2D TM projection in ETRS89 on GRS80, zone 38N (42°E to 48°E) |ETRS89-TM38N |_http://www.opengis.net/def/crs/EPSG/0/3050_
+|2D TM projection in ETRS89 on GRS80, zone 39N (48°E to 54°E) |ETRS89-TM39N |_http://www.opengis.net/def/crs/EPSG/0/3051_
+|Height in EVRS |EVRS |_http://www.opengis.net/def/crs/EPSG/0/5730_
+|3D compound: 2D geodetic in ETRS89 on GRS80, and EVRS height |ETRS89-GRS80-EVRS |_http://www.opengis.net/def/crs/EPSG/0/7409_
+|===
+
+<<<
+== Data quality
+
+This section contains the data quality (DQ) elements referred to in the INSPIRE Data Specifications and applied to geoIACS datasets.
+
+Even though IACS Quality Assessment (QA) is out of the scope of this TG and remains regulated by the related CAP legal provisions and technical documentation, the content of this section contributes to improve the overall quality of IACS data. Moreover, geoIACS data model helps significantly MS fulfil some of their QA obligations, as shown in Annex 3.
+
+In particular, the DQ elements, sub-elements and measures specified in section link:#data-quality-elements[5.1] should be used for:
+
+* evaluating and documenting DQ properties and constraints of spatial objects, where such properties or constraints are defined as part of the application schema (see section link:#data-content-and-structure[3]),
+* evaluating and documenting DQ metadata elements of spatial data sets (see section link:#dataset-level-metadata[6]), and/or
+* specifying minimum requirements or recommendations on the DQ (see sections link:#minimum-data-quality-requirements[5.2]).
+
+The information about data quality is generally documented in related metadata elements. However it is given the possibility to the geoIACS data providers to document the DQ information in a unique standalone report, whose link can be provided in the Abstract metadata element.
+
+=== Data quality elements
+
+In this section, the DQ elements applied to the geoIACS datasets are described, providing also an alignment with the LPIS QA process detailed in the corresponding Technical guidancefootnote:[https://marswiki.jrc.ec.europa.eu/wikicap/images/1/16/6_1_Annex_I_QC_measures_20160701.pdf], a.k.a ETS guidance.
+
+The DQ elements and measures are based on Annex D of ISO 19157 Geographic information – Data quality and ISO 2859-2:1985 Sampling procedures for inspection by attributes — Part 2: Sampling plans indexed by limiting quality (LQ) for isolated lot inspection.
+
+A mapping among the INSPIRE/ISO 19157 based DQ elements and the related LPIS QA is provided in *Table 3*. In addition to the DQ elements used in LPIS QA, Logical consistency with the Domain consistency sub-element is also included. This latter is evaluated based on the adherence of the geoIACS datasets to the schema described in Section link:#data-content-and-structure[3].
+
+[.text-center]
+*Table 3.* Data quality elements used in geoIACS datasets
+
+[width="100%",cols="14%,17%,16%,<19%,<15%,<19%",options="header",]
+|===
+|*Section* <|*Data quality element* <|*Data quality sub-element* |*Definition (according to ISO 19157)* |*Evaluation Scope* |*Reference*
+|link:#completeness-commission[5.1.1] |Completeness |Commission <|Excess data present in the dataset, as described by the scope. <|spatial object type <|QE3 of the LPIS ETS guidance
+|link:#logical-consistency-domain-consistency[5.1.2] |Logical consistency |Domain consistency <|Adherence of values to the value domains. <|spatial object <|Application schemas in section 3.
+|link:#logical-consistency-topological-consistency[5.1.3] |Logical consistency |Topological consistency <|Correctness of the explicitly encoded topological characteristics and rules of the dataset, as described by the scope |spatial object <|If applicable: application schemas of the local implementations of the MS.
+|link:#data-quality-positional-accuracy-absolute-or-external-accuracy[5.1.4] |Positional accuracy <|Absolute or external accuracy <|closeness of reported coordinate values to values accepted as or being true |dataset <|Art. 68(1) of Regulation 2021/2116 (1:5000 equivalent scale)
+|link:#data-quality-positional-accuracy-relative-or-internal-accuracy[5.1.5] |Positional accuracy <|Relative or internal accuracy <|Closeness of reported coordinate values to values accepted as or being true |dataset |
+|link:#data-quality-thematic-accuracy-quantitative-attribute-accuracy-- -percentage[5.1.6] |Thematic 
+accuracy <|Quantitative attribute accuracy - percentage <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
+|link:#data-quality-thematic-accuracy-quantitative-attribute-accuracy-- -conformance[5.1.7] |Thematic 
+accuracy |Quantitative attribute accuracy – conformance <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
+|===
+
+_Source:_ INSPIRE Data Specifications.
+
+[NOTE]
+====
+*_TG Recommendation 3_*
+*Quantitative evaluation of data quality elements*
+
+Where it is impossible to express the evaluation of a data quality element in a quantitative way, the evaluation of the element should be expressed with a textual statement as a data quality descriptive result.
+====
+
+The following subsections include the documentation of the data quality elements according to the standard documentation of ISO 19157. The measure identifiers included in the tables are the references from this standard.
+
+==== Completeness – Commission
+
+Data quality element 3 (QE3) aggregated at the level of the LPIS dataset informs about the reference parcels with critical defects. These reference parcels either holds a fundamental effect regarding the eligibility, in particular:
+
+* in delineation of eligible area, or
+* including such instances of a feature type that don't have any eligibility ground (parcels that don't include agricultural area, or non-agricultural eligible area)
+
+These extra items in the LPIS dataset can be documented with the Commission data quality element according to ISO 19157.
+
+
+[NOTE]
+====
+*_TG Recommendation 4_*
+*Commission*
+
+Commission should be evaluated and documented using *excess item* as specified in the table below.
+====
+
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Excess item*
+|Alternative name |-
+|Data quality element |completeness
+|Data quality sub-element |commission
+|Data quality basic measure |error indicator
+|Definition |indication that an item is incorrectly present in the data
+|Description |-
+|Evaluation scope |spatial objects: ReferenceParcel
+|Reporting scope |data set: geoIACS
+|Parameter |-
+|Data quality value type |Boolean (true indicates that the item is in excess)
+|Data quality value structure |-
+|Source reference |ISO 19157 Geographic information – Data quality
+|Example a|
+Presence of excess items in a dataset:
+
+* Two reference parcels with critical defects have been found in the inspected sample.
+
+|Measure identifier |1
+|===
+
+==== Logical consistency – Domain consistency
+
+[NOTE]
+====
+*_TG Recommendation 5_*
+*Domain consistency*
+
+Domain consistency should be evaluated and documented using _value domain non-compliance_ as specified in the table below.
+====
+
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Value domain non-conformance*
+<|Alternative name <|-
+<|Data quality element <|logical consistency
+<|Data quality sub-element <|domain consistency
+<|Data quality basic measure <|error indicator
+<|Definition <|indication of if an item is not in conformance with its value domain
+<|Description <|-
+<|Evaluation scope <|spatial objects: NonAgriculturalReferenceArea, ReferenceParcel, AgriculturalParcel, EcoLandscapeElement, EcologicalFocusArea
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Boolean (true indicates that an item is not in conformance with its value domain)
+<|Data quality value structure |-
+<|Source reference <|ISO 19157 Geographic information – Data quality
+<|Example <a|
+Presence of extra items in a non-extensible code list violating domain consistency:
+
+- Code list contains values out of attribute domain (e.g. non existing class codes)
+
+<|Measure identifier <|14
+<|Comment <|The evaluation is done against the LPIS/GSA data models as presented in Section 3 of this TG.
+|===
+
+==== Logical Consistency – Topological consistency
+
+This DQ element can be evaluated and reported when topology is directly encoded in the dataset. Such encoding is not specified in the data model presented in section 3. Nevertheless, the local implementations in the MS may include such encoding.
+
+[NOTE]
+====
+*_TG Recommendation 6_*
+*Topological consistency*
+
+Topological consistency should be evaluated and documented using *number of invalid self-intersect errors, number of overlaps and number of slivers* as specified in the table below.
+====
+
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Number of invalid self-intersect errors*
+<|Alternative name <|loops
+<|Data quality element <|logical consistency
+<|Data quality sub-element <|topological consistency
+<|Data quality basic measure <|error count
+<|Definition <|count of all items in the data that illegally intersect with themselves
+<|Description <|-
+<|Evaluation scope <|spatial objects: ReferenceParcel, EcologicalFocusArea, NonAgriculturalEligibleArea, EcoLandscapeElement AgriculturalParcel
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Integer
+<|Data quality value structure |-
+<|Source reference <|ISO 19157 Geographic information – Data quality
+<|Example <|Number of loops („figure eight" forming AgriculturalParcel polygons) present
+<|Measure identifier <|26
+<|Comment <|This measure is applicable to EcologicalFocusArea and EcoLandscapeElement only if they are represented with GM_surface.
+|===
+
+==== Data Quality – Positional accuracy – Absolute or external accuracy
+
+[NOTE]
+====
+*_TG Recommendation 7_*
+*Absolute or external accuracy*
+
+Absolute or external accuracy should be evaluated and documented using *root mean square error of planimetry* as specified in the table below.
+====
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Root mean square error of planimetry*
+<|Alternative name <|RMSEP
+<|Data quality element <|positional accuracy
+<|Data quality sub-element <|absolute or external accuracy
+<|Data quality basic measure <|-
+<|Definition <|radius of a circle around the given point, in which the true value lies with probability P.
+<|Description <|-
+<|Evaluation scope <|spatial objects: ReferenceParcel, EcologicalFocusArea, NonAgriculturalEligibleArea, EcoLandscapeElement AgriculturalParcel
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Real
+<|Data quality value structure |-
+<|Source reference <|ISO/DIS 19157 Geographic information – Data quality
+<|Example <|Absolute or external positional accuracy of LPIS/GSA data can be determined based on control points directly measured on the terrain by and independent method (e.g. GPS measurement, surveying).
+<|Measure identifier <|47
+<|Comment <|This measure is applicable to EcologicalFocusArea and LandscapeFeature only if they are represented with GM_surface.
+|===
+
+==== Data Quality – Positional accuracy – Relative or internal accuracy
+
+[NOTE]
+====
+*_TG Recommendation 8_*
+*Relative or internal accuracy*
+
+Relative or internal accuracy should be evaluated and documented using *root mean square error of planimetry* as specified in the table below.
+====
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Root mean square error of planimetry*
+<|Alternative name <|RMSEP
+<|Data quality element <|positional accuracy
+<|Data quality sub-element <|relative or internal accuracy
+<|Data quality basic measure <|-
+<|Definition <|radius of a circle around the given point, in which the true value lies with probability P
+<|Description <|-
+<|Evaluation scope <|spatial objects: ReferenceParcel, EcologicalFocusArea, NonAgriculturalEligibleArea, EcoLandscapeElement AgriculturalParcel
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Real
+<|Data quality value structure |-
+<|Source reference <|ISO 19157 Geographic information – Data quality
+<|Example <|Relative or internal accuracy of LPIS/GSA data is usually determined as the accuracy of delineation of LPIS/GSA boundaries relative to the underlying Earth Observation imagery which serves as basis for derivation of the LPIS/GSA data.
+<|Measure identifier <|47
+<|Comment <|This measure is applicable to EcologicalFocusArea and LandscapeFeature only when they are represented with GM_surface.
+|===
+
+==== Data Quality – Thematic accuracy – Quantitative attribute accuracy - percentage
+
+[NOTE]
+====
+*_TG Recommendation 9_*
+*Quantitative attribute accuracy*
+
+Thematic accuracy should be evaluated and documented using *Quantitative attribute accuracy - percentage* as specified in the table below.
+====
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Quantitative attribute accuracy - percentage*
+<|Alternative name <|QE1a - percentage
+<|Data quality element <|thematic accuracy
+<|Data quality sub-element <|Quantitative attribute accuracy - percentage
+<|Data quality basic measure <|Percentage of correctly quantified area
+<|Definition <|Percentage of the eligible hectares as observed, with respect to all eligible hectares recorded
+<|Description <|-
+<|Evaluation scope <|spatial objects: ReferenceParcel,
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Real
+<|Data quality value structure |-
+<|Source reference <|LPIS Technical Guidance for ETS
+<|Example <|The rate of missing agricultural area is 0.24
+<|Measure identifier <|10201
+|===
+
+==== Data Quality – Thematic accuracy – Quantitative attribute accuracy - conformance
+
+[NOTE]
+====
+*_TG Recommendation 10_*
+*Non-quantitative attribute accuracy*
+
+Non-quantitative attribute accuracy should be evaluated and documented using *Quantitative attribute accuracy - conformance* as specified in the table below.
+====
+
+[width="99%",cols="34%,66%",]
+|===
+|*Name* |*Quantitative attribute accuracy - conformance*
+<|Alternative name <|QE1a - conformance
+<|Data quality element <|thematic accuracy
+<|Data quality sub-element <|Quantitative attribute accuracy - conformance
+<|Data quality basic measure <|pass
+<|Definition <|Closeness of the value of a quantitative attribute to a value accepted or known to be true.
+<|Description <|-
+<|Evaluation scope <|spatial objects: ReferenceParcel
+<|Reporting scope <|data set: geoIACS
+<|Parameter <|-
+<|Data quality value type <|Boolean
+<|Data quality value structure |-
+<|Source reference <|ISO/DIS 19157 Geographic information – Data quality
+<|Example <|Pass: true
+<|Measure identifier <|10201
+|===
+
+=== Minimum data quality requirements
+
+Minimum quality requirements are defined for the following data quality elements:
+
+* Positional accuracy
+* Completeness – Commission
+* Thematic accuracy – Quantitative and qualitative attribute accuracy (percentage and conformance)
+
+A general requirement against the geoIACS datasets stipulated by Art. 68(1) or R (EU) 2021/2116 is that they have to fulfil the requirements of positional accuracy of mapping in scale 1:5000.
+
+As for Completeness and Thematic accuracy please refer to the ETS guidancefootnote:[https://marswiki.jrc.ec.europa.eu/wikicap/images/1/16/6_1_Annex_I_QC_measures_20160701.pdf].
+
+<<<
+== Dataset level metadata
+
+This section specifies dataset-level metadata elements to be used for documenting metadata of a geoIACS dataset or dataset series.
+
+These metadata elements are grouped into two main categories:
+
+* metadata elements defined in INSPIRE Metadata Regulation 1205/2008/EC (so called "metadata for discovery"),
+* metadata elements defined in Article 13 "Metadata required for Interoperability" of Regulation 1089/2010 and its amendment Regulation 1253/2013 (so called "metadata for interoperability").
+
+Regarding metadata of a geoIACS dataset or dataset series, the fulfilment of the requirements contained in "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007"footnote:[https://github.com/INSPIRE-MIF/technical-guidelines/tree/main/metadata/metadata-iso19139], is mandatory and the adoption of the Recommendations contained in the above-mentioned Technical Guidance is suggested. The requirements and recommendations contained in the above-mentioned Technical Guidance are hereafter referred to as "INSPIRE metadata requirements and recommendations".
+
+Instructions about how to apply to geoIACS metadata some of the INSPIRE metadata requirements and recommendations, as well as requirements and recommendations additional to the INSPIRE ones are provided in this section.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 16*
+*Application of INSPIRE metadata requirements*
+
+The metadata of geoIACS datasets or dataset series shall fulfil all the TG requirements of the "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007".
+====
+
+[NOTE]
+====
+*_TG Recommendation 11_*
+*Application of INSPIRE metadata recommendations*
+
+The metadata of geoIACS datasets or dataset series should follow all the TG recommendations of the "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007".
+====
+
+Regarding the publication of metadata of geoIACS datasets or dataset series, there are several options to be adopted by MS, according to how the publication of metadata of geospatial datasets is handled in each country, e.g. if the Paying Agency operates or not a discovery service. Different geoIACS metadata publication scenarios may exist, each of them implying different workflows involving different actors with different roles. However, independently from the scenario applied, geoIACS datasets or dataset series shall be discoverable in the MS national geoportals.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 17*
+*Publication of metadata of geoIACS datasets or dataset series*
+
+Independently from the scenario applied by each MS to publish the metadata of geoIACS datasets or dataset series, geoIACS datasets or dataset series shall be discoverable in the MS national geoportal.
+====
+
+=== Metadata elements defined in INSPIRE Metadata Regulation
+
+*Table 4* gives an overview of the metadata elements specified in Regulation 1205/2008/EC (implementing Directive 2007/2/EC of the European Parliament and of the Council as regards metadata).
+
+The table contains the following information:
+
+* The first column provides a reference to the relevant section in the Metadata Regulation, which contains a more detailed description.
+* The second column specifies the name of the metadata element.
+* The third column specifies the multiplicity.
+* The fourth column specifies the condition, under which the given element becomes mandatory.
+
+[.text-center]
+*Table 4.* Metadata elements defined in the INSPIRE Metadata Regulation
+
+[width="99%",cols="18%,30%,17%,35%",options="header",]
+|===
+^|*Metadata Regulation Section* ^|*Metadata element* ^|*Multiplicity* ^|*Condition*
+<|1.1 <|Resource title ^|1 <|
+<|1.2 <|Resource abstract ^|1 <|
+<|1.3 <|Resource type ^|1 <|
+<|1.4 <|Resource locator ^|0..* <|Mandatory if a URL is available to obtain more information on the resource, and/or access related services.
+<|1.5 <|Unique resource identifier ^|1..* <|
+<|1.7 <|Resource language ^|0..* <|Mandatory if the resource includes textual information.
+<|2.1 <|Topic category ^|1..* <|
+<|3 <|Keyword ^|1..* <|
+<|4.1 <|Geographic bounding box ^|1..* <|
+<|5 <|Temporal reference ^|1..* <|
+<|6.1 <|Lineage ^|1 <|
+<|6.2 <|Spatial resolution ^|0..* <|Mandatory for data sets and data set series if an equivalent scale or a resolution distance can be specified.
+<|7 <|Conformity ^|1..* <|
+<|8.1 <|Conditions for access and use ^|1..* <|
+<|8.2 <|Limitations on public access ^|1..* <|
+<|9 <|Responsible organisation ^|1..* <|
+<|10.1 <|Metadata point of contact ^|1..* <|
+<|10.2 <|Metadata date ^|1 <|
+<|10.3 <|Metadata language ^|1 <|
+|===
+
+==== Resource title
+
+The resource title of a geoIACS dataset should relate to an LPIS lot, if lots are applicable in the country. The reason is that the lot has a unique data product specification and geographic extent, which can be described by a single metadata file. When the LPIS is homogenous all over the country/region, there is no need to indicate the lot in the title.
+
+Any newly produced or upgraded geoIACS dataset should be distinguished with an unambiguous title. For sake of clarity, the title shall provide a reference to the MS and if applicable, to its region. If needed, additional information may be added to the title.
+
+EXAMPLE: geoIACS of Belgium (Wallonia region)
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 18*
+*geoIACS resource title*
+
+An unambiguous title containing the name of the Member State and the claim year(s) shall be given to a geoIACS dataset or dataset series. When applicable, the title shall also contain the name of the lot and a reference to the region.
+====
+
+==== Resource abstract
+
+The resource abstract is a short narrative describing the content and the main properties of the dataset or dataset series. In case of historic data, the abstract should also refer to the validity period, i.e. the time when the dataset was in official use.
+
+[NOTE]
+====
+*_TG Recommendation 12_*
+*Abstract of geoIACS historic datasets*
+
+The abstract of geoIACS historic datasets should refer to the validity period.
+====
+
+[NOTE]
+====
+*_TG Recommendation 13_*
+*Abstract of geoIACS historic dataset series*
+
+The description of a geoIACS historic dataset series should refer to the dates or creation years of the datasets included in the series.
+====
+
+[NOTE]
+====
+*_TG Recommendation 14_*
+*Legal references in the abstract*
+
+The abstract of the geoIACS datasets or dataset series should contain references to the national and European law under which the datasets have been created.
+
+====
+
+==== Resource type
+
+The possible values for are either dataset or series.
+
+==== Resource locator
+
+This metadata element provides information about the spatial data services that makes the data resource accessible. The URL provided in this metadata element may point to a download or view service. It should not point to a general information web page of the operating or other organization.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 19*
+*geoIACS resource locator*
+
+The resource locator metadata element of a geoIACS dataset or dataset series shall point to a spatial data service, where the geoIACS resource can be directly accessed.
+====
+
+==== Unique resource identifier
+
+A unique identifier shall be given for each described geoIACS dataset or dataset series. This identifier shall be a URI consisting of a namespace uniquely identifying a naming context governed by an identifier authority, and a code unique within this namespace.
+
+==== Resource language
+
+The language(s) used in the geoIACS resource shall be given.
+
+==== Topic category
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 20*
+*geoIACS topic category*
+
+The geoIACS datasets and series shall be assigned to the "farming" topic category.
+====
+
+==== Keyword
+
+Keywords help the users find the data that they are looking for. Therefore, keywords should be meaningful and well known. Controlled vocabularies standardise and disseminate keywords to the targeted audiences. From the point of view of IACS the most relevant vocabularies are GEMET, which is adopted by INSPIRE and AGROVOC, maintained by UN FAO. In addition to controlled vocabularies, free keywords can be also used, as the multiplicity of the keyword metadata element is one to many (1..*).
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 20*
+*INSPIRE data themes for geoIACS datasets or series*
+
+The three keywords corresponding to the INSPIRE data themes associated to geoIACS datasets or series shall be: "Land Cover", "Land Use", "Agricultural and Aquaculture Facilities".
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 21*
+*Mandatory keywords from GEMET for geoIACS datasets or series*
+
+The following three keywords contained in the GEMET vocabulary shall be assigned to geoIACS datasets or series: "Common Agricultural Policy", "agriculture", "agricultural land".
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 22*
+*Other mandatory keywords for geoIACS datasets or series*
+
+The following additional keywords shall be assigned to geoIACS datasets or series: "IACS", "geoIACS" and all the spatial objects actually contained in the dataset or series: "reference parcel", "agricultural parcel", "non-agricultural eligible area", "eco-landscape element", "site", "ecological focus area".
+====
+
+==== Geographic bounding box
+
+No specific considerations to geoIACS apply.
+
+==== Temporal reference
+
+According to INSPIRE, at least one of the following values should be used:
+
+* temporal extent of the described resource,
+* date of publication,
+* date of last revision or,
+* date of creation.
+
+In the IACS realm the two main events that have an impact on the life cycle of the dataset - and thus on the values of temporal references - are the upgrades and updates. An upgrade is a production of a geoIACS dataset according to new specifications, whilst an update occurs when instances of the various feature types in the dataset are created, deleted. or modified.
+
+[NOTE]
+====
+*_TG Recommendation 15_*
+*Recommended value of the temporal reference of geoIACS datasets*
+
+The temporal references of geoIACS dataset shall include the date of creation.
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 24*
+*Mandatory value of the temporal reference type of the geoIACS datasets*
+
+The temporal references of geoIACS datasets shall contain at least the date of last revision.
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 25*
+*Updating the value of the last revision date metadata element for a geoIACS dataset*
+
+Sharing an updated geoIACS dataset shall trigger an update of the value of the last revision metadata element.
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 26*
+*Value of last revision date of geoIACS datasets*
+
+In case of a geoIACS dataset update related to the yearly GSA, the value of the last revision shall correspond to the date within the campaign year, when the last change is validated.
+====
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 27*
+*Minimum frequency of publishing the updated geoIACS datasets*
+
+The updated geoIACS datasets, together with the updated metadata, shall be published within 6 months from the validation of the last change in the dataset.
+====
+
+Following a step-wise approach of spatial data sharing, the data owners have to ensure the publication of the most current dataset and are encouraged to provide historic (past) versions too. The step-wise implementation is at the same time an incremental approach too. Therefore, sharing a new version of a dataset should not result in withdrawing the previous ones.
+
+[NOTE]
+====
+*_TG Recommendation 16_*
+*Accessibility of historic geoIACS datasets*
+
+The accessibility of historic versions of geoIACS datasets should be maintained.
+====
+
+TG requirements provided from TG Requirement 24 to TG Requirement 27 address the temporal references relevant for geoIACS datasets. In case of geoIACS dataset series, the temporal reference should be described in one common metadata record for all datasets using the temporal extent as a temporal reference.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 28*
+*Temporal reference of geoIACS dataset series*
+
+In case of geoIACS dataset series, requirements from TG Requirement 23 to TG Requirement 26 do not apply and the temporal reference shall be described in one common metadata record for all datasets using the temporal extent as a temporal reference.
+====
+
+==== Lineage
+
+This free-text element should contain information on the source data used and the main transformation steps that took place in creating the current dataset or dataset series.
+
+==== Spatial resolution
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 29*
+*Spatial resolution of geoIACS datasets*
+
+The spatial resolution of geoIACS datasets shall be at least 1:5.000. Finer spatial resolutions are accepted.
+====
+
+
+==== Conformity
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 30*
+*Specifications against which to evaluate conformity of geoIACS datasets*
+
+The only specifications against which the conformity of geoIACS datasets shall be evaluated and reported is this TG.
+====
+
+==== Conditions applying to access and use
+
+Besides the information required by the INSPIRE metadata requirements, information related to the existence of any possible confidentiality clause referred to in section link:#confidentiality-clauses[7.4] shall be described here, as free text or providing the link to a publicly accessible document containing the description.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 31*
+*Information about confidentiality clauses on geoIACS datasets*
+
+Where confidentiality clause referred to in section 7.4 exist, they shall be described as free text or providing the link to a publicly accessible document containing the description.
+====
+
+==== Limitations on public access
+
+No specific considerations to geoIACS apply.
+
+==== Responsible organisation
+
+No specific considerations to geoIACS apply.
+
+==== Metadata point of contact
+
+[NOTE]
+====
+*_TG Recommendation 17_*
+*Metadata point of contact for geoIACS datasets*
+
+The responsible party for production of the metadata for the geoIACS datasets should be the custodians of the geoIACS datasets.
+====
+
+==== Metadata date
+
+No specific considerations to geoIACS apply.
+
+==== Metadata language
+
+No specific considerations to geoIACS apply.
+
+=== Metadata elements for interoperability
+
+The metadata describing a spatial dataset shall include the following metadata elements required for interoperability:
+
+* Coordinate Reference System: Description of the coordinate reference system(s) used in the data set.
+* Temporal Reference System: Description of the temporal reference system(s) used in the data set. This element is mandatory only if the spatial data set contains temporal information that does not refer to the default temporal reference system.
+* Encoding: Description of the computer language construct(s) specifying the representation of data objects in a record, file, message, storage device or transmission channel.
+* Topological Consistency: Correctness of the explicitly encoded topological characteristics of the data set as described by the scope. This element is mandatory only if the data set includes types from the Generic Network Model and does not assure centreline topology (connectivity of centrelines) for the network.
+* Character Encoding: The character encoding used in the data set. This element is mandatory only if an encoding is used that is not based on UTF-8.
+* Spatial Representation Type: The method used to spatially represent geographic information.
+
+Regarding metadata of a geoIACS dataset or dataset series, similarly to what required for the metadata elements described in section link:#metadata-elements-defined-in-inspire-metadata-regulation[6.1], also for the metadata elements described in this section the fulfilment of the requirements contained in "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007" is mandatory and the adoption of the Recommendations contained in the above-mentioned Technical Guidance is suggested.
+
+No specific considerations to geoIACS apply, nor additional requirements and recommendations are provided.
+
+=== Metadata documenting Data Quality
+
+Quality of geoIACS datasets or dataset series is assessed using the DQ elements described in section link:#data-quality-elements[5.1] and may be documented using metadata in two alternative ways:
+
+* using the encoding specified by ISO 19115 for each DQ element, or
+* using a free text comprehensive standalone quality report, containing a description of the data quality assessment framework, of the data quality scope, methodology, findings and analysis.
+
+[NOTE]
+====
+*_TG Recommendation 18_*
+*Documenting Data Quality of geoIACS datasets*
+
+geoIACS Data Quality should documented in a standalone quality report that should be downloadable at a link to be provided in the Resource Abstract metadata element.
+====
+
+<<<
+== Delivery
+
+=== Updates
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 32*
+*Updates*
+
+. Member States shall make available updates of data on a regular basis.
+
+. All updates shall be made available at the latest 6 months after the change was applied in the source data set.
+====
+
+=== Delivery medium
+
+According to Article 11(1) of the INSPIRE Directive, Member States shall establish and operate a network of services for INSPIRE spatial data sets and services. The relevant network service types for making spatial data available are:
+
+* view services making it possible, as a minimum, to display, navigate, zoom in/out, pan, or overlay viewable spatial data sets and to display legend information and any relevant content of metadata;
+* download services, enabling copies of spatial data sets, or parts of such sets, to be downloaded and, where practicable, accessed directly;
+* transformation services, enabling spatial data sets to be transformed with a view to achieving interoperability.
+
+For the relevant requirements and recommendations for network services, see the relevant INSPIRE Implementing Rules and Technical Guidelines available at https://github.com/INSPIRE-MIF/technical-guidelines/tree/main/services.
+
+EXAMPLE 1 Through the Get Spatial Objects function, a download service can either download a pre-defined data set or pre-defined part of a data set (non-direct access download service), or give direct access to the spatial objects contained in the data set, and download selections of spatial objects based upon a query (direct access download service). To execute such a request, some of the following information might be required:
+
+* the list of spatial object types and/or predefined data sets that are offered by the download service (to be provided through the Get Download Service Metadata operation),
+* and the query capabilities section advertising the types of predicates that may be used to form a query expression (to be provided through the Get Download Service Metadata operation, where applicable),
+* a description of spatial object types offered by a download service instance (to be provided through the Describe Spatial Object Types operation).
+
+EXAMPLE 2 Through the Transform function, a transformation service carries out data content transformations from native data forms to the INSPIRE-compliant form and vice versa. If this operation is directly called by an application to transform source data (e.g. obtained through a download service) that is not yet conformant with this data specification, the following parameters are required:
+
+Input data (mandatory). The data set to be transformed.
+
+* Source model (mandatory, if cannot be determined from the input data). The model in which the input data is provided.
+* Target model (mandatory). The model in which the results are expected.
+* Model mapping (mandatory, unless a default exists). Detailed description of how the transformation is to be carried out.
+
+For bulk download of harmonised geoIACS datasets and series, an Atom Implementation of Pre-defined Dataset Download Service, adhering to the instructions contained in the Section 5 of the Technical Guidance for the implementation of INSPIRE Download Servicesfootnote:[https://github.com/INSPIRE-MIF/technical-guidelines/tree/main/services/download-atom-wfs], is recommended. An example is provided in Annex 4.
+
+[NOTE]
+====
+*_TG Recommendation 19_*
+*Atom Implementation of Pre-defined Dataset Download Service*
+
+An Atom Implementation of Pre-defined Dataset Download Service, adhering to the instructions contained in the Section 5 of the Technical Guidance for the implementation of INSPIRE Download Services, is recommended for bulk download of harmonised geoIACS datasets and series.
+====
+
+To enable HVD machine readability and provision via APIs, harmonised geoIACS datasets and series should be made accessible via APIs. An example is provided in Annex 4.
+
+[NOTE]
+====
+*_TG Recommendation 20_*
+*Harmonised geoIACS datasets and series accessibility via APIs*
+
+Harmonised geoIACS datasets and series should be made accessible via APIs.
+====
+
+=== Encodings
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 33*
+*Encoding*
+
+. Every encoding rule used to encode spatial data shall conform to EN ISO 19118. In particular, it shall specify schema conversion rules for all spatial object types and all attributes and association roles and the output data structure used.
+
+. Every encoding rule used to encode spatial data shall be made available.
+====
+
+ISO 19118:2011 specifies the requirements for defining encoding rules used for interchange of geographic data within the set of International Standards known as the "ISO 19100 series". An encoding rule allows geographic information defined by application schemas and standardised schemas to be coded into a system-independent data structure suitable for transport and storage. The encoding rule specifies the types of data being coded and the syntax, structure and coding schemes used in the resulting data structure. Specifically, ISO 19118:2011 includes:
+
+* requirements for creating encoding rules based on UML schemas,
+* requirements for creating encoding services, and
+* requirements for XML-based encoding rules for neutral interchange of data.
+
+This TG proposes to make geoIACS datasets available at least in the default encoding(s) specified in section link:#default-encodings[7.3.1]. In this section, a number of TG requirements are listed that need to be met in order to be conformant with the default encoding(s).
+
+The proposed default encoding(s) are conformant with ISO 19118.
+
+==== Default Encoding(s)
+
+===== Specific requirements for GML encoding
+
+This data specification proposes the use of GML as the default encoding, as recommended in sections 7.2 and 7.3 of DS-D2.7 - Guidelines for the encoding of spatial data (INSPIRE Data Specifications Drafting Team 2010). GML is an XML encoding in compliance with ISO 19118. For details, see [ISO 19136], and in particular Annex E (UML-to-GML application schema encoding rules).
+
+The following TG requirements need to be met in order to be conformant with GML encodings.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 34*
+*Default encoding*
+
+Data instance (XML) documents shall validate without error against the provided XML schema.
+====
+
+Not all constraints defined in the application schemas can be mapped to XML. Therefore, the following requirement is necessary.
+
+NOTE The obligation to use only the allowed code list values specified for attributes and most of the constraints defined in the application schemas [.underline]#cannot# be mapped to the XML schema. They can therefore [.underline]#not# be enforced through schema validation. It may be possible to express some of these constraints using other schema or rule languages (e.g. Schematron), in order to enable automatic validation.
+
+===== Default encoding(s) for geoIACS application schemas
+
+Name: geoIACS GML Application Schema
+
+Version: version 2.0
+
+Specification: This TG;
+
+Character set: UTF-8
+
+For testing purposes, the xml schemas document is availablefootnote:[The finalised schemas will be uploaded in a registry operated in a EU domain.] at https://public.epsilon-italia.it/IACS/1.1/xsd/geoiacs.xsd
+
+===== Alternative Encoding
+
+To facilitate reuse of large volume geoIACS datasets, a GeoPackage encoding alternative to the gml default encoding, strictly adhering to the https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets]footnote:[https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md], is recommended.
+
+[NOTE]
+====
+*_TG Recommendation 21_*
+*Use of GeoPackage encoding_*
+
+Data providers should create their data using the OGC GeoPackage encoding standard, particularly suitable for managing and exchanging large datasets and optimised for data usability in GIS environments. In that case, the https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets] should be referenced.
+====
+
+For testing purposes, a geoIACS GeoPackage template adhering to the above mentioned https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets] has been created and applied to produce an harmonised geoIACS dataset. More details are provided in Annex 4.
+
+Other exiting/new alternative encodings (apart from GeoPackage), duly endorsed by the INSPIRE Maintenance and Implementation Group (MIG) and defined as INSPIRE Good Practices in the INSPIRE Good Practice libraryfootnote:[https://knowledge-base.inspire.ec.europa.eu/evolution/good-practice-library_en], might be used/proposed.
+
+=== Confidentiality clauses
+
+geoIACS datasets (or series) harmonised according to the data model described in this TG may contain information that can be classified as sensitive by the data providers and therefore may be covered by confidentiality clauses to be fulfilled to prevent the disclosure of the related information to non authorised users.
+
+This condition could very likely happen for the holdingId attribute, present in several geoIACS spatial objects (agricultural parcel, site, non-agricultural eligible area, eco-landscape element).
+
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use and documented in the metadata element "Conditions applying to access and use" (described in section link:#conditions-applying-to-access-and-use[6.1.14]).
+
+Regarding data delivery, because the holdingId attribute has multiplicity 1 (meaning that its provision is mandatory), those geoIACS data providers who will require the application of confidentiality clauses shall share with the EC services the full dataset (containing also the sensitive information) and shall publicly share a version of the dataset to be derived from the full one after removal or masking of the sensitive information.
+
+Several options exist to publicly share a dataset (not containing sensitive information) starting from a full harmonised dataset (containing the sensitive information), as shown in Annex 4.
+
+<<<
+== Data Capture
+
+The data capture should follow the general rules of mapping in scale 1:5000. In addition, for specific procedures of digitising elements of the geoIACS dataset, refer to the current version of the Technical Guidance of LPIS Updatefootnote:[https://wikis.ec.europa.eu/spaces/GUIDANCEANDTOOLSFORCAP/overview].
+
+<<<
+== Portrayal
+
+This clause defines the rules for layers and styles to be used for portrayal of the spatial object types defined for geoIACS data model.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 35*
+*Portrayal*
+
+For the portrayal of spatial data sets using a view network service as specified in Commission Regulation No 976/2009, the following should be available:
+
+[loweralpha]
+. the layers specified in Section link:#layers-to-be-provided-by-inspire-view-services[9.1];
+
+. for each layer at least a default portrayal style, with as a minimum an associated title and a unique identifier.
+
+For each layer, Section link:#layers-to-be-provided-by-inspire-view-services[9.1] defines the following:
+
+[loweralpha]
+. a human readable title of the layer to be used for display in user interface;
+
+. the spatial object type(s), or sub-set thereof, that constitute(s) the content of the layer.
+====
+
+=== Layers to be provided by INSPIRE view services
+
+[.text-center]
+*Table 5.* geoIACS layers to be provided by INSPIRE view services
+
+[width="100%",cols="<30%,<23%,<24%,<23%",options="header",]
+|===
+^|*Layer Name* ^|*Layer Title* ^|*Spatial object type(s)* ^|*Keywords*
+<|AgriculturalParcel <|Agricultural Parcel <|Agricultural Parcel <|Agricultural Parcel
+<|NonAgriculturalEligibleArea <|Non Agricultural Eligible Area <|Non Agricultural Eligible Area <|Non Agricultural Eligible Area
+<|ReferenceParcel <|Reference Parcel <|Reference Parcel <|Reference Parcel
+<|EcoLandscapeElement <|EcoLandscape Element <|EcoLandscape Element <|EcoLandscape Element
+<|EcologicalFocusArea <|Ecological Focus Area <|Ecological Focus Area <|Ecological Focus Area
+|===
+
+[NOTE]
+====
+*_TG Recommendation 22_*
+*Keywords in Layers Metadata parameters of the INSPIRE View service_*
+
+It is recommended to use the keywords specified in Section link:#layers-to-be-provided-by-inspire-view-services[9.1] in the Layers Metadata parameters of the INSPIRE View service (see Annex III, Part A, section 2.2.4 in Commission R (EC) No 976/2009).
+====
+
+The layers specified in *Table 5* can be further classified using a code list-valued attribute.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 36*
+*Portrayal*
+
+For spatial object types whose objects can be further classified using a code list-valued attribute, several layers may be defined. Each of these layers shall include the spatial objects corresponding to one specific code list value. In the definition of such sets of layers:
+
+[loweralpha]
+. the placeholder <CodeListValue> shall represent the values of the relevant code list, with the first letter in upper case;
+
+. the placeholder <human-readable name> shall represent the human-readable name of the code list values;
+
+. the spatial object type shall include the relevant attribute and code list, in parentheses;
+
+. one example of a layer shall be given.
+
+====
+
+Section 0 specifies one style for each of layer specified in this section. It is proposed that INSPIRE view services support this style as the default style required by TG Requirement 35.
+
+[IMPORTANT]
+====
+[.text-center]
+*TG Requirement 37*
+*Styles*
+
+For each layer specified in this section, the styles defined in section 0 shall be available.
+
+====
+
+=== Styles required to be supported by INSPIRE view services
+
+==== Styles for the layer NonAgriculturalEligibleArea
+
+[width="100%",cols="<15%,85%",options="header",]
+|===
+<|*Style Name* <|*NonAgriculturalEligibleArea.Default*
+<|*Default Style* |yes
+<|*Style Title* |Non Agricultural Eligible Area Default Style
+<|*Style Abstract* a|
+NonAgriculturalEligibleArea objects filled with a colour depending on the value of the attribute from nonAgriculturalEligibleAreaType nomenclature and their boundaries as black lines of 2 pixels
+
+image::./media/image50.png[image50, align="center"]
+
+<|*Symbology* |The SLD specifying the symbology is distributed in a file separately from the data specification document.
+<|*Minimum & maximum scales* |No scale limit.
+|===
+
+==== Styles for the Layer ReferenceParcel
+
+[width="100%",cols="<15%,85%",options="header",]
+|===
+<|*Style Name* <|*ReferenceParcel.Default*
+<|*Default Style* |yes
+<|*Style Title* |ReferenceParcel Default Style
+<|*Style Abstract* |ReferenceParcel objects filled with yellow colour (#FFFFCC) and their boundaries as black lines of 2 pixels.
+<|*Minimum & maximum scales* |No scale limit.
+|===
+
+==== Styles for the layer EcoLandscapeElement
+
+[width="100%",cols="<15%,85%",options="header",]
+|===
+<|*Style Name* <|*EcoLandscapeElement.Default*
+<|*Default Style* |yes
+<|*Style Title* |EcoLandscape Element Default Style
+<|*Style Abstract* a|
+EcoLandscapeElement objects whose type is landscapeFeature filled with a colour depending on the value of the attribute from landscapeFeatureType nomenclature and their boundaries as black lines of 2 pixels.
+
+image::./media/image51.png[image51, align="center"]
+
+<|*Symbology* |The SLD specifying the symbology is distributed in a file separately from the data specification document.
+<|*Minimum & maximum scales* |No scale limit
+|===
+
+==== Styles for the layer EcologicalFocusArea
+
+[width="100%",cols="<15%,85%",options="header",]
+|===
+<|*Style Name* <|*EcologicalFocusArea.Default*
+<|*Default Style* |yes
+<|*Style Title* |Ecological Focus Area Default Style
+<|*Style Abstract* a|
+EcologicalFocusArea objects filled with a colour depending on the value of the attribute from ecologicalFocusAreaType nomenclature and their boundaries as black lines of 2 pixels.
+
+image::./media/image52.png[image52, align="center"]
+
+<|*Symbology* |The SLD specifying the symbology is distributed in a file separately from the data specification document.
+<|*Minimum & maximum scales* |No scale limit.
+|===
+
+<<<
+== Conclusions
+
+A proposal to solve the lack of harmonisation of geoIACS datasets across Europe, which is currently a big obstacle to IACS data sharing and interoperability, has been provided in this technical guidance TG.
+
+A common unique data model for geoIACS datasets, together with a full data specification adhering to the template for INSPIRE Data Specifications have been provided, along with the related gml application schema and GoPackage template. These artefacts are supposed to solve data sharing and interoperability issues and thus, facilitate data reuse.
+
+This TG updated and merged the two previous Technical Guidelines on Spatial Data Sharingfootnote:[https://github.com/INSPIRE-MIF/technical-guidelines/tree/main/iacs] (Part 1 – Data discovery, Part 2 – Data interoperability), which will be withdrawn once the adoption of this TG will be formally endorsed. A description of the changes introduced by this TG with respect to the previous ones is provided in Annex 1.
+
+Furthermore, the adoption of this TG by Member States will help them reduce the burden required by several IACS-related already existing obligations. Indeed, geoIACS datasets conformant to the data specifications of this TG:
+
+* are High Value Datasets, because they contain the key attributes required for Reference parcels and Agricultural parcels by High Value Datasets Regulation 2023/138 (more details are provided in Annex 2);
+* facilitate the fulfilment of IACS QA obligations by Member States (more details are provided in Annex 3);
+
+In addition, the availability of geoIACS datasets conformant to the data specifications of this TG will support several EC services involved in IACS-related activities which will benefit from a significant enhancement streamlining of IACS-based data flows, such us IACS statistics and FSDN.
+
+Finally, support is provided to MS also for the fulfilment of INSPIRE obligations. Indeed, the solution proposed in this TG, besides preserving the IACS semantics, has the additional advantage of supporting the relevance of IACS spatial datasets to INSPIRE. The adoption of the geoIACS data model for the harmonisation of geoIACS datasets facilitates the creation of three INSPIRE conformant LU/LC/AF datasets from each harmonised geoIACS dataset. A conceptual mapping from the geoIACS data model to three INSPIRE data themes (LU/LC/AF) has been developed and provided in Annexes 5, 6 and 7.
+
+Possible confidentiality clauses required by geoIACS data providers willing to prevent disclosure of sensitive information contained in the harmonised datasets to non authorised users have been dealt with.
+
+A preliminary test of this TG, described in Annex 4, has been executed, producing three harmonised geoIACS datasets from non-harmonised source datasets shared by three pilot Paying Agencies.
+
+Regarding the roadmap to endorse the geoIACS data specification, the TG contained in this report will be shared with DG AGRI, the Paying Agencies and the custodians of the geoIACS data. The specification in this TG will be tested by means of voluntary pilots. The feedback collected will lead to a revision of the TG and the publication of the final version. In parallel, the endorsement procedure will be discussed and agreed with JRC, DG AGRI and the INSPIRE MIG (Maintenance and Implementation Group).
+
+<<<
+== List of abbreviations and definitions
+[cols=","]
+|===
+|a.k.a |Also known as
+|AECM |Agri-environment-climate Measures.
+|AF |Agricultural and Aquaculture Facilities
+|API |Application Programming Interface
+|Art. |Article
+|CAP |Common Agricultural Policy
+|CRS |Coordinate Reference System
+|DG AGRI |Directorate General Agriculture
+|DQ |Data quality
+|ID |Identifier
+|EFA |Ecological Focus Area
+|EN |European norm
+|EPSG |European Petroleum Survey Group
+|ETS |Executive Test Suite
+|FSDN |Farm Sustainable Development Network
+|GAEC |Good agricultural and environmental conditions
+|GIS |Geographic Information System
+|GML |Geography Markup Language
+|GSA |Geo Spatial Application
+|HVD |High Value Datasets
+|IACS |Integrated Administration and Control Systems
+|INSPIRE |Infrastructure for Spatial Information in Europe
+|ISO |International Standards Organisation
+|JRC |Joint Research Centre
+|LC |Land Cover
+|LF |Landscape feature
+|LQ |Limiting Quality
+|LPIS |Land Parcel Identification System
+|LU |Land Use
+|MIG |(INSPIRE) Maintenance and Implementation Group
+|MS |Member States
+|OGC |Open Geospatial Consortium
+|PA |Paying Agencies
+|QA |Quality assessment
+|QE |Quality element
+|R |Regulation
+|RDF |Resource Description Framework
+|SKOS |Simple Knowledge Organisation System
+|SMR |Statutory management requirements
+|TC |Technical Committee
+|TG |Technical Guidelines
+|UML |Unified Modeling Language
+|XML |Extensible Markup Language
+|XSD |XML Schema Definition
+|===
+
+:sectnums!:
+<<<
+:sectnums:
+[appendix]
+== Changes with respect to the previous TGs on IACS spatial data sharing
+Three are the main changes introduced by the new TG:
+
+* one unique TG merging the two previous TGs on data discovery (metadata) and data interoperability (data model);
+* one unique application schema including both old LPIS and GSA schemas;
+* scope enlarged to Rural Development Commitments and livestock.
+
+The changes introduced in the geoIACS data model at feature type, data type and code list levels are described in *Table 6*, *Table 7* and *Table 8* respectively.
+
+[.text-center]
+*Table 6.* Changes at feature type level
+
+[width="99%",cols="<29%,<71%",options="header",]
+|===
+^|*Feature type* ^|*Change introduced in the new TG*
+<|ReferenceParcel <|Added association with AgriculturalParcel
+<|AgriculturalParcel a|
+* Added association to AgriculturalParcel
+* Added holdingId attribute
+* Added agriculturalAreaType attribute
+* Added localisedMainCrop attribute
+* Added localisedCatchCrop attribute
+
+<|AgriculturalArea <|Eliminated (added agriculturalAreaType attribute to AgriculturalParcel)
+<|NonAgriculturalEligibleArea a|
+* Added holdingId attribute
+* Added declaredArea attribute
+
+<|EcoLandscapeElement <|New feature type which embeds previous LandscapeFeature feature type
+<|Site <|New feature type
+<|EcologicalFocusArea <|Eliminated association to AgriculturalArea feature type (not existing anymore)
+|===
+
+[.text-center]
+*Table 7.* Changes at data type level
+
+[width="99%",cols="<29%,<71%",options="header",]
+|===
+^|*Feature type* ^|*Change introduced in the new TG*
+<|FarmAnimalSpecies <|New data type for the includesAnimal attribute of Site (taken from INSPIRE AF)
+|===
+
+[.text-center]
+*Table 8.* Changes at code list level
+
+[width="99%",cols="<41%,<59%",options="header",]
+|===
+^|*Feature type* ^|*Change introduced in the new TG*
+<|AgriculturalAreaTypeValue <|No changes
+<|NonAgriculturalEligibleAreaTypeValue <|Added 2 values, one of them corresponding to "areas with natural/specific constraints" required by HVD Regulation
+<|cropValue <|No changes (empty code list)
+<|localisedCropValue <|No changes (empty code list)
+<|EcoLandscapeElementTypeValue <|New code list
+<|EcoLandscapeElementDesignationValue <|New code list
+<|LandscapeFeatureTypeValue <|No changes
+<|AreBasedEcoSchemeValue <|New code list
+<|NACEActivityValue <|New code list (taken from INSPIRE AF)
+<|LivetockSpeciesValue <|New code list (taken from INSPIRE AF)
+<|AquacultureSpecieValue <|New code list (taken from INSPIRE AF)
+<|EcologicalFocusAreaTypeValue <|No changes
+|===
+
+<<<
+[appendix]
+== geoIACS datasets and HVD
+geoIACS datasets are High Value Datasets, because they fulfil the requirements set for Reference parcels and Agricultural parcels datasets listed in the Annex of Regulation (EU) 2023/138.
+
+However, geoIACS datasets contain more information than required by HVD Regulation. This additional information consists in information potentially sensitive, which shall fulfil confidentiality clauses dealt with in section link:#confidentiality-clauses[7.4], and in information that can be publicly shared. Therefore, in order to comply with HVD Regulation, it is sufficient that MS publicly share geoIACS datasets removing the sensitive information. Should MS decide to publicly share only the information required by HVD Regulation (therefore excluding the publicly shareable additional information), they can easily derive an additional dataset from a geoIACS dataset, following the mapping instructions provide in this Annex.
+
+[.underline]#ReferenceParcel#
+
+[.text-center]
+*Table 9.* Mapping of ReferenceParcel key attributes toward the geoIACS data model
+
+[width="99%",cols="<29%,<71%",options="header",]
+|===
+^|*HVD key attribute* ^|*Element of the geoIACS data model*
+<|Unique identifier <|ReferenceParcel.RPid
+<|Geometry <|ReferenceParcel.geometry
+<|Land cover <|AgriculturalParcel.agriculturalAreaType (inherited from the association ReferenceParcel.relatedAP)
+<|organic <|AgriculturalParcel.organicFaming (inherited from the association ReferenceParcel.relatedAP)
+<|Stable landscape elements (EFA layer) <|EcologicalFocusArea.ecologicalFocusAreaType (derived by spatial join with reference parcel)
+<|Areas with natural/specific constraints <|NonAgriculturalEligibleArea.nonAgriculturalEligibleAreaType (NonAgriculturalEligibleAreaType code list value = naturalOrOtherArea-specificConstraints) (inherited from the association ReferenceParcel.relatedNAEA)
+|===
+
+Regarding 'Land cover' and 'organic' HVD key attributes, they should be key attributes of Agricultural Parcels (as in the case of geoIACS data model), because they are characteristics of Agricultural Parcels. Because one Reference Parcel may contain more than one Agricultural Parcel, and, consequently, more Agricultural Parcels with different Land cover types and/or different organic conditions, the two HVD key attributes may have multiple values, that can be easily obtained from geoIACS datasets thanks to the mandatory association between Reference Parcel and Agricultural Parcel.
+
+Regarding 'Stable landscape element' HVD key attribute, not existing anymore in geoIACS data model an association between Reference Parcel and EcologicalFocusArea, it can be obtained by spatial join between EcologicalFocusArea layer and ReferenceParcel layer. Alternatively, in order to avoid possible data processing complexities related to spatial joins, it could be added in the TG a requirement imposing that the EFAid attribute becomes mandatory (currently it is optional) and it contains (as a substring) the RPid. Or it could be introduced a new mandatory association between EFA and Reference Parcel. However, not being EFA required anymore in the CAP since 2023, EFA Feature Type has been kept in geoIACS only to allow the provision of historical data, potentially useful for statistical purposes.
+
+Regarding 'Areas with natural/specific constraints' HVD key attribute, its value corresponds to the value of the attribute nonAgriculturalEligibleAreaType of the geoIACS nonAgriculturalEligibleArea feature type, when the corresponding codelist value is naturalOrOtherArea-specificConstraints. Because 'Areas with natural/specific constraints' is a RP HVD key attribute and nonAgriculturalEligibleAreaType is an attribute of nonAgriculturalEligibleArea geoIACS feature type, the mandatory association between NAEA and RP geoIACS feature types allows the mapping.
+
+[.underline]#AgriculturalParcel#
+
+[.text-center]
+*Table 10.* Mapping of AgriculturalParcel key attributes toward the geoIACS data model
+
+[width="99%",cols="<29%,<71%",options="header",]
+|===
+^|*HVD key attribute* ^|*Element of the geoIACS data model*
+<|Unique identifier <|AgriculturalParcel.APid
+<|Geometry <|AgriculturalParcel.geometry
+<|Land uses (crops or crop groups) <|AgriculturalParcel.mainCrop
+<|Organic <|AgriculturalParcel.organicFaming
+<|Individual landscape element <|EcoLandscapeElement.ecoLandscapeElementDesignation
+<|Permanent grassland <|AgriculturalParcel.AgriculturalParcel.agriculturalAreaType
+|===
+
+Regarding the 'Individual landscape element' HVD key attribute, its value is contained in the attribute ecoLandscapeElementDesignation of the geoIACS EcoLandscapeElement feature type, when the value of the ecoLandscapeElementType attribute is landscapeFeature, as shown in *Figure 13*.
+
+[.text-center]
+*Figure 13.* Individual landscape element
+
+image::./media/image15.png[./media/image15,width=575,height=266, align="center"]
+
+Regarding the link of Individual landscape element to Agricultural Parcel, the EcoLandscapeElement geoIACS feature type has a mandatory association to Reference Parcel, which in turn has an optional association to Agricultural Parcel, as shown in *Figure 14*. This latter association is optional, but with the constraint that each Reference Parcel must be associated to one (or more) Agricultural Parcels or to one (or more) NonAgriculturalEligibleAreas. Should the ReferenceParcel mandatorily associated to the EcoLandscapeElement not contain any association to an AgriculturalParcel (because it contains an association to a NonAgriculturalEligibleArea), then the 'Individual landscape element' HVD key attribute cannot be mapped toward Agricultural Parcel.
+
+Two alternative options are envisaged to solve this potential issue:
+
+* add a mandatory association between EcoLandscapeElement and AgriculturalParcel geoIACS feature types (removing or not the mandatory association between EcoLandscapeElement and ReferenceParcel);
+* move 'Individual landscape element' HVD key attribute from Agricultural parcel to Reference parcel (this implies a change in HVD Regulation).
+
+To select the most appropriate option, a deeper analysis of the relevant CAP Regulations is required.
+
+[.text-center]
+*Figure 14.* Individual landscape element – link to geoIACS Agricultural Parcel
+
+image::./media/image16.png[./media/image16,width=567,height=299, align="center"]
+
+<<<
+[appendix]
+== geoIACS data model and IACS QA
+On a yearly basis, MS have to fulfil IACS QA obligations, consisting in delivering to EC a series of files according to Technical Specifications which contain instructions related to both the structure of the data to be delivered and the delivery mechanism (e.g. number of files, format, naming, exchange protocols).
+
+A conceptual schema of the data to be delivered is shown in *Figure 15*, taken from the "IACS quality assessment data exchange in November 2024: Technical Specifications".
+
+[.text-center]
+*Figure 15.* Conceptual schema of QA data to be submitted by MS to EC
+
+image::./media/image17.png[./media/image17,width=567,height=256, align="center"]
+
+With reference to LPIS population, GSA population and GSA/LPIS relationship shown within the red boxes in *Figure 15*, as well as to the definition of the 'Field names' provided in the "IACS quality assessment data exchange in November 2024: Technical Specifications", it is evident that all the information required can be easily derived from a geoIACS dataset.
+
+In particular, it's to be highlighted that the GSA/LPIS relationship can be easily derived from the mandatory associations between AgriculturalParcel and ReferenceParcel and between NonAgriculturalEligibleArea and ReferenceParcel geoIACS feature types.
+
+EC may consider to replace the current obligation to deliver the files related to LPIS population, GSA population and GSA/LPIS relationship with the sharing of geoIACS datasets.
+
+<<
+[appendix]
+== Examples of geoIACS data harmonisation
+The physical implementation of the geoIACS data model was tested with data of three Paying Agencies participating in a pilot test phase. The source data used in the data harmonisation exercise are listed in *Table 11*.
+
+[.text-center]
+*Table 11.* Source data used in the geoIACS data harmonisation exercise
+
+[width="100%",cols="<20%,<20%,^13%,<18%,<29%",options="header",]
+|===
+^|*MS/Region* ^|*geoIACS feature types present in the source dataset* ^|*Year* ^|*Spatial scope* ^|*Format*
+<|Belgium-Wallonia <|RP, AP, ELE ^|2023 <|Entire region <|1 gpckg containing 3 layers (one for each feature type)
+<|Belgium-Flanders <|RP, AP ^|2024 <|Entire region <|1 gpckg containing one unique layer for RP and AP
+<|Spain <|RP, AP, ELE ^|2024 <|Sample dataset, corresponding to a portion of a Municipality <|3 gpckg, one for each feature type
+|===
+
+The data harmonisation exercise consisted in two distinct phases:
+
+[arabic, start=1]
+. source data harmonisation using geoIACS data model as target data model
+
+[arabic, start=2]
+. harmonised geoIACS datasets publication.
+
+A third test was performed to demo a codelist publication.
+
+[.underline]#Source data harmonisation#
+
+According to a classical data harmonisation workflow, source data were first analysed, then a mapping table with the correspondences between attributes and properties of the source data and those of the geoIACS data model was filled-in and finally the mapping rules were applied to a data transformation tool (hale»studiofootnote:[https://wetransform.to/halestudio/] open source) which generated three harmonised gml files, one for each pilot MS/region, which were then opened in QGIS and compared to the non-harmonised source data.
+
+A screenshot of the mapping rules applied to a transformation project in hale»studio is shown in *Figure 16*.
+
+An overview of the AP source datasets of BE-Wallonia and BE-Flanders is shown in *Figure 17*, together with a small red box showing a cross-border area where more detailed analyses were made and are presented in the following figures.
+
+[.text-center]
+*Figure 16.* Mapping rules applied to a transformation project in hale»studio
+
+image::./media/image18.png[A screenshot of a computer AI-generated content may be incorrect.,width=563,height=269, align="center"]
+
+[.text-center]
+*Figure 17.* AP source datasets of BE-Wallonia and BE-Flanders
+
+image::./media/image19.png[./media/image19,width=558,height=299, align="center"]
+
+The attributes of two reference parcels, one in BE-Wallonia and another in BE-Flanders source datasets, are shown in *Figure 18* and *Figure 19* respectively.
+
+[.text-center]
+*Figure 18.* Zoom on and attributes of a reference parcel in the BE-Wallonia source dataset
+
+image::./media/image20.png[./media/image20,width=573,height=308, align="center"]
+
+[.text-center]
+*Figure 19.* Zoom on and attributes of a reference parcel in the BE-Flanders source dataset
+
+image::./media/image21.png[./media/image21,width=575,height=308, align="center"]
+
+The attributes of two agricultural parcels, one in BE-Wallonia and another in BE-Flanders source datasets are shown in *Figure 20* and *Figure 21* respectively.
+
+[.text-center]
+*Figure 20.* Zoom on and attributes of an agricultural parcel in the BE-Wallonia source dataset
+
+image::./media/image22.png[./media/image22,width=566,height=303, align="center"]
+
+[.text-center]
+*Figure 21.* Zoom on and attributes of an agricultural parcel in the BE-Wallonia source dataset
+
+image::./media/image23.png[./media/image23,width=568,height=303, align="center"]
+
+The attributes of two agricultural parcels, one in BE-Wallonia and another in BE-Flanders geoIACS harmonised datasets are shown in *Figure 22* and *Figure 23* respectively.
+
+[.text-center]
+*Figure 22.* Zoom on and attributes of an agricultural parcel in the BE-Wallonia geoIACS harmonised dataset
+
+image::./media/image25.png[./media/image25,width=567,height=318, align="center"]
+
+[.text-center]
+*Figure 23.* Zoom on and attributes of an agricultural parcel in the BE-Flanders geoIACS harmonised dataset
+
+image::./media/image26.png[./media/image26,width=567,height=304, align="center"]
+
+An enlarged view of the attributes of the agricultural parcel and the associated reference parcel in the BE-Wallonia geoIACS harmonised dataset shown in *Figure 22* is shown in *Figure 24*. The following considerations can be made:
+
+* the AP relatedRP association was mapped using the RPid, as shown in the red boxes (the presence of the "#" as prefix of relatedRP_href attribute allows direct referencing to the associated RP);
+* the RP relatedAP association, mapped using the APid, contains two values, corresponding to the two APid of the two AP contained in the RP, as shown in the green boxes;
+* the possibility to map the crops using the mainCrop_title attribute containing the crop name (or label) and the mainCrop_href attribute containing the uri of a codelist publishing the crop definition, is shown in the purple box (the codelist uri is fictitious, having only demonstration purposes);
+* the same possibility to map the agriculturalAreaType is shown in the orange box.
+* the holdingId attribute was temporarily populated with the 'notProvided' character string.
+
+[.text-center]
+*Figure 24.* Attributes of an agricultural parcel in the BE-Wallonia geoIACS harmonised dataset
+
+image::./media/image27.png[./media/image27,width=569,height=535, align="center"]
+
+An enlarged view of the attributes of the agricultural parcel and the associated reference parcel in the BE-Flanders geoIACS harmonised dataset shown in *Figure 23* is shown in *Figure 25*.
+
+The same considerations made for the BE-Wallonia geoIACS harmonised datasets apply also BE-Flanders geoIACS harmonised dataset. The mainCrop_href and agriculturalAreaType_href attributes, used for demonstration purposes in the BE Wallonia geoIACS harmonised dataset to provide codelists uri, were not used in the BE-Flanders geoIACS (only the mainCrop_title and agriculturalAreaType_title.
+
+With reference to the figures from *Figure 22* to *Figure 25*, the benefits of analyses and processing made on geoIACS harmonised datasets are evident.
+
+[.text-center]
+*Figure 25.* Attributes of an agricultural parcel in the BE-Flanders geoIACS harmonised dataset
+
+image::./media/image28.png[./media/image28,width=560,height=445, align="center"]
+
+A similar harmonisation was done on sample Spanish source data and a sample geoIACS harmonised dataset was produced also for Spain..
+
+The data harmonisation exercise described so far produced three gml files, according to the default encoding requirements contained in section link:#default-encodings[7.3.1].
+
+In addition, the use of the GeoPackage alternative encoding, referred to in section link:#alternative-encoding[7.3.1.3], was applied to the three geoIACS harmonised gml and three geoIACS harmonised GeoPackages were produced, using a GeoPackage template and a hale»studio transformation project with the geoIACS xsd as source schema and the GeoPackage template as target schema.
+
+The benefits of geoIACS harmonised datasets encoded in GeoPackages are twofold:
+
+* their database characteristics, their reduced size and their simplified (flat) structure with respect to those of the gml, facilitate their (re)use in a GIS environment and in data processing chains;
+* they facilitate geoIACS harmonised publication via API (as shown in the following).
+
+[.underline]#Harmonised geoIACS datasets publication#
+
+Two different types of spatial data services to access harmonised geoIACS datasets were implemented and tested:
+
+* an ATOM download service was implemented and tested only for BE-Wallonia and BE-Flanders; it was a fully representative test for ATOM-based bulk download services, since it was applied to the 2 PAs with a large volume harmonised data and creating it also for the small-volume sample data of Spain would not have brought any added value;
+* the publication of the harmonised data via API (OGC API Features) was tested for 1 PA only (ES), using the harmonised GeoPackage stored in a GeoServer instance; it was a fully representative test regarding API implementation.
+
+A demo home page for the ATOM download service implemented for BE-Wallonia harmonised geoIACS dataset is shown in *Figure 26*. Clicking on the link in the red box, a demo ATOM dataset feed html page opens (screenshot shown in *Figure 27*). This page contains the link to download the dataset in the different encodings available (gml and GeoPackage).
+
+[.text-center]
+*Figure 26.* Demo ATOM download service home page
+
+image::./media/image29.png[./media/image29,width=331,height=185, align="center"]
+
+[.text-center]
+*Figure 27.* Demo ATOM dataset feed html page
+
+image::./media/image30.png[A screenshot of a computer AI-generated content may be incorrect.,width=325,height=334, align="center"]
+
+Regarding the test publication of the harmonised geoIACS sample dataset of Spain via API, an OGC API Feature service was created in a GeoServer instance.
+
+The GeoServer home page is shown in *Figure 28*, where the restricted access to an authenticated user having access only to an authorised workspace (IACS) is shown in the red box. From all the services enabled by GeoServer for the harmonised geoIACS dataset stored in a gpckg datastore, clicking on the link shown in the green box, the OGC API Feature service landing page opens, as shown in *Figure 29*.
+
+[.text-center]
+*Figure 28.* GeoServer home page
+
+image::./media/image31.png[./media/image31,width=539,height=455, align="center"]
+
+[.text-center]
+*Figure 29.* OGC API Feature service landing page
+
+image::./media/image32.png[./media/image32,width=457,height=159, align="center"]
+
+Clicking on the Collections button in *Figure 29* the three collections available in the OGC API Feature service based on the ES geoIACS dataset harmonised in the exercise described in this Annex, namely agriculturalparcel, referenceparcel and ecolandscapeelement, appear, as shown in *Figure 30*.
+
+For each collection it is possible to select the download format, as shown in *Figure 30* for agriculturalparcel.
+
+[.text-center]
+*Figure 30.* Collections of OGC API Feature service
+
+image::./media/image33.png[./media/image33,width=359,height=294, align="center"]
+
+Clicking on the link shown in the red box in *Figure 30*, the feature schema of the agriculturalparcel collection appears, as shown in *Figure 31*, whilst clicking on the (default) HTML format shown in the green box in *Figure 30*, the html attribute table of agriculturalparcel collection appears, as shown in *Figure 32*.
+
+[.text-center]
+*Figure 31.* Feature schema of the agricultural parcel collection
+
+image::./media/image34.png[./media/image34,width=347,height=411, align="center"]
+
+[.text-center]
+*Figure 32.* HTML attribute table of agricultural parcel collection
+
+image::./media/image35.png[./media/image35,width=491,height=352, align="center"]
+
+Applying a filter on a single attribute, the corresponding HTML filtered attribute table appears, as shown in *Figure 33*, where a filter on maincrop_href selecting the code 62 was applied.
+
+[.text-center]
+*Figure 33.* HTML filtered attribute table of agricultural parcel collection
+
+image::./media/image36.png[./media/image36,width=562,height=408, align="center"]
+
+[.underline]#Codelist publication#
+
+Tests on the publication of a codelist were made using two different technologies:
+
+* Re3gistryfootnote:[https://interoperable-europe.ec.europa.eu/collection/are3na/solution/re3gistry] (open source software for managing and sharing 'reference codes' through persistent URIs);
+* ShowVoc (coupled with VocBench, is the platform used by EC Publication Officefootnote:[https://op.europa.eu/it/web/eu-vocabularies/showvoc] to publish vocabularies, thesauri and ontologies, using the related semantic terminology).
+
+The codelist publication test was made on AgriculturalAreaType codelist.
+
+Regarding the use of the Re3gistry technology, an instance of the version 2.5.3 of the software was installed. The landing page of the published IACS codelist register is shown in *Figure 34* whilst the details of the Arable Land codelist value are shown in *Figure 35*.
+
+[.text-center]
+*Figure 34.* Landing page of Re3gistry demo service
+
+image::./media/image37.png[A screenshot of a computer AI-generated content may be incorrect.,width=475,height=429, align="center"]
+
+[.text-center]
+*Figure 35.* Codelist value details in Re3gistry
+
+image::./media/image38.png[A screenshot of a computer AI-generated content may be incorrect.,width=430,height=249, align="center"]
+
+Regarding the use of the SowVoc technology an instance of the version 2.4.0 of the software was installed. The landing page of the ShowVoc demo service publishing the AgriculturalAreaTypeValue codelist is shown in *Figure 36*.
+
+[.text-center]
+*Figure 36.* Landing page of ShowVoc demo service
+
+image::./media/image39.png[./media/image39,width=370,height=190, align="center"]
+
+In the publication test described in this annex, the concepts associated to the AgriculturalAreaTypeValue codelist values are shown in *Figure 37*.
+
+[.text-center]
+*Figure 37.* Landing page of ShowVoc demo service
+
+image::./media/image40.png[A screenshot of a computer AI-generated content may be incorrect.,width=281,height=207, align="center"]
+
+Clicking on the single concept, the related details appear, as shown in *Figure 38*.
+
+[.text-center]
+*Figure 38.* Codelist value details in ShowVoc
+
+image::./media/image41.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=237, align="center"]
+
+<<<
+[appendix]
+== Mapping of geoIACS data model toward INSPIRE LC data model
+The similarity in scope between the INSPIRE LC LandCoverUnit feature type and some geoIACS feature types, namely:
+
+* AgriculturalParcel (limited to agriculturalAreaType attribute)
+* NonAgriculturalEligibleArea (limited to some values of the NonAgriculturalEligibleAreaTypeValue codelist)
+* EcoLandscapeElement
+* EcologicalFocusArea
+
+enables the creation of four INSPIRE LC datasets (conformant to the LandCoverVector and LandCoverNomenclature application schemas) from a geoIACS dataset.
+
+A conceptual mapping from the four geoIACS feature types to INSPIRE LC LandCoverUnit feature type is shown in the following figures.
+
+[.text-center]
+*Figure 39.* Conceptual mapping from geoIACS AgriculturalParcel feature type to INSPIRE LC LandCoverUnit feature type
+
+image::./media/image42.png[./media/image42,width=569,height=301, align="center"]
+
+
+[.text-center]
+*Figure 40.* Conceptual mapping from geoIACS NonAgriculturalEligibleArea feature type to INSPIRE LC LandCoverUnit feature type
+
+image::./media/image43.png[./media/image43,width=553,height=247, align="center"]
+
+[.text-center]
+*Figure 41.* Conceptual mapping from geoIACS EcoLandscapeElement feature type to INSPIRE LC LandCoverUnit feature type
+
+image::./media/image44.png[./media/image44,width=569,height=300, align="center"]
+
+[.text-center]
+*Figure 42.* Conceptual mapping from geoIACS EcologicalFocusArea feature type to INSPIRE LC LandCoverUnit feature type
+
+image::./media/image45.png[./media/image45,width=567,height=273, align="center"]
+
+Starting from this conceptual mapping, a detailed mapping table could be created, facilitating the final data transformation step consisting in the implementation of the mapping rules in a data transformation software, such as Hale Studio or FME.
+
+It is to be highlighted that creating an INSPIRE LC dataset (conformant to the LandCoverVector schema) requires to create one LandCoverDataset feature, of which one to many LandCoverUnits are members, as shown in *Figure 43*.
+
+[.text-center]
+*Figure 43.* Relationship between INSPIRE LC LandCoverDataset featureType and LandCoverUnit featureType
+
+image::./media/image46.png[Text Description automatically generated with medium confidence,width=208,height=278, align="center"]
+
+Therefore, one LandCoverDataset feature has to be created and a value has to be assigned to the attributes in the yellow box in *Figure 43*:
+
+* extent: according to ISO 19115, it can be realized through a bounding polygon, a geographic bounding-box or a geographic description (e.g. name of a region ...),
+* inspireId: an identifier has to be assigned, according to the instructions provided in section link:#identifier-management[3.2.6],
+* name: a textual name has to be assigned by the data provider,
+* nomenclatureDocumentation: this attribute allows to provide documentation on the nomenclature used in the dataset. Please note that the core model supports only one nomenclature per dataset. According to the INSPIRE LandCoverVector application schema, this nomenclature "can be CORINE, another European nomenclature, a national one or any other LC nomenclature", modelled with the UML class LandCoverNomenclature. In this specific case it will be related to the nomenclature used in the following code lists:
+** AgriculturalAreaTypeValue
+** NonAgriculturalEligibleAreaTypeValue
+** LandscapeFeatureTypeValue
+** EcologicalFocusAreaTypeValue
+
+whose values will be used to populate the class attribute of LandCoverObservation.
+
+<<<
+[appendix]
+== Mapping of geoIACS data model toward INSPIRE LU data model
+The similarity in scope between the INSPIRE LU ExistingLandUseObject feature type and the geoIACS AgriculturalParcel feature type enables the creation of an INSPIRE LU dataset (conformant to the ExistingLandUse application schema) from a geoIACS dataset.
+
+A conceptual mapping from geoIACS AgriculturalParcel feature type to INSPIRE LU ExistingLandUseObject featureType is shown in *Figure 44*.
+
+[.text-center]
+*Figure 44.* Conceptual mapping from geoIACS AgriculturalParcel feature type to INSPIRE LU ExistingLandUseObject feature type
+
+image::./media/image47.png[./media/image47,width=564,height=275, align="center"]
+
+Starting from this conceptual mapping, a detailed mapping table could be created, facilitating the final data transformation step consisting in the implementation of the mapping rules in a data transformation software, such as Hale Studio or FME.
+
+Regarding the INSPIRE mandatory attribute hilucsLandUse, it will be populated with the value "agriculture"footnote:[https://inspire.ec.europa.eu/codelist/HILUCSValue/1_1_Agriculture] taken from the INSPIRE HILUCS codeListfootnote:[https://inspire.ec.europa.eu/codelist/HILUCSValue], whilst the AgriculturalParcel attribute mainCrop will be mapped to the INSPIRE specificLandUse attribute, whose related LandUseClassificationValue codeList will be created and populated with the values of the geoIACS CropValue code list.
+
+It is to be highlighted that creating an INSPIRE LU dataset (conformant to the ExistingLandUse schema) requires to create one ExistingLandUseDataSet feature, of which one to many ExistingLandUSeObject are members, as shown in *Figure 45*.
+
+[.text-center]
+*Figure 45.* Relationship between INSPIRE ExistingLandUse featureType and ExistingLandUseObject featureType
+
+image::./media/image48.png[Diagram Description automatically generated with low confidence,width=604,height=214, align="center"]
+
+Therefore, one ExistingLandUseDataSet feature has to be created and a value has to be assigned to the attributes in the yellow box in *Figure 45*:
+
+* extent: the extent of an ExistingLandUseDataset is defined as the boundary of the union of all the polygons (ExistingLandUseObject) that are a member of the ExistingLandUseDataset,
+* inspireId: an identifier has to be assigned, according to the instructions provided in section link:#identifier-management[3.2.6],
+* name: a textual name has to be assigned by the data provider.
+
+<<<
+[appendix]
+== Mapping between geoIACS data model and INSPIRE AF data model
+The geoIACS Site feature type was introduced in the geoIACS data model to include in geoIACS dataset harmonised data related to livestock.
+
+From a semantic point of view, the livestock-related data modelling requirements analysed during the geoIACS data model design suggested to reuse part of the INSPIRE AF data model, given the similarity in scope.
+
+In particular, a Site feature type, whose UML class diagram is shown in *Figure 46* and whose attributes are described in section link:#site[3.3.2.1.5], representing a simplified version of INSPIRE AF Site feature type, was designed. The simplification consisted in having eliminated the aggregation with the Holding feature type, and consequently the specialisation of the Activity Complex feature type, and having added to the geoIACS Site feature type the relevant attributes of the INSPIRE Activity Complex feature type.
+
+The relationships between geoIACS Site feature type and INSPIRE AF data model elements are visually schematised in *Figure 46*.
+
+Should INSPIRE conformant AF datasets be available, the creation of geoIACS Site layers from INSPIRE conformant AF datasets is an easy data transformation process, following the mapping shown in *Figure 46*. Regarding the values of the geoIACS Site attributes beginLifespanVersion, endLifeSpanVersion, validFrom, validTo, the data provider should analyse if the values of the same attributes of the INSPIRE AF Holding feature Type can be used. Because one Holding may contain one or more Sites, these values may be different for each Site and may be also different from the values of the Holding attributes. In addition, the data provider has to provide the value of the attribute numberOfAnimals, required by geoIACS and not present in INSPIRE AF.
+
+Conversely, an INSPIRE conformant AF dataset can be partially obtained from a geoIACS dataset, following the mapping shown in *Figure 46*. The only INSPIRE AF mandatory attribute not present in geoIACS Site feature type is function, whose Function data type has the only mandatory attribute 'activity', related to the activity of the holding, which can be different from the activities of the Sites contained in the holding. Therefore, this information should be provided by the data provider.
+
+[.text-center]
+*Figure 46.* Relationships between geoIACS Site feature type and INSPIRE AF data model elements
+
+image::./media/image49.png[./media/image49,width=534,height=343, align="center"]
+
+<<<
+[discrete]
+==== Getting in touch with the EU
+
+*In person*
+
+All over the European Union there are hundreds of Europe Direct centres. You can find the address of the centre nearest you online (european-union.europa.eu/contact-eu/meet-us_en).
+On the phone or in writing
+Europe Direct is a service that answers your questions about the European Union. You can contact this service:
+—	by freephone: 00 800 6 7 8 9 10 11 (certain operators may charge for these calls),
+—	at the following standard number: +32 22999696,
+—	via the following form: european-union.europa.eu/contact-eu/write-us_en.
+
+
+*Finding information about the EU*
+
+_Online_
+
+Information about the European Union in all the official languages of the EU is available on the Europa website (european-union.europa.eu).
+
+_EU publications_
+
+You can view or order EU publications at op.europa.eu/en/publications. Multiple copies of free publica-tions can be obtained by contacting Europe Direct or your local documentation centre (european-union.europa.eu/contact-eu/meet-us_en).
+
+_EU law and related documents_
+
+For access to legal information from the EU, including all EU law since 1951 in all the official language versions, go to EUR-Lex (eur-lex.europa.eu).
+
+_EU open data_
+
+The portal data.europa.eu provides access to open datasets from the EU institutions, bodies and agen-cies. These can be downloaded and reused for free, for both commercial and non-commercial purposes. The portal also provides access to a wealth of datasets from European countries.
+
+<<<
+image::./media/image53.png[image, align=center]
