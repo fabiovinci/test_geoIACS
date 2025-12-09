@@ -1,3 +1,5 @@
+extends: default
+
 footer:
   height: 0.6in
   recto:
