@@ -18,11 +18,9 @@
 
 :appendix-caption: Annex
 
-[cols="1,1", frame="none", grid="none", valign="middle"]
-|===
-a|image::./media/image1.jpg[image, align=center]
-a|[.text-right]#Joint Research Centre#
-|===
+
+image:./media/image1.png[width=100%] 
+
 
 [discrete]
 = Technical Guidelines on IACS Data Sharing
@@ -91,8 +89,7 @@ As a final introductory remark, the structure of this report adheres to the stru
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement X*
-*Notation and role*
+*TG Requirement X:* *Notation and role*
 
 
 This style is used for requirements that shall be fulfilled by data providers to share spatial information according to these Technical Guidelines.
@@ -100,8 +97,7 @@ This style is used for requirements that shall be fulfilled by data providers to
 
 [NOTE]
 ====
-*_TG Recommendation Y_*
-*Notation and role*
+*_TG Recommendation Y:_* *Notation and role*
 
 
 This style is used for recommendations that may help data providers to share spatial information according to these Technical Guidelines.
@@ -181,10 +177,10 @@ The types to be used for the exchange and classification of spatial objects from
 
 The application schema specifies requirements on the properties of each spatial object including its multiplicity, domain of valid values, constraints, etc.
 
-[TIP]
+[IMPORTANT]
 ====
-*TG Requirement 1*
-*Types for the Exchange and Classification of Spatial Objects*
+[.text-center]
+*TG Requirement 1:* *Types for the Exchange and Classification of Spatial Objects*
 
 For the exchange and classification of spatial objects from data sets meeting the conditions laid down in Article 67 (3) and (4) of Regulation (EU) 2021/2116, Member States shall use the spatial object types and associated data types and code lists that are defined in this section.
 
@@ -196,8 +192,7 @@ As compared to the full information content of IACS datasets, the application sc
 
 [IMPORTANT]
 ====
-*TG Requirement 2*
-*Multiplicity*
+*TG Requirement 2:* *Multiplicity*
 
 Spatial object types and data types shall comply with the multiplicities defined for the attributes and association roles in this section.
 
@@ -238,8 +233,7 @@ Code lists are modelled as classes in the application schema. Their values, howe
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 3*
-*Code Lists types*
+*TG Requirement 3:* *Code Lists types*
 
 Code lists shall be of one of the following types:
 
@@ -259,8 +253,8 @@ The type of code list is represented in the UML model through the tagged value t
 
 [IMPORTANT]
 ====
-*TG Requirement 4*
-*Code Lists extensibility*
+[.text-center]
+*TG Requirement 4:* *Code Lists extensibility*
 
 Additional values defined by data providers shall not replace or redefine any value already specified in the TG.
 ====
@@ -268,8 +262,7 @@ Additional values defined by data providers shall not replace or redefine any va
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 5*
-*Code Lists registers*
+*TG Requirement 5:* *Code Lists registers*
 
 Where, for an attribute whose type is a code list as referred to in points (b) or (c) of TG Requirement 2, a data provider provides a value that is not specified in this TG, that value and its definition shall be made available in a publicly accessible register.
 ====
@@ -281,8 +274,7 @@ Regarding the code lists governance, two types of code lists are distinguished:
 
 [NOTE]
 ====
-*_TG Recommendation 1_*
-*Code Lists encoding*
+*_TG Recommendation 1_:* *Code Lists encoding*
 
 Code list values should be encoded using http URIs and labels, to be generated according to the relevant rules specified by the organizations managing the code lists registers and encoded following the rules applicable to the data format used.
 
@@ -302,8 +294,7 @@ Regarding code list multilingualism, in order to preserve semantic interoperabil
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 2*
-*Code Lists multilingualism*
+*TG Requirement 6:* *Code Lists multilingualism*
 
 Code lists values of all types of code lists shall be provided in English. Code lists values provided in national languages may be used. In this case, their national language translations will be added in the original code lists in English.
 
@@ -320,16 +311,14 @@ geoIACS spatial objects identifiers are managed by means of character string typ
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 7*
-*Unique and persistent identifiers*
+*TG Requirement 7:* *Unique and persistent identifiers*
 
 geoIACS identifiers shall be unique and shall not change during the life-cycle of a spatial object.
 ====
 
 [NOTE]
 ====
-*_TG Recommendation 2_*
-*Syntax of unique and persistent identifiers*
+*_TG Recommendation 2_:* *Syntax of unique and persistent identifiers*
 
 To ensure uniqueness of the identifiers across Europe, PAs or other custodians of the related data should use a unique syntax for the identifiers according to the principles set in the INSPIRE Generic Conceptual Model.
 ====
@@ -339,8 +328,7 @@ To ensure uniqueness of the identifiers across Europe, PAs or other custodians o
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 8*
-*Geometry representation*
+*TG Requirement 8:* *Geometry representation*
 
 The value domain of spatial properties defined in this TG shall be restricted to the Simple Feature spatial schema as defined in OGC 06-103r4, _OpenGIS Implementation Standard for Geographic Information Simple feature access - Part 1: Common architecture_. Version 1.2.1. 28footnote:[http://portal.opengeospatial.org/files/?artifact_id=25355] May 2011.
 ====
@@ -362,8 +350,7 @@ Changes to the attribute "endLifespanVersion" does not trigger a change in the a
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 9*
-*Life-cycle of Spatial Objects*
+*TG Requirement 9:* *Life-cycle of Spatial Objects*
 
 Where the attribute endLifespanVersion is used, its value shall not be before the value of beginLifespanVersion.
 ====
@@ -377,8 +364,7 @@ The attribute "validFrom" specifies the date and time at which the real-world ph
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 10*
-*Temporal validity of Spatial Objects*
+*TG Requirement 10:* *Temporal validity of Spatial Objects*
 
 Where the attribute validTo is used, its value shall not be before the value of validFrom.
 ====
@@ -1377,7 +1363,7 @@ Official date at which the feature in situ (or legally) ceased (will cease) to b
 |===
 |*Name* |*Notes*
 |designation <a|
-/*EcoLandscapeElement must use designations from an appropriate type and the designation value must agree with the EcoLandscapeElementType.*/
+/* EcoLandscapeElement must use designations from an appropriate type and the designation value must agree with the EcoLandscapeElementType. */
 
 inv: self.ecoLandscapeElementType = EcoLandscapeElementTypeValue::landscapeFeature implies self.ecoLandscapeElementDesignation.oclIsKindOf(LandscapeFeatureTypeValue) and
 
@@ -2034,8 +2020,7 @@ An alternative is to use of national code lists defined by MS. In this case the 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 11*
-*Crop code lists*
+*TG Requirement 11:* *Crop code lists*
 
 When publishing geoIACS datasets, one of the following code lists should be used:
 
@@ -2723,8 +2708,7 @@ The reference systems, units of measure and geographic grid systems included in 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 12*
-*Datum for three-dimensional and two-dimensional coordinate reference systems*
+*TG Requirement 12:* *Datum for three-dimensional and two-dimensional coordinate reference systems*
 
 For the three-dimensional and two-dimensional coordinate reference systems and the horizontal component of compound coordinate reference systems used for making spatial data sets available, the datum shall be the datum of the European Terrestrial Reference System 1989 (ETRS89) in areas within its geographical scope, or the datum of the International Terrestrial Reference System (ITRS) or other geodetic coordinate reference systems compliant with ITRS in areas that are outside the geographical scope of ETRS89. Compliant with the ITRS means that the system definition is based on the definition of the ITRS and there is a well-documented relationship between both systems, according to EN ISO 19111.
 ====
@@ -2734,8 +2718,7 @@ For the three-dimensional and two-dimensional coordinate reference systems and t
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 13*
-*Coordinate reference systems*
+*TG Requirement 13:* *Coordinate reference systems*
 
 Spatial data sets shall be made available using at least one of the coordinate reference systems specified below in sections paragraphs 1, .2 and 3, unless one of the conditions specified in paragraph 4 holds.
 
@@ -2789,8 +2772,7 @@ The geodetic codes and parameters needed to describe these coordinate reference 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 14*
-*Coordinate Reference Systems used in the View Network Service*
+*TG Requirement 14:* *Coordinate Reference Systems used in the View Network Service*
 
 For the display of spatial data sets with the view network service as specified in Regulation No 976/2009, at least the coordinate reference systems for two-dimensional geodetic coordinates (latitude, longitude) shall be available.
 ====
@@ -2800,8 +2782,7 @@ For the display of spatial data sets with the view network service as specified 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 15*
-*Coordinate Reference System Identifiers*
+*TG Requirement 15:* *Coordinate Reference System Identifiers*
 
 . Coordinate reference system parameters and identifiers shall be managed in one or several common registers for coordinate reference systems.
 
@@ -2891,8 +2872,7 @@ _Source:_ INSPIRE Data Specifications.
 
 [NOTE]
 ====
-*_TG Recommendation 3_*
-*Quantitative evaluation of data quality elements*
+*_TG Recommendation 3_:* *Quantitative evaluation of data quality elements*
 
 Where it is impossible to express the evaluation of a data quality element in a quantitative way, the evaluation of the element should be expressed with a textual statement as a data quality descriptive result.
 ====
@@ -2911,8 +2891,7 @@ These extra items in the LPIS dataset can be documented with the Commission data
 
 [NOTE]
 ====
-*_TG Recommendation 4_*
-*Commission*
+*_TG Recommendation 4_:* *Commission*
 
 Commission should be evaluated and documented using *excess item* as specified in the table below.
 ====
@@ -2945,8 +2924,7 @@ Presence of excess items in a dataset:
 
 [NOTE]
 ====
-*_TG Recommendation 5_*
-*Domain consistency*
+*_TG Recommendation 5_:* *Domain consistency*
 
 Domain consistency should be evaluated and documented using _value domain non-compliance_ as specified in the table below.
 ====
@@ -2982,8 +2960,7 @@ This DQ element can be evaluated and reported when topology is directly encoded 
 
 [NOTE]
 ====
-*_TG Recommendation 6_*
-*Topological consistency*
+*_TG Recommendation 6_:* *Topological consistency*
 
 Topological consistency should be evaluated and documented using *number of invalid self-intersect errors, number of overlaps and number of slivers* as specified in the table below.
 ====
@@ -3013,8 +2990,7 @@ Topological consistency should be evaluated and documented using *number of inva
 
 [NOTE]
 ====
-*_TG Recommendation 7_*
-*Absolute or external accuracy*
+*_TG Recommendation 7_:* *Absolute or external accuracy*
 
 Absolute or external accuracy should be evaluated and documented using *root mean square error of planimetry* as specified in the table below.
 ====
@@ -3043,8 +3019,7 @@ Absolute or external accuracy should be evaluated and documented using *root mea
 
 [NOTE]
 ====
-*_TG Recommendation 8_*
-*Relative or internal accuracy*
+*_TG Recommendation 8_:* *Relative or internal accuracy*
 
 Relative or internal accuracy should be evaluated and documented using *root mean square error of planimetry* as specified in the table below.
 ====
@@ -3073,8 +3048,7 @@ Relative or internal accuracy should be evaluated and documented using *root mea
 
 [NOTE]
 ====
-*_TG Recommendation 9_*
-*Quantitative attribute accuracy*
+*_TG Recommendation 9_:* *Quantitative attribute accuracy*
 
 Thematic accuracy should be evaluated and documented using *Quantitative attribute accuracy - percentage* as specified in the table below.
 ====
@@ -3102,8 +3076,7 @@ Thematic accuracy should be evaluated and documented using *Quantitative attribu
 
 [NOTE]
 ====
-*_TG Recommendation 10_*
-*Non-quantitative attribute accuracy*
+*_TG Recommendation 10_:* *Non-quantitative attribute accuracy*
 
 Non-quantitative attribute accuracy should be evaluated and documented using *Quantitative attribute accuracy - conformance* as specified in the table below.
 ====
@@ -3156,16 +3129,14 @@ Instructions about how to apply to geoIACS metadata some of the INSPIRE metadata
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 16*
-*Application of INSPIRE metadata requirements*
+*TG Requirement 16: **Application of INSPIRE metadata requirements*
 
 The metadata of geoIACS datasets or dataset series shall fulfil all the TG requirements of the "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007".
 ====
 
 [NOTE]
 ====
-*_TG Recommendation 11_*
-*Application of INSPIRE metadata recommendations*
+*_TG Recommendation 11_:* *Application of INSPIRE metadata recommendations*
 
 The metadata of geoIACS datasets or dataset series should follow all the TG recommendations of the "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007".
 ====
@@ -3175,8 +3146,7 @@ Regarding the publication of metadata of geoIACS datasets or dataset series, the
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 17*
-*Publication of metadata of geoIACS datasets or dataset series*
+*TG Requirement 17:* *Publication of metadata of geoIACS datasets or dataset series*
 
 Independently from the scenario applied by each MS to publish the metadata of geoIACS datasets or dataset series, geoIACS datasets or dataset series shall be discoverable in the MS national geoportal.
 ====
@@ -3230,8 +3200,7 @@ EXAMPLE: geoIACS of Belgium (Wallonia region)
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 18*
-*geoIACS resource title*
+*TG Requirement 18:* *geoIACS resource title*
 
 An unambiguous title containing the name of the Member State and the claim year(s) shall be given to a geoIACS dataset or dataset series. When applicable, the title shall also contain the name of the lot and a reference to the region.
 ====
@@ -3242,24 +3211,21 @@ The resource abstract is a short narrative describing the content and the main p
 
 [NOTE]
 ====
-*_TG Recommendation 12_*
-*Abstract of geoIACS historic datasets*
+*_TG Recommendation 12_:* *Abstract of geoIACS historic datasets*
 
 The abstract of geoIACS historic datasets should refer to the validity period.
 ====
 
 [NOTE]
 ====
-*_TG Recommendation 13_*
-*Abstract of geoIACS historic dataset series*
+*_TG Recommendation 13_:* *Abstract of geoIACS historic dataset series*
 
 The description of a geoIACS historic dataset series should refer to the dates or creation years of the datasets included in the series.
 ====
 
 [NOTE]
 ====
-*_TG Recommendation 14_*
-*Legal references in the abstract*
+*_TG Recommendation 14_:* *Legal references in the abstract*
 
 The abstract of the geoIACS datasets or dataset series should contain references to the national and European law under which the datasets have been created.
 
@@ -3276,8 +3242,7 @@ This metadata element provides information about the spatial data services that 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 19*
-*geoIACS resource locator*
+*TG Requirement 19:* *geoIACS resource locator*
 
 The resource locator metadata element of a geoIACS dataset or dataset series shall point to a spatial data service, where the geoIACS resource can be directly accessed.
 ====
@@ -3295,8 +3260,7 @@ The language(s) used in the geoIACS resource shall be given.
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 20*
-*geoIACS topic category*
+*TG Requirement 20:* *geoIACS topic category*
 
 The geoIACS datasets and series shall be assigned to the "farming" topic category.
 ====
@@ -3308,8 +3272,7 @@ Keywords help the users find the data that they are looking for. Therefore, keyw
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 20*
-*INSPIRE data themes for geoIACS datasets or series*
+*TG Requirement 21:* *INSPIRE data themes for geoIACS datasets or series*
 
 The three keywords corresponding to the INSPIRE data themes associated to geoIACS datasets or series shall be: "Land Cover", "Land Use", "Agricultural and Aquaculture Facilities".
 ====
@@ -3317,8 +3280,7 @@ The three keywords corresponding to the INSPIRE data themes associated to geoIAC
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 21*
-*Mandatory keywords from GEMET for geoIACS datasets or series*
+*TG Requirement 22:* *Mandatory keywords from GEMET for geoIACS datasets or series*
 
 The following three keywords contained in the GEMET vocabulary shall be assigned to geoIACS datasets or series: "Common Agricultural Policy", "agriculture", "agricultural land".
 ====
@@ -3326,8 +3288,7 @@ The following three keywords contained in the GEMET vocabulary shall be assigned
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 22*
-*Other mandatory keywords for geoIACS datasets or series*
+*TG Requirement 23:* *Other mandatory keywords for geoIACS datasets or series*
 
 The following additional keywords shall be assigned to geoIACS datasets or series: "IACS", "geoIACS" and all the spatial objects actually contained in the dataset or series: "reference parcel", "agricultural parcel", "non-agricultural eligible area", "eco-landscape element", "site", "ecological focus area".
 ====
@@ -3349,8 +3310,7 @@ In the IACS realm the two main events that have an impact on the life cycle of t
 
 [NOTE]
 ====
-*_TG Recommendation 15_*
-*Recommended value of the temporal reference of geoIACS datasets*
+*_TG Recommendation 15_:* *Recommended value of the temporal reference of geoIACS datasets*
 
 The temporal references of geoIACS dataset shall include the date of creation.
 ====
@@ -3358,8 +3318,7 @@ The temporal references of geoIACS dataset shall include the date of creation.
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 24*
-*Mandatory value of the temporal reference type of the geoIACS datasets*
+*TG Requirement 24:* *Mandatory value of the temporal reference type of the geoIACS datasets*
 
 The temporal references of geoIACS datasets shall contain at least the date of last revision.
 ====
@@ -3367,8 +3326,7 @@ The temporal references of geoIACS datasets shall contain at least the date of l
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 25*
-*Updating the value of the last revision date metadata element for a geoIACS dataset*
+*TG Requirement 25:* *Updating the value of the last revision date metadata element for a geoIACS dataset*
 
 Sharing an updated geoIACS dataset shall trigger an update of the value of the last revision metadata element.
 ====
@@ -3376,8 +3334,7 @@ Sharing an updated geoIACS dataset shall trigger an update of the value of the l
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 26*
-*Value of last revision date of geoIACS datasets*
+*TG Requirement 26:* *Value of last revision date of geoIACS datasets*
 
 In case of a geoIACS dataset update related to the yearly GSA, the value of the last revision shall correspond to the date within the campaign year, when the last change is validated.
 ====
@@ -3385,8 +3342,7 @@ In case of a geoIACS dataset update related to the yearly GSA, the value of the 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 27*
-*Minimum frequency of publishing the updated geoIACS datasets*
+*TG Requirement 27:* *Minimum frequency of publishing the updated geoIACS datasets*
 
 The updated geoIACS datasets, together with the updated metadata, shall be published within 6 months from the validation of the last change in the dataset.
 ====
@@ -3395,8 +3351,7 @@ Following a step-wise approach of spatial data sharing, the data owners have to 
 
 [NOTE]
 ====
-*_TG Recommendation 16_*
-*Accessibility of historic geoIACS datasets*
+*_TG Recommendation 16_:* *Accessibility of historic geoIACS datasets*
 
 The accessibility of historic versions of geoIACS datasets should be maintained.
 ====
@@ -3406,8 +3361,7 @@ TG requirements provided from TG Requirement 24 to TG Requirement 27 address the
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 28*
-*Temporal reference of geoIACS dataset series*
+*TG Requirement 28:* *Temporal reference of geoIACS dataset series*
 
 In case of geoIACS dataset series, requirements from TG Requirement 23 to TG Requirement 26 do not apply and the temporal reference shall be described in one common metadata record for all datasets using the temporal extent as a temporal reference.
 ====
@@ -3421,8 +3375,7 @@ This free-text element should contain information on the source data used and th
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 29*
-*Spatial resolution of geoIACS datasets*
+*TG Requirement 29:* *Spatial resolution of geoIACS datasets*
 
 The spatial resolution of geoIACS datasets shall be at least 1:5.000. Finer spatial resolutions are accepted.
 ====
@@ -3433,8 +3386,7 @@ The spatial resolution of geoIACS datasets shall be at least 1:5.000. Finer spat
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 30*
-*Specifications against which to evaluate conformity of geoIACS datasets*
+*TG Requirement 30:* *Specifications against which to evaluate conformity of geoIACS datasets*
 
 The only specifications against which the conformity of geoIACS datasets shall be evaluated and reported is this TG.
 ====
@@ -3446,8 +3398,7 @@ Besides the information required by the INSPIRE metadata requirements, informati
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 31*
-*Information about confidentiality clauses on geoIACS datasets*
+*TG Requirement 31:* *Information about confidentiality clauses on geoIACS datasets*
 
 Where confidentiality clause referred to in section 7.4 exist, they shall be described as free text or providing the link to a publicly accessible document containing the description.
 ====
@@ -3464,8 +3415,7 @@ No specific considerations to geoIACS apply.
 
 [NOTE]
 ====
-*_TG Recommendation 17_*
-*Metadata point of contact for geoIACS datasets*
+*_TG Recommendation 17_:* *Metadata point of contact for geoIACS datasets*
 
 The responsible party for production of the metadata for the geoIACS datasets should be the custodians of the geoIACS datasets.
 ====
@@ -3502,8 +3452,7 @@ Quality of geoIACS datasets or dataset series is assessed using the DQ elements 
 
 [NOTE]
 ====
-*_TG Recommendation 18_*
-*Documenting Data Quality of geoIACS datasets*
+*_TG Recommendation 18_:* *Documenting Data Quality of geoIACS datasets*
 
 geoIACS Data Quality should documented in a standalone quality report that should be downloadable at a link to be provided in the Resource Abstract metadata element.
 ====
@@ -3516,8 +3465,7 @@ geoIACS Data Quality should documented in a standalone quality report that shoul
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 32*
-*Updates*
+*TG Requirement 32:* *Updates*
 
 . Member States shall make available updates of data on a regular basis.
 
@@ -3552,8 +3500,7 @@ For bulk download of harmonised geoIACS datasets and series, an Atom Implementat
 
 [NOTE]
 ====
-*_TG Recommendation 19_*
-*Atom Implementation of Pre-defined Dataset Download Service*
+*_TG Recommendation 19_:* *Atom Implementation of Pre-defined Dataset Download Service*
 
 An Atom Implementation of Pre-defined Dataset Download Service, adhering to the instructions contained in the Section 5 of the Technical Guidance for the implementation of INSPIRE Download Services, is recommended for bulk download of harmonised geoIACS datasets and series.
 ====
@@ -3562,8 +3509,7 @@ To enable HVD machine readability and provision via APIs, harmonised geoIACS dat
 
 [NOTE]
 ====
-*_TG Recommendation 20_*
-*Harmonised geoIACS datasets and series accessibility via APIs*
+*_TG Recommendation 20_:* *Harmonised geoIACS datasets and series accessibility via APIs*
 
 Harmonised geoIACS datasets and series should be made accessible via APIs.
 ====
@@ -3573,8 +3519,7 @@ Harmonised geoIACS datasets and series should be made accessible via APIs.
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 33*
-*Encoding*
+*TG Requirement 33:* *Encoding*
 
 . Every encoding rule used to encode spatial data shall conform to EN ISO 19118. In particular, it shall specify schema conversion rules for all spatial object types and all attributes and association roles and the output data structure used.
 
@@ -3602,8 +3547,7 @@ The following TG requirements need to be met in order to be conformant with GML 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 34*
-*Default encoding*
+*TG Requirement 34:* *Default encoding*
 
 Data instance (XML) documents shall validate without error against the provided XML schema.
 ====
@@ -3612,7 +3556,7 @@ Not all constraints defined in the application schemas can be mapped to XML. The
 
 NOTE The obligation to use only the allowed code list values specified for attributes and most of the constraints defined in the application schemas [.underline]#cannot# be mapped to the XML schema. They can therefore [.underline]#not# be enforced through schema validation. It may be possible to express some of these constraints using other schema or rule languages (e.g. Schematron), in order to enable automatic validation.
 
-===== Default encoding(s) for geoIACS application schemas
+===== _Default encoding(s) for geoIACS application schemas_
 
 Name: geoIACS GML Application Schema
 
@@ -3624,14 +3568,13 @@ Character set: UTF-8
 
 For testing purposes, the xml schemas document is availablefootnote:[The finalised schemas will be uploaded in a registry operated in a EU domain.] at https://public.epsilon-italia.it/IACS/1.1/xsd/geoiacs.xsd
 
-===== Alternative Encoding
+===== _Alternative Encoding_
 
 To facilitate reuse of large volume geoIACS datasets, a GeoPackage encoding alternative to the gml default encoding, strictly adhering to the https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets]footnote:[https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md], is recommended.
 
 [NOTE]
 ====
-*_TG Recommendation 21_*
-*Use of GeoPackage encoding_*
+*_TG Recommendation 21_:* *Use of GeoPackage encoding_*
 
 Data providers should create their data using the OGC GeoPackage encoding standard, particularly suitable for managing and exchanging large datasets and optimised for data usability in GIS environments. In that case, the https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets] should be referenced.
 ====
@@ -3665,8 +3608,7 @@ This clause defines the rules for layers and styles to be used for portrayal of 
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 35*
-*Portrayal*
+*TG Requirement 35:* *Portrayal*
 
 For the portrayal of spatial data sets using a view network service as specified in Commission Regulation No 976/2009, the following should be available:
 
@@ -3700,8 +3642,7 @@ For each layer, Section link:#layers-to-be-provided-by-inspire-view-services[9.1
 
 [NOTE]
 ====
-*_TG Recommendation 22_*
-*Keywords in Layers Metadata parameters of the INSPIRE View service_*
+*_TG Recommendation 22_:* *Keywords in Layers Metadata parameters of the INSPIRE View service_*
 
 It is recommended to use the keywords specified in Section link:#layers-to-be-provided-by-inspire-view-services[9.1] in the Layers Metadata parameters of the INSPIRE View service (see Annex III, Part A, section 2.2.4 in Commission R (EC) No 976/2009).
 ====
@@ -3711,8 +3652,7 @@ The layers specified in *Table 5* can be further classified using a code list-va
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 36*
-*Portrayal*
+*TG Requirement 36:* *Portrayal*
 
 For spatial object types whose objects can be further classified using a code list-valued attribute, several layers may be defined. Each of these layers shall include the spatial objects corresponding to one specific code list value. In the definition of such sets of layers:
 
@@ -3732,8 +3672,7 @@ Section 0 specifies one style for each of layer specified in this section. It is
 [IMPORTANT]
 ====
 [.text-center]
-*TG Requirement 37*
-*Styles*
+*TG Requirement 37:* *Styles*
 
 For each layer specified in this section, the styles defined in section 0 shall be available.
 
@@ -4024,7 +3963,7 @@ In particular, it's to be highlighted that the GSA/LPIS relationship can be easi
 
 EC may consider to replace the current obligation to deliver the files related to LPIS population, GSA population and GSA/LPIS relationship with the sharing of geoIACS datasets.
 
-<<
+<<<
 [appendix]
 == Examples of geoIACS data harmonisation
 The physical implementation of the geoIACS data model was tested with data of three Paying Agencies participating in a pilot test phase. The source data used in the data harmonisation exercise are listed in *Table 11*.
