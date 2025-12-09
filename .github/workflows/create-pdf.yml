@@ -46,8 +46,11 @@ jobs:
       - name: asciidoctor-pdf-pages
         uses: INSPIRE-MIF/inspire-asciidoc-pdf-converter-action@v0.2.0
         with:
-          # working_branch: main_release # branch to commit pdf
-          asciidoctor_params: --attribute=nofooter
+        # working_branch: main_release # branch to commit pdf
+          asciidoctor_params: >
+            --attribute=nofooter
+            -a pdf-theme=pdf-theme.yml
+            -a pdf-themesdir=.
           # adoc_file_ext: .ascii # default is .adoc
           # pre_build:
           # post_build:
