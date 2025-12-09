@@ -1,0 +1,27 @@
+extends: default
+
+# Rendo evidente che il tema è in uso
+page:
+  margin: [1in, 0.75in, 1in, 0.75in]
+
+base:
+  font-color: #CC0000
+  font-size: 13
+
+header:
+  height: 0.6in
+  recto:
+    right:
+      content: '<< HEADER LOADED >>'
+  verso:
+    left:
+      content: '<< HEADER LOADED >>'
+
+footer:
+  height: 0.7in
+  recto:
+    center:
+      content: '<< DIAGNOSTIC FOOTER | PAGE {page-number} >>'
+  verso:
+    center:
+      content: '<< DIAGNOSTIC FOOTER | PAGE {page-number} >>'
