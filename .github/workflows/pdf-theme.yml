@@ -1,0 +1,8 @@
+footer:
+  height: 0.6in
+  recto:
+    center:
+      content: '{page-number}'
+  verso:
+    center:
+      content: '{page-number}'
