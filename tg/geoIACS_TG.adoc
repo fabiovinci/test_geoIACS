@@ -408,6 +408,7 @@ image::./media/image4.jpg[A computer screen shot of a computer AI-generated cont
 
 image::./media/image5.png[image5,width=572,height=344, align="center"]
 
+<<<
 [.text-center]
 *Figure 4.* geoIACS UML model – Site and EcologicalFocusArea class diagrams
 
@@ -423,6 +424,7 @@ image::./media/image7.jpeg[A diagram of a computer program AI-generated content 
 
 image::./media/image8.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=274, align="center"]
 
+<<<
 [.text-center]
 *Figure 7.* geoIACS UML model - NonAgriculturalEligibleArea associated code list
 
@@ -615,7 +617,7 @@ Official date at which the feature in situ (or legally) ceased (will cease) to b
 |validTo |/* If set, the date validTo shall be equal or later than validFrom. */
 |===
 
-_[.underline]#Relationships#_
+_[.underline]#*Relationships*#_
 
 [width="99%",cols="27%,73%",options="header",]
 |===
@@ -691,7 +693,7 @@ Agricultural parcel means a unit, defined by Member States, of agricultural area
 
 Agricultural parcel declared by farmer.
 
-[.underline]#Attributes#
+[.underline]#*_Attributes_*#
 
 [width="99%",cols="16%,13%,71%",options="header",]
 |===
@@ -981,6 +983,7 @@ Land containing non-agricultural areas considered eligible by the Member States 
 
 Non-agricultural areas, such as wetlands, Natura 2000, river basin management etc., receiving rural development support according to the Strategic plans of the MS.
 
+<<<
 *_[.underline]#Attributes#_*
 
 [width="99%",cols="",options="header",]
@@ -2484,6 +2487,7 @@ NOTE 1: The extension of this code list shall be documented in the eligibility p
 
 NOTE 2. This concept is relevant only for period covered by CAP before 2023.
 
+<<<
 *_[.underline]#Attributes#_*
 
 [width="99%",cols="16%,13%,71%",options="header",]
@@ -3322,6 +3326,7 @@ In the IACS realm the two main events that have an impact on the life cycle of t
 The temporal references of geoIACS dataset shall include the date of creation.
 ====
 
+<<<
 [IMPORTANT]
 ====
 [.text-center]
@@ -4227,6 +4232,7 @@ image::./media/image43.png[./media/image43,width=553,height=247, align="center"]
 
 image::./media/image44.png[./media/image44,width=569,height=300, align="center"]
 
+<<<
 [.text-center]
 *Figure 42.* Conceptual mapping from geoIACS EcologicalFocusArea feature type to INSPIRE LC LandCoverUnit feature type
 
