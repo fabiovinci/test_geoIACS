@@ -443,6 +443,7 @@ image::./media/image11.png[A diagram of a code AI-generated content may be incor
 
 image::./media/image12.png[A close-up of a computer screen AI-generated content may be incorrect.,width=282,height=126, align="center"]
 
+<<<
 [.text-center]
 *Figure 11.* LPIS UML model - LivestockSpecies and AquacultureSpecies code lists
 
@@ -1360,6 +1361,7 @@ Official date at which the feature in situ (or legally) ceased (will cease) to b
 !===
 |===
 
+<<<
 *_[.underline]#Constraints#_*
 
 [width="99%",cols="26%,<74%",options="header",]
@@ -3273,6 +3275,7 @@ The geoIACS datasets and series shall be assigned to the "farming" topic categor
 
 Keywords help the users find the data that they are looking for. Therefore, keywords should be meaningful and well known. Controlled vocabularies standardise and disseminate keywords to the targeted audiences. From the point of view of IACS the most relevant vocabularies are GEMET, which is adopted by INSPIRE and AGROVOC, maintained by UN FAO. In addition to controlled vocabularies, free keywords can be also used, as the multiplicity of the keyword metadata element is one to many (1..*).
 
+<<<
 [IMPORTANT]
 ====
 [.text-center]
@@ -4016,6 +4019,7 @@ image::./media/image19.png[./media/image19,width=558,height=299, align="center"]
 
 The attributes of two reference parcels, one in BE-Wallonia and another in BE-Flanders source datasets, are shown in *Figure 18* and *Figure 19* respectively.
 
+<<<
 [.text-center]
 *Figure 18.* Zoom on and attributes of a reference parcel in the BE-Wallonia source dataset
 
@@ -4028,6 +4032,7 @@ image::./media/image21.png[./media/image21,width=575,height=308, align="center"]
 
 The attributes of two agricultural parcels, one in BE-Wallonia and another in BE-Flanders source datasets are shown in *Figure 20* and *Figure 21* respectively.
 
+<<<
 [.text-center]
 *Figure 20.* Zoom on and attributes of an agricultural parcel in the BE-Wallonia source dataset
 
@@ -4040,6 +4045,7 @@ image::./media/image23.png[./media/image23,width=568,height=303, align="center"]
 
 The attributes of two agricultural parcels, one in BE-Wallonia and another in BE-Flanders geoIACS harmonised datasets are shown in *Figure 22* and *Figure 23* respectively.
 
+<<<
 [.text-center]
 *Figure 22.* Zoom on and attributes of an agricultural parcel in the BE-Wallonia geoIACS harmonised dataset
 
@@ -4069,6 +4075,7 @@ The same considerations made for the BE-Wallonia geoIACS harmonised datasets app
 
 With reference to the figures from *Figure 22* to *Figure 25*, the benefits of analyses and processing made on geoIACS harmonised datasets are evident.
 
+<<<
 [.text-center]
 *Figure 25.* Attributes of an agricultural parcel in the BE-Flanders geoIACS harmonised dataset
 
@@ -4122,6 +4129,7 @@ Clicking on the Collections button in *Figure 29* the three collections availabl
 
 For each collection it is possible to select the download format, as shown in *Figure 30* for agriculturalparcel.
 
+<<<
 [.text-center]
 *Figure 30.* Collections of OGC API Feature service
 
@@ -4134,6 +4142,7 @@ Clicking on the link shown in the red box in *Figure 30*, the feature schema of 
 
 image::./media/image34.png[./media/image34,width=347,height=411, align="center"]
 
+<<<
 [.text-center]
 *Figure 32.* HTML attribute table of agricultural parcel collection
 
@@ -4207,7 +4216,7 @@ A conceptual mapping from the four geoIACS feature types to INSPIRE LC LandCover
 
 image::./media/image42.png[./media/image42,width=569,height=301, align="center"]
 
-
+<<<
 [.text-center]
 *Figure 40.* Conceptual mapping from geoIACS NonAgriculturalEligibleArea feature type to INSPIRE LC LandCoverUnit feature type
 
@@ -4263,6 +4272,7 @@ Regarding the INSPIRE mandatory attribute hilucsLandUse, it will be populated wi
 
 It is to be highlighted that creating an INSPIRE LU dataset (conformant to the ExistingLandUse schema) requires to create one ExistingLandUseDataSet feature, of which one to many ExistingLandUSeObject are members, as shown in *Figure 45*.
 
+<<<
 [.text-center]
 *Figure 45.* Relationship between INSPIRE ExistingLandUse featureType and ExistingLandUseObject featureType
 
@@ -4289,6 +4299,7 @@ Should INSPIRE conformant AF datasets be available, the creation of geoIACS Site
 
 Conversely, an INSPIRE conformant AF dataset can be partially obtained from a geoIACS dataset, following the mapping shown in *Figure 46*. The only INSPIRE AF mandatory attribute not present in geoIACS Site feature type is function, whose Function data type has the only mandatory attribute 'activity', related to the activity of the holding, which can be different from the activities of the Sites contained in the holding. Therefore, this information should be provided by the data provider.
 
+<<<
 [.text-center]
 *Figure 46.* Relationships between geoIACS Site feature type and INSPIRE AF data model elements
 
