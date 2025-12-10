@@ -86,6 +86,7 @@ This TG has undergone an initial test phase, producing harmonised datasets from 
 
 As a final introductory remark, the structure of this report adheres to the structure of an INSPIRE data specification on a data theme, adopting for requirements and recommendations the styles shown below:
 
+<<<
 [IMPORTANT]
 ====
 [.text-center]
@@ -161,6 +162,7 @@ Definition of additional terms are provided in section link:#geoiacs-feature-cat
 
 The above definitions describe the feature types (spatial object types) of IACS, which are subject of this technical guidelines. Their relation to the real world and the geoIACS spatial datasets are shown in *Figure 1*.
 
+<<<
 [.text-center]
 *Figure 1*.Spatial object (feature) types of IACS as abstracted from the real world
 
@@ -395,6 +397,7 @@ In terms of relationships among the four main spatial objects:
 
 An overview of the geoIACS UML model is given in *Figure 2*, whilst the details are provided in the figures from *Figure 3* to *Figure 12*. A complete and detailed description of all the application schema elements is contained in the geoIACS Feature Catalogue (section link:#geoiacs-feature-catalogue[3.3.2]).
 
+<<<
 [.text-center]
 *Figure 2.* geoIACS UML model - overview
 
@@ -3223,6 +3226,7 @@ The abstract of geoIACS historic datasets should refer to the validity period.
 The description of a geoIACS historic dataset series should refer to the dates or creation years of the datasets included in the series.
 ====
 
+<<<
 [NOTE]
 ====
 *_TG Recommendation 14_:* *Legal references in the abstract*
@@ -3649,6 +3653,7 @@ It is recommended to use the keywords specified in Section link:#layers-to-be-pr
 
 The layers specified in *Table 5* can be further classified using a code list-valued attribute.
 
+<<<
 [IMPORTANT]
 ====
 [.text-center]
@@ -3859,6 +3864,7 @@ The changes introduced in the geoIACS data model at feature type, data type and 
 <|FarmAnimalSpecies <|New data type for the includesAnimal attribute of Site (taken from INSPIRE AF)
 |===
 
+<<<
 [.text-center]
 *Table 8.* Changes at code list level
 
@@ -3997,6 +4003,7 @@ A screenshot of the mapping rules applied to a transformation project in hale»s
 
 An overview of the AP source datasets of BE-Wallonia and BE-Flanders is shown in *Figure 17*, together with a small red box showing a cross-border area where more detailed analyses were made and are presented in the following figures.
 
+<<<
 [.text-center]
 *Figure 16.* Mapping rules applied to a transformation project in hale»studio
 
@@ -4320,5 +4327,4 @@ _EU open data_
 The portal data.europa.eu provides access to open datasets from the EU institutions, bodies and agen-cies. These can be downloaded and reused for free, for both commercial and non-commercial purposes. The portal also provides access to a wealth of datasets from European countries.
 
 <<<
-
 image::./media/image53.png[image, align=center]
