@@ -3736,6 +3736,7 @@ image::./media/image51.png[image51, align="center"]
 <|*Minimum & maximum scales* |No scale limit
 |===
 
+<<<
 ==== Styles for the layer EcologicalFocusArea
 
 [width="100%",cols="<15%,85%",options="header",]
