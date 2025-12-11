@@ -47,7 +47,8 @@ Contact information:
 |Tel.:
 |===
 
-The Joint Research Centre: EU Science Hub 
+[%hardbreaks]
+*The Joint Research Centre: EU Science Hub*
 https://joint-research-centre.ec.europa.eu
 JRC144416
 Ispra: European Commission, 2025
@@ -158,7 +159,7 @@ The following geoIACS specific terms are defined:
 * *Reference parcel*: From Article 2(2) of Regulation (EU) 2022/1172, 'reference parcel' means a geographically delimited area retaining a unique identification as registered in the identification system for agricultural parcels referred to in Article 68 of Regulation (EU) 2021/2116. A reference parcel shall contain a unit of land representing agricultural area, as referred to in Article 4(3) of Regulation (EU) 2021/2115. Where appropriate, a reference parcel shall also contain non-agricultural areas considered eligible by Member States for receiving the support for area-based interventions referred to in Article 65(2) and (3) of Regulation (EU) 2021/2116.
 * *Site*: Place within a holding where agricultural activities related to animals are exercised.
 
-Definition of additional terms are provided in section link:#geoiacs-feature-catalogue[3.3.2] (geoIACS Feature catalogue).
+Definition of additional terms are provided in section 3.3.2 (geoIACS Feature catalogue).
 
 The above definitions describe the feature types (spatial object types) of IACS, which are subject of this technical guidelines. Their relation to the real world and the geoIACS spatial datasets are shown in *Figure 1*.
 
@@ -384,7 +385,7 @@ geoIACS application schema consists of six spatial objects:
 * Site
 * EcologicalFocusArea
 
-whose definitions are provided in section link:#terms-and-definitions[2.4]. Each of these spatial objects is made of a series of object-specific attributes (of different types), constraints and relationships.
+whose definitions are provided in section 2.4. Each of these spatial objects is made of a series of object-specific attributes (of different types), constraints and relationships.
 
 Some attributes and relationships are mandatory, some others are optional.
 
@@ -395,7 +396,7 @@ In terms of relationships among the four main spatial objects:
 * each AgriculturalParel, NonAgriculturalEligibleArea and EcoLandscapeElement has to be mandatorily associated with one ReferenceParcel, whilst each ReferenceParcel is mandatorily associated with one or many AgriculturalParcel(s) or NonAgriculturalEligibleArea(s) or EcoLandscapeElement(s).
 * Site and EcologicalFocusArea spatial objects are not associated with any of the four main spatial objects.
 
-An overview of the geoIACS UML model is given in *Figure 2*, whilst the details are provided in the figures from *Figure 3* to *Figure 12*. A complete and detailed description of all the application schema elements is contained in the geoIACS Feature Catalogue (section link:#geoiacs-feature-catalogue[3.3.2]).
+An overview of the geoIACS UML model is given in *Figure 2*, whilst the details are provided in the figures from *Figure 3* to *Figure 12*. A complete and detailed description of all the application schema elements is contained in the geoIACS Feature Catalogue (section 3.3.2).
 
 <<<
 [.text-center]
@@ -412,17 +413,17 @@ image::./media/image5.png[image5,width=572,height=344, align="center"]
 [.text-center]
 *Figure 4.* geoIACS UML model – Site and EcologicalFocusArea class diagrams
 
-image::./media/image6.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=331, align="center"]
+image::./media/image6.png[image,width=567,height=331, align="center"]
 
 [.text-center]
 *Figure 5.* geoIACS UML model - AgriculturalAreaType code list
 
-image::./media/image7.jpeg[A diagram of a computer program AI-generated content may be incorrect.,width=161,height=110, align="center"]
+image::./media/image7.png[image,width=161,height=110, align="center"]
 
 [.text-center]
 *Figure 6.* geoIACS UML model – Crop and LocalisedCrop code lists
 
-image::./media/image8.png[A screenshot of a computer AI-generated content may be incorrect.,width=567,height=274, align="center"]
+image::./media/image8.png[image,width=567,height=274, align="center"]
 
 <<<
 [.text-center]
@@ -2061,7 +2062,7 @@ https://mydomain/registry/codelist/LocalisedCropValue
 
 *_[.underline]#Values#_*
 
-Even though crop values shall be provided according to European or national classifications referred to in link:#cropvalue[3.3.2.3.2], additional local nomenclatures may be optionally used.
+Even though crop values shall be provided according to European or national classifications referred to in 3.3.2.3.2, additional local nomenclatures may be optionally used.
 
 ====== NonAgriculturalEligibleAreaTypeValue
 
@@ -2243,8 +2244,8 @@ https://mydomain/registry/codelist/EcoLandscapeElementDesignationValue
 
 Values shall be selected from two different codelists, according to the value of the type of EcoLandscapeElement:
 
-* LandscapeFeatureTypeValue codelist (described in link:#landscapefeaturetypevalue[3.3.2.3.7]), if EcoLandscapeElementTypeValue is landscapeFeature
-* AreaBasedEcoSchemeValue codelist (described in link:#areabasedecoschemevalue[3.3.2.3.8]), if EcoLandscapeElementTypeValue is areBasedEcoScheme
+* LandscapeFeatureTypeValue codelist (described in 3.3.2.3.7), if EcoLandscapeElementTypeValue is landscapeFeature
+* AreaBasedEcoSchemeValue codelist (described in 3.3.2.3.8), if EcoLandscapeElementTypeValue is areBasedEcoScheme
 
 ====== LandscapeFeatureTypeValue
 
@@ -2844,11 +2845,11 @@ This section contains the data quality (DQ) elements referred to in the INSPIRE 
 
 Even though IACS Quality Assessment (QA) is out of the scope of this TG and remains regulated by the related CAP legal provisions and technical documentation, the content of this section contributes to improve the overall quality of IACS data. Moreover, geoIACS data model helps significantly MS fulfil some of their QA obligations, as shown in Annex 3.
 
-In particular, the DQ elements, sub-elements and measures specified in section link:#data-quality-elements[5.1] should be used for:
+In particular, the DQ elements, sub-elements and measures specified in section 5.1 should be used for:
 
-* evaluating and documenting DQ properties and constraints of spatial objects, where such properties or constraints are defined as part of the application schema (see section link:#data-content-and-structure[3]),
-* evaluating and documenting DQ metadata elements of spatial data sets (see section link:#dataset-level-metadata[6]), and/or
-* specifying minimum requirements or recommendations on the DQ (see sections link:#minimum-data-quality-requirements[5.2]).
+* evaluating and documenting DQ properties and constraints of spatial objects, where such properties or constraints are defined as part of the application schema (see section 3),
+* evaluating and documenting DQ metadata elements of spatial data sets (see section 6), and/or
+* specifying minimum requirements or recommendations on the DQ (see sections 5.2).
 
 The information about data quality is generally documented in related metadata elements. However it is given the possibility to the geoIACS data providers to document the DQ information in a unique standalone report, whose link can be provided in the Abstract metadata element.
 
@@ -2858,7 +2859,7 @@ In this section, the DQ elements applied to the geoIACS datasets are described, 
 
 The DQ elements and measures are based on Annex D of ISO 19157 Geographic information – Data quality and ISO 2859-2:1985 Sampling procedures for inspection by attributes — Part 2: Sampling plans indexed by limiting quality (LQ) for isolated lot inspection.
 
-A mapping among the INSPIRE/ISO 19157 based DQ elements and the related LPIS QA is provided in *Table 3*. In addition to the DQ elements used in LPIS QA, Logical consistency with the Domain consistency sub-element is also included. This latter is evaluated based on the adherence of the geoIACS datasets to the schema described in Section link:#data-content-and-structure[3].
+A mapping among the INSPIRE/ISO 19157 based DQ elements and the related LPIS QA is provided in *Table 3*. In addition to the DQ elements used in LPIS QA, Logical consistency with the Domain consistency sub-element is also included. This latter is evaluated based on the adherence of the geoIACS datasets to the schema described in Section 3.
 
 [.text-center]
 *Table 3.* Data quality elements used in geoIACS datasets
@@ -2866,15 +2867,13 @@ A mapping among the INSPIRE/ISO 19157 based DQ elements and the related LPIS QA 
 [width="100%",cols="14%,17%,16%,<19%,<15%,<19%",options="header",]
 |===
 |*Section* <|*Data quality element* <|*Data quality sub-element* |*Definition (according to ISO 19157)* |*Evaluation Scope* |*Reference*
-|link:#completeness-commission[5.1.1] |Completeness |Commission <|Excess data present in the dataset, as described by the scope. <|spatial object type <|QE3 of the LPIS ETS guidance
-|link:#logical-consistency-domain-consistency[5.1.2] |Logical consistency |Domain consistency <|Adherence of values to the value domains. <|spatial object <|Application schemas in section 3.
-|link:#logical-consistency-topological-consistency[5.1.3] |Logical consistency |Topological consistency <|Correctness of the explicitly encoded topological characteristics and rules of the dataset, as described by the scope |spatial object <|If applicable: application schemas of the local implementations of the MS.
-|link:#data-quality-positional-accuracy-absolute-or-external-accuracy[5.1.4] |Positional accuracy <|Absolute or external accuracy <|closeness of reported coordinate values to values accepted as or being true |dataset <|Art. 68(1) of Regulation 2021/2116 (1:5000 equivalent scale)
-|link:#data-quality-positional-accuracy-relative-or-internal-accuracy[5.1.5] |Positional accuracy <|Relative or internal accuracy <|Closeness of reported coordinate values to values accepted as or being true |dataset |
-|link:#data-quality-thematic-accuracy-quantitative-attribute-accuracy-- -percentage[5.1.6] |Thematic 
-accuracy <|Quantitative attribute accuracy - percentage <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
-|link:#data-quality-thematic-accuracy-quantitative-attribute-accuracy-- -conformance[5.1.7] |Thematic 
-accuracy |Quantitative attribute accuracy – conformance <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
+|5.1.1 |Completeness |Commission <|Excess data present in the dataset, as described by the scope. <|spatial object type <|QE3 of the LPIS ETS guidance
+|5.1.2 |Logical consistency |Domain consistency <|Adherence of values to the value domains. <|spatial object <|Application schemas in section 3.
+|5.1.3 |Logical consistency |Topological consistency <|Correctness of the explicitly encoded topological characteristics and rules of the dataset, as described by the scope |spatial object <|If applicable: application schemas of the local implementations of the MS.
+|5.1.4 |Positional accuracy <|Absolute or external accuracy <|closeness of reported coordinate values to values accepted as or being true |dataset <|Art. 68(1) of Regulation 2021/2116 (1:5000 equivalent scale)
+|5.1.5 |Positional accuracy <|Relative or internal accuracy <|Closeness of reported coordinate values to values accepted as or being true |dataset |
+|5.1.6 <|Thematic accuracy <|Quantitative attribute accuracy - percentage <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
+|5.1.7 <|Thematic accuracy |Quantitative attribute accuracy – conformance <|Closeness of the value of a quantitative attribute to a value accepted or known to be true, |dataset |QE1a of the LPIS ETS Guidance
 |===
 
 _Source:_ INSPIRE Data Specifications.
@@ -3405,7 +3404,7 @@ The only specifications against which the conformity of geoIACS datasets shall b
 
 ==== Conditions applying to access and use
 
-Besides the information required by the INSPIRE metadata requirements, information related to the existence of any possible confidentiality clause referred to in section link:#confidentiality-clauses[7.4] shall be described here, as free text or providing the link to a publicly accessible document containing the description.
+Besides the information required by the INSPIRE metadata requirements, information related to the existence of any possible confidentiality clause referred to in section 7.4 shall be described here, as free text or providing the link to a publicly accessible document containing the description.
 
 [IMPORTANT]
 ====
@@ -3451,13 +3450,13 @@ The metadata describing a spatial dataset shall include the following metadata e
 * Character Encoding: The character encoding used in the data set. This element is mandatory only if an encoding is used that is not based on UTF-8.
 * Spatial Representation Type: The method used to spatially represent geographic information.
 
-Regarding metadata of a geoIACS dataset or dataset series, similarly to what required for the metadata elements described in section link:#metadata-elements-defined-in-inspire-metadata-regulation[6.1], also for the metadata elements described in this section the fulfilment of the requirements contained in "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007" is mandatory and the adoption of the Recommendations contained in the above-mentioned Technical Guidance is suggested.
+Regarding metadata of a geoIACS dataset or dataset series, similarly to what required for the metadata elements described in section 6.1, also for the metadata elements described in this section the fulfilment of the requirements contained in "Technical Guidance for the implementation of INSPIRE dataset and service metadata based on ISO/TS 19139:2007" is mandatory and the adoption of the Recommendations contained in the above-mentioned Technical Guidance is suggested.
 
 No specific considerations to geoIACS apply, nor additional requirements and recommendations are provided.
 
 === Metadata documenting Data Quality
 
-Quality of geoIACS datasets or dataset series is assessed using the DQ elements described in section link:#data-quality-elements[5.1] and may be documented using metadata in two alternative ways:
+Quality of geoIACS datasets or dataset series is assessed using the DQ elements described in section 5.1 and may be documented using metadata in two alternative ways:
 
 * using the encoding specified by ISO 19115 for each DQ element, or
 * using a free text comprehensive standalone quality report, containing a description of the data quality assessment framework, of the data quality scope, methodology, findings and analysis.
@@ -3544,7 +3543,7 @@ ISO 19118:2011 specifies the requirements for defining encoding rules used for i
 * requirements for creating encoding services, and
 * requirements for XML-based encoding rules for neutral interchange of data.
 
-This TG proposes to make geoIACS datasets available at least in the default encoding(s) specified in section link:#default-encodings[7.3.1]. In this section, a number of TG requirements are listed that need to be met in order to be conformant with the default encoding(s).
+This TG proposes to make geoIACS datasets available at least in the default encoding(s) specified in section 7.3.1. In this section, a number of TG requirements are listed that need to be met in order to be conformant with the default encoding(s).
 
 The proposed default encoding(s) are conformant with ISO 19118.
 
@@ -3570,12 +3569,10 @@ NOTE The obligation to use only the allowed code list values specified for attri
 
 ===== _Default encoding(s) for geoIACS application schemas_
 
+[%hardbreaks]
 Name: geoIACS GML Application Schema
-
 Version: version 2.0
-
 Specification: This TG;
-
 Character set: UTF-8
 
 For testing purposes, the xml schemas document is availablefootnote:[The finalised schemas will be uploaded in a registry operated in a EU domain.] at https://public.epsilon-italia.it/IACS/1.1/xsd/geoiacs.xsd
@@ -3601,7 +3598,7 @@ geoIACS datasets (or series) harmonised according to the data model described in
 
 This condition could very likely happen for the holdingId attribute, present in several geoIACS spatial objects (agricultural parcel, site, non-agricultural eligible area, eco-landscape element).
 
-This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use and documented in the metadata element "Conditions applying to access and use" (described in section link:#conditions-applying-to-access-and-use[6.1.14]).
+This attribute, when covered by confidentiality clauses set by the data providers, will be shared only to authorised and authenticated users (e.g. EC services) under specific conditions laid down in written terms of use and documented in the metadata element "Conditions applying to access and use" (described in section 6.1.14).
 
 Regarding data delivery, because the holdingId attribute has multiplicity 1 (meaning that its provision is mandatory), those geoIACS data providers who will require the application of confidentiality clauses shall share with the EC services the full dataset (containing also the sensitive information) and shall publicly share a version of the dataset to be derived from the full one after removal or masking of the sensitive information.
 
@@ -3625,11 +3622,11 @@ This clause defines the rules for layers and styles to be used for portrayal of 
 For the portrayal of spatial data sets using a view network service as specified in Commission Regulation No 976/2009, the following should be available:
 
 [loweralpha]
-. the layers specified in Section link:#layers-to-be-provided-by-inspire-view-services[9.1];
+. the layers specified in Section 9.1;
 
 . for each layer at least a default portrayal style, with as a minimum an associated title and a unique identifier.
 
-For each layer, Section link:#layers-to-be-provided-by-inspire-view-services[9.1] defines the following:
+For each layer, Section 9.1 defines the following:
 
 [loweralpha]
 . a human readable title of the layer to be used for display in user interface;
@@ -3656,7 +3653,7 @@ For each layer, Section link:#layers-to-be-provided-by-inspire-view-services[9.1
 ====
 *_TG Recommendation 22_:* *Keywords in Layers Metadata parameters of the INSPIRE View service_*
 
-It is recommended to use the keywords specified in Section link:#layers-to-be-provided-by-inspire-view-services[9.1] in the Layers Metadata parameters of the INSPIRE View service (see Annex III, Part A, section 2.2.4 in Commission R (EC) No 976/2009).
+It is recommended to use the keywords specified in Section 9.1 in the Layers Metadata parameters of the INSPIRE View service (see Annex III, Part A, section 2.2.4 in Commission R (EC) No 976/2009).
 ====
 
 The layers specified in *Table 5* can be further classified using a code list-valued attribute.
@@ -3776,6 +3773,24 @@ Possible confidentiality clauses required by geoIACS data providers willing to p
 A preliminary test of this TG, described in Annex 4, has been executed, producing three harmonised geoIACS datasets from non-harmonised source datasets shared by three pilot Paying Agencies.
 
 Regarding the roadmap to endorse the geoIACS data specification, the TG contained in this report will be shared with DG AGRI, the Paying Agencies and the custodians of the geoIACS data. The specification in this TG will be tested by means of voluntary pilots. The feedback collected will lead to a revision of the TG and the publication of the final version. In parallel, the endorsement procedure will be discussed and agreed with JRC, DG AGRI and the INSPIRE MIG (Maintenance and Implementation Group).
+
+<<<
+[discrete]
+==== References
+
+
+* Czucz, Balint, Bettina Baruth, Jean-Michel Terres, Francisco Gallego Pinilla, Andrea Hagyo, Vincenzo Angileri, Marco Nocita, Marta Perez-Soba Aguila, Renate Koeble, and Maria Luisa Paracchini. 2022. Classification and Quantification of Landscape Features in Agricultural Land across the EU. Luxembourg: Publications Office of the European Union.
+* EU. 2016. “Consolidated Text: Regulation (EU) 2016/679 of the European Parliament and of the Council of 27 April 2016 on the Protection of Natural Persons with Regard to the Processing of Personal Data and on the Free Movement of Such Data, and Repealing Directive ….” https://eur-lex.europa.eu/eli/reg/2016/679.
+* EU. 2018. “Regulation (EU) 2018/1091 of the European Parliament and of the Council of 18 July 2018 on Integrated Farm Statistics and Repealing Regulations (EC) No 1166/2008 and (EU) No 1337/2011 (Text with EEA Relevance.).” https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=celex%3A32018R1091.
+* European Commission. 2014. “Commission Delegated Regulation (EU) No 639/2014 of 11 March 2014 Supplementing Regulation (EU) No 1307/2013 of the European Parliament and of the Council Establishing Rules for Direct Payments to Farmers under Support Schemes within the Framework of The.” Official Journal of the European Union 1–47.
+* European Commission DG JRC. 2016. LPIS Quality Assurance Framework. Annex I. Executable Test Suite (ETS) LPIS Data Quality Measures, Version 6.1. DS/CDP/2015/07-REV1 part B. Ispra.
+European Commission JRC. 2015. “Technical Guidance on LPIS Update.”
+Eurostat. 2020. “Integrated Farm Statistics Manual — 2020 Edition - Products Manuals and Guidelines.” https://ec.europa.eu/eurostat/web/products-manuals-and-guidelines/-/ks-gq-20-009.
+* INSPIRE Data Specifications Drafting Team. 2010. INSPIRE Guidelines for the Encoding of Spatial Data. Ispra, Italy.
+INSPIRE glossary - INSPIRE registry. n.d. Retrieved November 7, 2025. https://inspire.ec.europa.eu/glossary.
+* MARTIRANO, Giacomo, and Katalin TOTH. 2023. “Technical Guidelines on IACS Spatial Data Sharing - Part 2 – Interoperability.” doi:10.2760/646422.
+* Tóth, Katalin, and Pavel Milenov. 2020. Technical Guidelines on IACS Spatial Data Sharing Part 1 - Data Discovery.
+
 
 <<<
 == List of abbreviations and definitions
@@ -3899,7 +3914,7 @@ The changes introduced in the geoIACS data model at feature type, data type and 
 == geoIACS datasets and HVD
 geoIACS datasets are High Value Datasets, because they fulfil the requirements set for Reference parcels and Agricultural parcels datasets listed in the Annex of Regulation (EU) 2023/138.
 
-However, geoIACS datasets contain more information than required by HVD Regulation. This additional information consists in information potentially sensitive, which shall fulfil confidentiality clauses dealt with in section link:#confidentiality-clauses[7.4], and in information that can be publicly shared. Therefore, in order to comply with HVD Regulation, it is sufficient that MS publicly share geoIACS datasets removing the sensitive information. Should MS decide to publicly share only the information required by HVD Regulation (therefore excluding the publicly shareable additional information), they can easily derive an additional dataset from a geoIACS dataset, following the mapping instructions provide in this Annex.
+However, geoIACS datasets contain more information than required by HVD Regulation. This additional information consists in information potentially sensitive, which shall fulfil confidentiality clauses dealt with in section 7.4, and in information that can be publicly shared. Therefore, in order to comply with HVD Regulation, it is sufficient that MS publicly share geoIACS datasets removing the sensitive information. Should MS decide to publicly share only the information required by HVD Regulation (therefore excluding the publicly shareable additional information), they can easily derive an additional dataset from a geoIACS dataset, following the mapping instructions provide in this Annex.
 
 [.underline]#ReferenceParcel#
 
@@ -4089,9 +4104,9 @@ image::./media/image28.png[./media/image28,width=560,height=445, align="center"]
 
 A similar harmonisation was done on sample Spanish source data and a sample geoIACS harmonised dataset was produced also for Spain..
 
-The data harmonisation exercise described so far produced three gml files, according to the default encoding requirements contained in section link:#default-encodings[7.3.1].
+The data harmonisation exercise described so far produced three gml files, according to the default encoding requirements contained in section 7.3.1.
 
-In addition, the use of the GeoPackage alternative encoding, referred to in section link:#alternative-encoding[7.3.1.3], was applied to the three geoIACS harmonised gml and three geoIACS harmonised GeoPackages were produced, using a GeoPackage template and a hale»studio transformation project with the geoIACS xsd as source schema and the GeoPackage template as target schema.
+In addition, the use of the GeoPackage alternative encoding, referred to in section 7.3.1.3, was applied to the three geoIACS harmonised gml and three geoIACS harmonised GeoPackages were produced, using a GeoPackage template and a hale»studio transformation project with the geoIACS xsd as source schema and the GeoPackage template as target schema.
 
 The benefits of geoIACS harmonised datasets encoded in GeoPackages are twofold:
 
@@ -4251,7 +4266,7 @@ image::./media/image46.png[Text Description automatically generated with medium 
 Therefore, one LandCoverDataset feature has to be created and a value has to be assigned to the attributes in the yellow box in *Figure 43*:
 
 * extent: according to ISO 19115, it can be realized through a bounding polygon, a geographic bounding-box or a geographic description (e.g. name of a region ...),
-* inspireId: an identifier has to be assigned, according to the instructions provided in section link:#identifier-management[3.2.6],
+* inspireId: an identifier has to be assigned, according to the instructions provided in section 3.2.6,
 * name: a textual name has to be assigned by the data provider,
 * nomenclatureDocumentation: this attribute allows to provide documentation on the nomenclature used in the dataset. Please note that the core model supports only one nomenclature per dataset. According to the INSPIRE LandCoverVector application schema, this nomenclature "can be CORINE, another European nomenclature, a national one or any other LC nomenclature", modelled with the UML class LandCoverNomenclature. In this specific case it will be related to the nomenclature used in the following code lists:
 ** AgriculturalAreaTypeValue
@@ -4288,7 +4303,7 @@ image::./media/image48.png[Diagram Description automatically generated with low 
 Therefore, one ExistingLandUseDataSet feature has to be created and a value has to be assigned to the attributes in the yellow box in *Figure 45*:
 
 * extent: the extent of an ExistingLandUseDataset is defined as the boundary of the union of all the polygons (ExistingLandUseObject) that are a member of the ExistingLandUseDataset,
-* inspireId: an identifier has to be assigned, according to the instructions provided in section link:#identifier-management[3.2.6],
+* inspireId: an identifier has to be assigned, according to the instructions provided in section 3.2.6,
 * name: a textual name has to be assigned by the data provider.
 
 <<<
@@ -4298,7 +4313,7 @@ The geoIACS Site feature type was introduced in the geoIACS data model to includ
 
 From a semantic point of view, the livestock-related data modelling requirements analysed during the geoIACS data model design suggested to reuse part of the INSPIRE AF data model, given the similarity in scope.
 
-In particular, a Site feature type, whose UML class diagram is shown in *Figure 46* and whose attributes are described in section link:#site[3.3.2.1.5], representing a simplified version of INSPIRE AF Site feature type, was designed. The simplification consisted in having eliminated the aggregation with the Holding feature type, and consequently the specialisation of the Activity Complex feature type, and having added to the geoIACS Site feature type the relevant attributes of the INSPIRE Activity Complex feature type.
+In particular, a Site feature type, whose UML class diagram is shown in *Figure 46* and whose attributes are described in section 3.3.2.1.5, representing a simplified version of INSPIRE AF Site feature type, was designed. The simplification consisted in having eliminated the aggregation with the Holding feature type, and consequently the specialisation of the Activity Complex feature type, and having added to the geoIACS Site feature type the relevant attributes of the INSPIRE Activity Complex feature type.
 
 The relationships between geoIACS Site feature type and INSPIRE AF data model elements are visually schematised in *Figure 46*.
 
