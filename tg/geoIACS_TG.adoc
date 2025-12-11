@@ -2491,7 +2491,7 @@ NOTE 2. This concept is relevant only for period covered by CAP before 2023.
 <<<
 *_[.underline]#Attributes#_*
 
-[width="99%",cols="16%,13%,71%",options="header",]
+[width="99%",cols="19%,10%,71%",options="header",]
 |===
 |*Name* |*Type* |*Notes*
 |afforestedAreas | a|
@@ -4361,3 +4361,4 @@ The portal data.europa.eu provides access to open datasets from the EU instituti
 
 <<<
 image::./media/image53.png[image, align=center]
+<<<
