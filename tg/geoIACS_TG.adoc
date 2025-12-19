@@ -3550,14 +3550,14 @@ To facilitate reuse of large volume geoIACS datasets, a GeoPackage encoding alte
 
 [NOTE]
 ====
-*_TG Recommendation 21_:* *Use of GeoPackage encoding_*
+*_TG Recommendation 21_:* *Use of GeoPackage encoding*
 
 Data providers should create their data using the OGC GeoPackage encoding standard, particularly suitable for managing and exchanging large datasets and optimised for data usability in GIS environments. In that case, the https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets] should be referenced.
 ====
 
 For testing purposes, a geoIACS GeoPackage template adhering to the above mentioned https://github.com/INSPIRE-MIF/gp-geopackage-encodings/blob/main/spec/GeoPackage_Good_Practice_initiation_fiche.md[INSPIRE Good Practice for the GeoPackage encoding of INSPIRE datasets] has been created and applied to produce an harmonised geoIACS dataset. More details are provided in Annex 4.
 
-Other exiting/new alternative encodings (apart from GeoPackage), duly endorsed by the INSPIRE Maintenance and Implementation Group (MIG) and defined as INSPIRE Good Practices in the INSPIRE Good Practice libraryfootnote:[https://knowledge-base.inspire.ec.europa.eu/evolution/good-practice-library_en], might be used/proposed.
+Other existing/new alternative encodings (apart from GeoPackage), duly endorsed by the INSPIRE Maintenance and Implementation Group (MIG) and defined as INSPIRE Good Practices in the INSPIRE Good Practice libraryfootnote:[https://knowledge-base.inspire.ec.europa.eu/evolution/good-practice-library_en], might be used/proposed.
 
 === Confidentiality clauses
 
@@ -4327,3 +4327,4 @@ The portal data.europa.eu provides access to open datasets from the EU instituti
 image::./media/image53.png[image, align=center]
 
 <<<
+
