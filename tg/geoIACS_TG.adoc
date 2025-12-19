@@ -164,9 +164,9 @@ The above definitions describe the feature types (spatial object types) of IACS,
 
 <<<
 [.text-center]
-*Figure 1*.Spatial object (feature) types of IACS as abstracted from the real world
+*Figure 1*. Spatial object (feature) types of IACS as abstracted from the real world
 
-image::./media/image3.jpeg[A diagram of a landscape structure AI-generated content may be incorrect.,width=361,height=232, align="center"]
+image::./media/image3.jpeg[align="center"]
 
 <<<
 == Data content and structure
@@ -4325,4 +4325,5 @@ The portal data.europa.eu provides access to open datasets from the EU instituti
 
 <<<
 image::./media/image53.png[image, align=center]
+
 <<<
