@@ -450,7 +450,6 @@ image::./media/image14.jpeg[A diagram of a computer AI-generated content may be 
 
 ==== geoIACS Feature catalogue
 
-[.text-center]
 *Table 1.* Types defined in the geoIACS feature catalogue
 
 [width="100%",cols="53%,17%,30%",options="header",]
@@ -2795,7 +2794,6 @@ NOTE CRS identifiers may be used e.g. in:
 * data set and service metadata, and
 * requests to INSPIRE network services
 
-[.text-center]
 *Table 2.* http URIs for the default coordinate reference systems
 
 [width="98%",cols="44%,18%,38%",options="header",]
@@ -2847,7 +2845,6 @@ The DQ elements and measures are based on Annex D of ISO 19157 Geographic inform
 
 A mapping among the INSPIRE/ISO 19157 based DQ elements and the related LPIS QA is provided in *Table 3*. In addition to the DQ elements used in LPIS QA, Logical consistency with the Domain consistency sub-element is also included. This latter is evaluated based on the adherence of the geoIACS datasets to the schema described in Section 3.
 
-[.text-center]
 *Table 3.* Data quality elements used in geoIACS datasets
 
 [width="100%",cols="14%,17%,16%,<19%,<15%,<19%",options="header",]
@@ -3154,7 +3151,6 @@ The table contains the following information:
 * The third column specifies the multiplicity.
 * The fourth column specifies the condition, under which the given element becomes mandatory.
 
-[.text-center]
 *Table 4.* Metadata elements defined in the INSPIRE Metadata Regulation
 
 [width="99%",cols="18%,30%,17%,35%",options="header",]
@@ -3602,7 +3598,6 @@ For each layer, Section 9.1 defines the following:
 
 === Layers to be provided by INSPIRE view services
 
-[.text-center]
 *Table 5.* geoIACS layers to be provided by INSPIRE view services
 
 [width="100%",cols="<30%,<23%,<24%,<23%",options="header",]
@@ -3819,7 +3814,6 @@ Three are the main changes introduced by the new TG:
 
 The changes introduced in the geoIACS data model at feature type, data type and code list levels are described in *Table 6*, *Table 7* and *Table 8* respectively.
 
-[.text-center]
 *Table 6.* Changes at feature type level
 
 [width="99%",cols="<29%,<71%",options="header",]
@@ -3843,7 +3837,6 @@ The changes introduced in the geoIACS data model at feature type, data type and 
 <|EcologicalFocusArea <|Eliminated association to AgriculturalArea feature type (not existing anymore)
 |===
 
-[.text-center]
 *Table 7.* Changes at data type level
 
 [width="99%",cols="<29%,<71%",options="header",]
@@ -3853,7 +3846,6 @@ The changes introduced in the geoIACS data model at feature type, data type and 
 |===
 
 <<<
-[.text-center]
 *Table 8.* Changes at code list level
 
 [width="99%",cols="<41%,<59%",options="header",]
@@ -3878,11 +3870,10 @@ The changes introduced in the geoIACS data model at feature type, data type and 
 == geoIACS datasets and HVD
 geoIACS datasets are High Value Datasets, because they fulfil the requirements set for Reference parcels and Agricultural parcels datasets listed in the Annex of Regulation (EU) 2023/138.
 
-However, geoIACS datasets contain more information than required by HVD Regulation. This additional information consists in information potentially sensitive, which shall fulfil confidentiality clauses dealt with in section 7.4, and in information that can be publicly shared. Therefore, in order to comply with HVD Regulation, it is sufficient that MS publicly share geoIACS datasets removing the sensitive information. Should MS decide to publicly share only the information required by HVD Regulation (therefore excluding the publicly shareable additional information), they can easily derive an additional dataset from a geoIACS dataset, following the mapping instructions provide in this Annex.
+However, geoIACS datasets contain more information than required by HVD Regulation. This additional information consists in information potentially sensitive, which shall fulfil confidentiality clauses dealt with in section 7.4, and in information that can be publicly shared. Therefore, in order to comply with HVD Regulation, it is sufficient that MS publicly share geoIACS datasets removing the sensitive information. Should MS decide to publicly share only the information required by HVD Regulation (therefore excluding the publicly shareable additional information), they can easily derive an additional dataset from a geoIACS dataset, following the mapping instructions provided in this Annex.
 
 [.underline]#ReferenceParcel#
 
-[.text-center]
 *Table 9.* Mapping of ReferenceParcel key attributes toward the geoIACS data model
 
 [width="99%",cols="<29%,<71%",options="header",]
@@ -3904,7 +3895,6 @@ Regarding 'Areas with natural/specific constraints' HVD key attribute, its value
 
 [.underline]#AgriculturalParcel#
 
-[.text-center]
 *Table 10.* Mapping of AgriculturalParcel key attributes toward the geoIACS data model
 
 [width="99%",cols="<29%,<71%",options="header",]
@@ -3962,7 +3952,6 @@ EC may consider to replace the current obligation to deliver the files related t
 == Examples of geoIACS data harmonisation
 The physical implementation of the geoIACS data model was tested with data of three Paying Agencies participating in a pilot test phase. The source data used in the data harmonisation exercise are listed in *Table 11*.
 
-[.text-center]
 *Table 11.* Source data used in the geoIACS data harmonisation exercise
 
 [width="100%",cols="<20%,<20%,^13%,<18%,<29%",options="header",]
@@ -4327,4 +4316,5 @@ The portal data.europa.eu provides access to open datasets from the EU instituti
 image::./media/image53.png[image, align=center]
 
 <<<
+
 
